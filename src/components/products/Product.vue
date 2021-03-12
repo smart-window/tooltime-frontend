@@ -9,7 +9,7 @@
         :alt="product.title"
         ref="productImageContainer"
         class="card-img-top product__img"
-      >
+      />
       <ProductSliderDots
         :len="product.images.length"
         :active-item="currentImageIndex"
@@ -19,11 +19,16 @@
 
     <div class="card-body product__text">
       <h4 class="card-title product__title">
-        <a>{{product.title}}</a>
+        <a>{{ product.title }}</a>
       </h4>
-      <h5 class="product__price">${{product.price | priceFormatter}}</h5>
-      <p class="card-text product__description">{{product.description}}</p>
-      <button @click="onAddProductToCart()" class="btn btn-info product__add-to-cart">Add to cart</button>
+      <h5 class="product__price">${{ product.price | priceFormatter }}</h5>
+      <p class="card-text product__description">{{ product.description }}</p>
+      <button
+        @click="onAddProductToCart()"
+        class="btn btn-info product__add-to-cart"
+      >
+        Add to cart
+      </button>
     </div>
   </div>
 </template>
@@ -37,7 +42,7 @@ export default {
   name: "Product",
   components: { ProductSliderDots },
   props: {
-    product: Object
+    product: Object,
   },
   data() {
     return {
@@ -45,7 +50,7 @@ export default {
       currentImageIndex: 0,
       offsetLeft: null,
       offSetTop: null,
-      productImageContainerClientWidth: null
+      productImageContainerClientWidth: null,
     };
   },
   methods: {
@@ -76,14 +81,14 @@ export default {
       this.currentImageIndex = imgIndex;
       this.currentImage = this.product.images[imgIndex];
     },
-    onImageMouseOut(e) {
+    onImageMouseOut() {
       this.currentImage = this.product.images[0];
     },
     onAddProductToCart() {
       this.$swal({
         title: "Added to cart!",
         icon: "success",
-        button: "Done!"
+        button: "Done!",
       });
       this.$store.commit(Types.ADD_PRODUCT_TO_CART, this.product);
     },
@@ -98,8 +103,8 @@ export default {
     onChangeImage(n) {
       this.currentImage = this.product.images[n];
       this.currentImageIndex = n;
-    }
-  }
+    },
+  },
 };
 </script>
 
