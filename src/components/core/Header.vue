@@ -7,7 +7,7 @@
       <div>
         <ul class="navbar-nav ml-auto text-primary">
           <li class="nav-item">
-            <router-link to="/cart" class="nav-link text-primary">
+            <router-link to="/cart">
               <i class="fa fa-shopping-cart mr-2" aria-hidden="true"></i>Cart ({{
                 $store.getters.cartLength
               }})

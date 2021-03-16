@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <div class="card">
-      <div class="card-header">Register</div>
+    <div class="card border-primary">
+      <div class="card-header bg-primary text-white">Register</div>
       <div class="card-body">
         <form>
           <div class="form-group">

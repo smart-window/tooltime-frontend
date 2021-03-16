@@ -3,7 +3,7 @@
     <div class="card border-primary">
       <div class="card-header bg-primary text-white">Login</div>
       <div class="card-body">
-        <form>
+        <form @submit="handleSubmit">
           <div class="form-group">
             <label for="email"> Email Address </label>
             <input
@@ -13,6 +13,7 @@
               name="email"
               placeholder="Enter email"
               aria-describedby="emailHelp"
+              v-model="email"
             />
           </div>
           <div class="form-group">
@@ -24,6 +25,7 @@
               id="password"
               placeholder="Password"
               aria-describedby="password"
+              v-model="password"
             />
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
@@ -46,6 +48,24 @@ export default {
 
   mounted() {
     console.log('asdf')
+  },
+
+  data() {
+    return {
+      email: '',
+      password: '',
+    }
+  },
+
+  methods: {
+    handleSubmit(e) {
+      e.preventDefault()
+      if (this.email !== '' && this.password !== '') {
+        this.$store.dispatch('user/LOGIN', {
+          payload: { email: this.email, password: this.password },
+        })
+      }
+    },
   },
 }
 </script>

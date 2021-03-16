@@ -5,9 +5,11 @@
         color: #fff;
         background-color: $primary;
         border-color: $primary;
-        &:hover {
-            background-color: $primary-light;
-            border-color: $primary-light;
+        &:hover,
+        &:active,
+        &:focus {
+            background-color: $primary-light !important;
+            border-color: $primary-light !important;
         }
     }
 }

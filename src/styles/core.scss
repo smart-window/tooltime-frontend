@@ -28,12 +28,12 @@ body {
 
 a {
   text-decoration: none;
-  color: $text;
+  color: $primary;
   @include transition-color();
   &:hover,
   &:active,
   &:focus {
-    color: $blue;
+    color: $primary-dark;
     text-decoration: none;
   }
 }
@@ -103,11 +103,11 @@ svg {
   }
 
   a {
-    color: $dark-gray-1;
+    color: $primary;
     &:hover,
     &:active,
     &:focus {
-      color: $blue;
+      color: $primary-dark;
       text-decoration: none;
     }
   }
