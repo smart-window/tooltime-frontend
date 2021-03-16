@@ -91,7 +91,7 @@ router.beforeEach((to, from, next) => {
 })
 
 router.afterEach(() => {
-  window.scrollTo(0, 0)
+  // window.scrollTo(0, 0)
   store.commit(CLEAR_BRAND_FILTER)
   store.commit(CLEAR_ORDER_BY_PRICE)
 })

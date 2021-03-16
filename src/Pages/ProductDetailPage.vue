@@ -1,5 +1,5 @@
 <template>
-  <div class="container" style="padding: 6rem 0px">
+  <div class="container">
     <div class="card">
       <div class="row">
         <ProductSlider :images="product.images" class="col-sm-5 border-right"></ProductSlider>

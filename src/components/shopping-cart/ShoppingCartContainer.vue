@@ -1,5 +1,5 @@
 <template>
-  <div class="container" style="padding-top: 6rem">
+  <div class="container">
     <div class="card shopping-cart">
       <div class="card-header bg-dark text-light">
         <i class="fa fa-shopping-cart pr-2" aria-hidden="true"></i>
@@ -29,11 +29,11 @@
 </template>
 
 <script>
-import ShoppingCartItem from "./ShoppingCartItem";
+import ShoppingCartItem from './ShoppingCartItem'
 export default {
-  name: "ShoppingCartContainer",
+  name: 'ShoppingCartContainer',
   components: { ShoppingCartItem },
-};
+}
 </script>
 
 <style scoped>

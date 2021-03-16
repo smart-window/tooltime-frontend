@@ -4,11 +4,9 @@ import '../custom.scss'
 
 Vue.config.devtools = true
 import store from './store'
-import { Plugin } from 'vue-fragment'
 import VueSwal from 'vue-swal'
 import router from './router'
 
-Vue.use(Plugin)
 Vue.use(VueSwal)
 
 //filters

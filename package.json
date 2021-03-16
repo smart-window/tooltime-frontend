@@ -9,12 +9,11 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "bootstrap": "^4.3.1",
+    "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.0.0-rc.15",
     "jsonwebtoken": "^8.5.1",
     "store": "^2.0.12",
     "vue": "^2.6.10",
-    "vue-fragment": "latest",
     "vue-router": "^3.5.1",
     "vue-swal": "^1.0.0",
     "vuex": "^2.3.1"

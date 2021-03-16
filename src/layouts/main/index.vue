@@ -1,23 +1,23 @@
 <template>
-  <Fragment>
+  <div>
     <Header></Header>
-    <transition name="page" mode="out-in">
-      <router-view></router-view>
-    </transition>
+    <div class="body">
+      <transition name="page" mode="out-in">
+        <router-view></router-view>
+      </transition>
+    </div>
     <Footer></Footer>
-  </Fragment>
+  </div>
 </template>
 
 <script>
 import Header from '@/components/core/Header'
 import Footer from '@/components/core/Footer'
-import { Fragment } from 'vue-fragment'
 export default {
   name: 'app',
   components: {
     Footer,
     Header,
-    Fragment,
   },
   data() {
     return {
@@ -47,6 +47,11 @@ export default {
   },
 }
 </script>
+<style scoped>
+.body {
+  padding-top: 6rem;
+}
+</style>
 
 <style>
 .swal-button {

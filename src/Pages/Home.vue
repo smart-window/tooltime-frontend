@@ -1,6 +1,6 @@
 <template>
-  <Fragment>
-    <div class="container" style="padding-top: 6rem">
+  <div>
+    <div class="container">
       <div class="row">
         <div class="col-lg-3">
           <BrandFilter></BrandFilter>
@@ -14,18 +14,17 @@
         </div>
       </div>
     </div>
-  </Fragment>
+  </div>
 </template>
 
 <script>
-import { Fragment } from 'vue-fragment'
 import BrandFilter from '../components/filters/BrandFilter'
 import PriceFilter from '../components/filters/PriceFilter'
 import ProductList from '../components/products/ProductList'
 import Pagination from '../components/pagination/Pagination'
 export default {
   name: 'Home',
-  components: { Pagination, ProductList, PriceFilter, BrandFilter, Fragment },
+  components: { Pagination, ProductList, PriceFilter, BrandFilter },
   data() {
     return {}
   },

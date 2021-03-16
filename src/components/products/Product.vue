@@ -23,10 +23,7 @@
       </h4>
       <h5 class="product__price">${{ product.price | priceFormatter }}</h5>
       <p class="card-text product__description">{{ product.description }}</p>
-      <button
-        @click="onAddProductToCart()"
-        class="btn btn-info product__add-to-cart"
-      >
+      <button @click="onAddProductToCart()" class="btn btn-info product__add-to-cart">
         Add to cart
       </button>
     </div>
@@ -34,12 +31,12 @@
 </template>
 
 <script>
-import { cumulativeOffset } from "../../utilities/cumulativeOffset";
-import ProductSliderDots from "./ProductSliderDots";
-import * as Types from "../../store/types";
+// import { cumulativeOffset } from '../../utilities/cumulativeOffset'
+import ProductSliderDots from './ProductSliderDots'
+import * as Types from '../../store/types'
 
 export default {
-  name: "Product",
+  name: 'Product',
   components: { ProductSliderDots },
   props: {
     product: Object,
@@ -51,61 +48,61 @@ export default {
       offsetLeft: null,
       offSetTop: null,
       productImageContainerClientWidth: null,
-    };
+    }
   },
   methods: {
     onImageChange(e) {
-      const eventType = e.type;
-      let clientX;
-      this.calculateOffSetLeftAndTop(eventType);
-      if (eventType === "touchmove") {
-        clientX = e.touches[0].clientX;
-      } else if (eventType === "mousemove") {
-        clientX = e.clientX;
+      const eventType = e.type
+      let clientX
+      // this.calculateOffSetLeftAndTop(eventType)
+      if (eventType === 'touchmove') {
+        clientX = e.touches[0].clientX
+      } else if (eventType === 'mousemove') {
+        clientX = e.clientX
       }
 
-      const currentX = clientX - this.offSetLeft;
-      const imgArrLength = this.product.images.length;
+      const currentX = clientX - this.offSetLeft
+      const imgArrLength = this.product.images.length
 
-      const part = this.productImageContainerClientWidth / imgArrLength;
+      const part = this.productImageContainerClientWidth / imgArrLength
 
-      let imgIndex = Math.ceil(currentX / part) - 1;
+      let imgIndex = Math.ceil(currentX / part) - 1
       if (imgIndex < 0) {
-        imgIndex = 0;
+        imgIndex = 0
       }
 
       if (imgIndex >= imgArrLength) {
-        imgIndex = imgArrLength - 1;
+        imgIndex = imgArrLength - 1
       }
 
-      this.currentImageIndex = imgIndex;
-      this.currentImage = this.product.images[imgIndex];
+      this.currentImageIndex = imgIndex
+      this.currentImage = this.product.images[imgIndex]
     },
     onImageMouseOut() {
-      this.currentImage = this.product.images[0];
+      this.currentImage = this.product.images[0]
     },
     onAddProductToCart() {
       this.$swal({
-        title: "Added to cart!",
-        icon: "success",
-        button: "Done!",
-      });
-      this.$store.commit(Types.ADD_PRODUCT_TO_CART, this.product);
+        title: 'Added to cart!',
+        icon: 'success',
+        button: 'Done!',
+      })
+      this.$store.commit(Types.ADD_PRODUCT_TO_CART, this.product)
     },
-    calculateOffSetLeftAndTop() {
-      const offSetTopAndLeft = cumulativeOffset(
-        this.$refs.productImageContainer
-      );
-      this.offSetLeft = offSetTopAndLeft.left;
-      this.offSetTop = offSetTopAndLeft.top;
-      this.productImageContainerClientWidth = this.$refs.productImageContainer.clientWidth;
-    },
+    // calculateOffSetLeftAndTop() {
+    //   const offSetTopAndLeft = cumulativeOffset(
+    //     this.$refs.productImageContainer
+    //   );
+    //   this.offSetLeft = offSetTopAndLeft.left;
+    //   this.offSetTop = offSetTopAndLeft.top;
+    //   this.productImageContainerClientWidth = this.$refs.productImageContainer.clientWidth;
+    // },
     onChangeImage(n) {
-      this.currentImage = this.product.images[n];
-      this.currentImageIndex = n;
+      this.currentImage = this.product.images[n]
+      this.currentImageIndex = n
     },
   },
-};
+}
 </script>
 
 <style scoped lang="scss">

@@ -3,14 +3,25 @@
     <form>
       <div class="form-group">
         <label for="email"> Email Address </label>
-        <input type="email" id="email" placeholder="Enter email" aria-describedby="emailHelp" />
-        <small id="emailHelp" class="form-text text-muted">
-          We'll never share your email with anyone else.
-        </small>
+        <input
+          class="form-control"
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Enter email"
+          aria-describedby="emailHelp"
+        />
       </div>
       <div class="form-group">
         <label for="password"> Password </label>
-        <input type="password" id="password" placeholder="Password" aria-describedby="password" />
+        <input
+          class="form-control"
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Password"
+          aria-describedby="password"
+        />
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
@@ -28,4 +39,7 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  padding-top: 6rem;
+}
 </style>

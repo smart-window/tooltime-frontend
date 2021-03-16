@@ -1,19 +1,26 @@
 <template>
-  <Fragment>
+  <div>
     <Header></Header>
-    <transition name="page" mode="out-in">
-      <router-view></router-view>
-    </transition>
-    <Footer></Footer>
-  </Fragment>
+    <div class="body">
+      <transition name="page" mode="out-in">
+        <router-view></router-view>
+      </transition>
+      <Footer></Footer>
+    </div>
+  </div>
 </template>
 
 <script>
 import Header from '@/components/core/Header'
 import Footer from '@/components/core/Footer'
-import { Fragment } from 'vue-fragment'
 export default {
   name: 'AuthLayout',
-  components: { Header, Fragment, Footer },
+  components: { Header, Footer },
 }
 </script>
+
+<style scoped>
+.body {
+  padding-top: 6rem;
+}
+</style>

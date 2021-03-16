@@ -1,5 +1,5 @@
 <template>
-  <Fragment>
+  <div>
     <div class="row mb-3">
       <div class="col-12 d-none d-lg-block d-xl-block">
         <div class="card">
@@ -29,16 +29,15 @@
         <Product :product="product"></Product>
       </div>
     </div>
-  </Fragment>
+  </div>
 </template>
 
 <script>
 import LayoutMode from '../core/LayoutMode'
 import Product from './Product'
-import { Fragment } from 'vue-fragment'
 export default {
   name: 'ProductList',
-  components: { Product, LayoutMode, Fragment },
+  components: { Product, LayoutMode },
   data() {
     return {
       colValue: 'col-lg-4',

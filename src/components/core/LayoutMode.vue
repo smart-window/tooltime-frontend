@@ -8,12 +8,12 @@
 
 <script>
 export default {
-  name: "LayoutMode",
+  name: 'LayoutMode',
   props: {
     isActive: Boolean,
     len: Number,
   },
-};
+}
 </script>
 
 <style scoped lang="scss">
