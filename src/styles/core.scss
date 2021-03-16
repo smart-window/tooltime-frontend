@@ -5,6 +5,7 @@
 
 :root {
   --kit-color-primary: #984C1A;
+  --primary: #984C1A;
   --kit-font-family: 'Mukta', sans-serif;
 }
 
@@ -34,6 +35,18 @@ a {
   &:active,
   &:focus {
     color: $primary-dark;
+    text-decoration: none;
+  }
+}
+
+a.nav-link {
+  text-decoration: none;
+  color: $primary !important;
+  @include transition-color();
+  &:hover,
+  &:active,
+  &:focus {
+    color: $primary-dark !important;
     text-decoration: none;
   }
 }
@@ -102,13 +115,5 @@ svg {
     color: $dark-gray-1;
   }
 
-  a {
-    color: $primary;
-    &:hover,
-    &:active,
-    &:focus {
-      color: $primary-dark;
-      text-decoration: none;
-    }
-  }
+  
 }

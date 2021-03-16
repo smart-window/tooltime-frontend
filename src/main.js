@@ -6,8 +6,11 @@ Vue.config.devtools = true
 import store from './store'
 import VueSwal from 'vue-swal'
 import router from './router'
-
+import { BootstrapVue } from 'bootstrap-vue'
 Vue.use(VueSwal)
+Vue.use(BootstrapVue)
+// mocking api
+import './services/axios/fakeApi'
 
 //filters
 import { brandFilter } from './filters/brandFilter'
