@@ -1,0 +1,13 @@
+@import 'mixins.scss';
+
+.btn {
+    &-primary {
+        color: #fff;
+        background-color: $primary;
+        border-color: $primary;
+        &:hover {
+            background-color: $primary-light;
+            border-color: $primary-light;
+        }
+    }
+}

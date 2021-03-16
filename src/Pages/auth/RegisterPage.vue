@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <div class="card border-primary">
-      <div class="card-header bg-primary text-white">Login</div>
+    <div class="card">
+      <div class="card-header">Register</div>
       <div class="card-body">
         <form>
           <div class="form-group">
@@ -33,8 +33,8 @@
 
     <div class="pt-2">
       <p>
-        Don't have account ?
-        <router-link to="/auth/register"> Sign Up </router-link>
+        Do you already have account ?
+        <router-link to="/auth/login"> Sign In </router-link>
       </p>
     </div>
   </div>

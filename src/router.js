@@ -5,8 +5,9 @@ import { CLEAR_BRAND_FILTER, CLEAR_ORDER_BY_PRICE } from './store/types'
 import Home from './pages/Home'
 import ProductDetailPage from './pages/ProductDetailPage'
 import ShoppingCartPage from './pages/ShoppingCartPage'
-import Page404 from './pages/auth/404'
+import PageNotFound from './pages/auth/404'
 import LoginPage from './pages/auth/LoginPage'
+import RegisterPage from './pages/auth/RegisterPage'
 import MainLayout from './layouts/main'
 import AuthLayout from './layouts/auth'
 
@@ -24,7 +25,7 @@ const router = new Router({
       redirect: '/products',
       component: MainLayout,
       meta: {
-        authRequired: false,
+        authRequired: true,
         hidden: true,
       },
       children: [
@@ -53,7 +54,7 @@ const router = new Router({
           meta: {
             title: 'Error 404',
           },
-          component: Page404,
+          component: PageNotFound,
         },
         {
           path: '/auth/login',
@@ -61,6 +62,13 @@ const router = new Router({
             title: 'Sign In',
           },
           component: LoginPage,
+        },
+        {
+          path: '/auth/register',
+          meta: {
+            title: 'Sign In',
+          },
+          component: RegisterPage,
         },
       ],
     },

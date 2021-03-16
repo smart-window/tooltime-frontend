@@ -1,0 +1,17 @@
+@import 'mixins.scss';
+
+.border {
+    &-1 {
+        border: 1px solid;
+    }
+    &-top {
+        &-1 {
+            border-top: 1px solid;
+        }
+    }
+    &-bottom {
+        &-1 {
+            border-bottom: 1px solid;
+        }
+    }
+}
