@@ -1,8 +1,8 @@
 <template>
-  <div class="container">
-    <div class="card border-primary">
-      <div class="card-header bg-primary text-white">Login</div>
-      <div class="card-body">
+  <b-container>
+    <b-card class="border-primary">
+      <b-card-header class="bg-primary text-white">Login</b-card-header>
+      <b-card-body>
         <form @submit="handleSubmit">
           <div class="form-group">
             <label for="email"> Email Address </label>
@@ -30,8 +30,8 @@
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-      </div>
-    </div>
+      </b-card-body>
+    </b-card>
 
     <div class="pt-2">
       <p>
@@ -39,7 +39,7 @@
         <router-link to="/auth/register"> Sign Up </router-link>
       </p>
     </div>
-  </div>
+  </b-container>
 </template>
 
 <script>

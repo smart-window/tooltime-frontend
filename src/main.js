@@ -6,11 +6,17 @@ Vue.config.devtools = true
 import store from './store'
 import VueSwal from 'vue-swal'
 import router from './router'
+
 import { BootstrapVue } from 'bootstrap-vue'
+import Notifications from 'vue-notification'
+
 Vue.use(VueSwal)
 Vue.use(BootstrapVue)
+Vue.use(Notifications)
+
+Vue.prototype.$notification = Notifications
 // mocking api
-import './services/axios/fakeApi'
+// import './services/axios/fakeApi'
 
 //filters
 import { brandFilter } from './filters/brandFilter'

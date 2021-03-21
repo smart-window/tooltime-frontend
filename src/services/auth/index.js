@@ -17,16 +17,15 @@ export async function login(email, password) {
       }
       return false
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+      alert('Incorrect credentials')
+      console.log(err.message)
+    })
 }
 
-export async function register(email, password, name) {
+export async function register(request) {
   return apiClient
-    .post('/auth/register', {
-      email,
-      password,
-      name,
-    })
+    .post('/auth/register', request)
     .then(response => {
       if (response) {
         const { accessToken } = response.data

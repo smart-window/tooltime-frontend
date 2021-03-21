@@ -32,7 +32,7 @@ export default {
       auth.login(email, password).then(success => {
         if (success) {
           dispatch('LOAD_CURRENT_ACCOUNT')
-          alert('You have successfully logged in')
+          alert('You have successfully logged in!')
         }
 
         if (!success) {
@@ -55,8 +55,7 @@ export default {
     },
 
     LOGOUT({ commit }) {
-      console.log('store user/LOGOUT')
-      auth.logout(() => {
+      auth.logout().then(() => {
         commit('SET_STATE', {
           id: '',
           name: '',
@@ -69,6 +68,31 @@ export default {
 
         router.push('/auth/login')
       })
+    },
+
+    REGISTER({ commit, dispatch }, request) {
+      commit('SET_STATE', { loading: true })
+
+      console.log('user/REGISTER', request)
+      Vue.notify({
+        group: 'foo',
+        title: 'Important message',
+        text: 'Hello user! This is a notification!',
+      })
+      auth
+        .register(request)
+        .then(success => {
+          if (success) {
+            this.$swal('Hello')
+            dispatch('LOAD_CURRENT_ACCOUNT')
+          } else {
+            alert('Register Failed')
+            commit('SET_STATE', { loading: false })
+          }
+        })
+        .catch(err => {
+          alert('Register Failed', err.message)
+        })
     },
   },
 
