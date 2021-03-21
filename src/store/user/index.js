@@ -13,7 +13,11 @@ export default {
     name: '',
     role: '',
     email: '',
-    avatar: '',
+    address: '',
+    city: '',
+    state: '',
+    phone: '',
+    stripeId: '',
     authorized: process.env.VUE_APP_AUTHENTICATED || false,
     loading: false,
   },
@@ -46,8 +50,7 @@ export default {
 
       auth.currentAccount().then(response => {
         if (response) {
-          const { id, email, name, avatar, role } = response
-          commit('SET_STATE', { id, name, email, avatar, role, authorized: true })
+          commit('SET_STATE', { ...response, authorized: true })
         }
 
         commit('SET_STATE', { loading: false })

@@ -111,10 +111,7 @@ export default {
     }
   },
 
-  mounted() {
-    console.log('asdf')
-    this.$notify('aaa')
-  },
+  mounted() {},
 
   methods: {
     handleSubmit(e) {

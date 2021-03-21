@@ -10,6 +10,7 @@ import LoginPage from './pages/auth/LoginPage'
 import RegisterPage from './pages/auth/RegisterPage'
 import MainLayout from './layouts/main'
 import AuthLayout from './layouts/auth'
+import ProfilePage from './pages/ProfilePage'
 
 Vue.use(Router)
 
@@ -40,6 +41,10 @@ const router = new Router({
         {
           path: '/cart',
           component: ShoppingCartPage,
+        },
+        {
+          path: '/profile',
+          component: ProfilePage,
         },
       ],
     },
