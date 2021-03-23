@@ -2,26 +2,17 @@
   <div class="card h-100 product">
     <router-link class="product__link" :to="`/products/${product.id}`">
       <img
-        @mousemove="onImageChange($event)"
-        @touchmove="onImageChange($event)"
-        @mouseout="onImageMouseOut()"
         :src="currentImage"
         :alt="product.title"
         ref="productImageContainer"
         class="card-img-top product__img"
       />
-      <ProductSliderDots
-        :len="product.images.length"
-        :active-item="currentImageIndex"
-        @changeItem="onChangeImage($event)"
-      ></ProductSliderDots>
     </router-link>
 
     <div class="card-body product__text">
       <h4 class="card-title product__title">
-        <a>{{ product.title }}</a>
+        <a>{{ product.name }}</a>
       </h4>
-      <h5 class="product__price">${{ product.price | priceFormatter }}</h5>
       <p class="card-text product__description">{{ product.description }}</p>
       <button @click="onAddProductToCart()" class="btn btn-info product__add-to-cart">
         Add to cart
@@ -31,24 +22,26 @@
 </template>
 
 <script>
-// import { cumulativeOffset } from '../../utilities/cumulativeOffset'
-import ProductSliderDots from './ProductSliderDots'
 import * as Types from '../../store/types'
 
 export default {
   name: 'Product',
-  components: { ProductSliderDots },
   props: {
     product: Object,
   },
   data() {
     return {
-      currentImage: this.product.images[0],
       currentImageIndex: 0,
       offsetLeft: null,
       offSetTop: null,
       productImageContainerClientWidth: null,
     }
+  },
+
+  computed: {
+    currentImage() {
+      return this.product.images
+    },
   },
   methods: {
     onImageChange(e) {

@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-3">
-          <BrandFilter></BrandFilter>
+          <CategoryFilter></CategoryFilter>
           <PriceFilter></PriceFilter>
         </div>
         <div class="col-lg-9">
@@ -18,13 +18,13 @@
 </template>
 
 <script>
-import BrandFilter from '../components/filters/BrandFilter'
+import CategoryFilter from '../components/filters/CategoryFilter'
 import PriceFilter from '../components/filters/PriceFilter'
 import ProductList from '../components/products/ProductList'
 import Pagination from '../components/pagination/Pagination'
 export default {
   name: 'Home',
-  components: { Pagination, ProductList, PriceFilter, BrandFilter },
+  components: { Pagination, ProductList, PriceFilter, CategoryFilter },
   data() {
     return {}
   },

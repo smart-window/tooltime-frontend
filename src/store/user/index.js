@@ -45,12 +45,14 @@ export default {
       })
     },
 
-    LOAD_CURRENT_ACCOUNT({ commit }) {
+    LOAD_CURRENT_ACCOUNT({ commit, dispatch }) {
       commit('SET_STATE', { loading: true })
 
       auth.currentAccount().then(response => {
         if (response) {
           commit('SET_STATE', { ...response, authorized: true })
+          dispatch('LOAD_PRODUCTS', {}, { root: true })
+          dispatch('LOAD_CATEGORIES', {}, { root: true })
         }
 
         commit('SET_STATE', { loading: false })
@@ -75,13 +77,6 @@ export default {
 
     REGISTER({ commit, dispatch }, request) {
       commit('SET_STATE', { loading: true })
-
-      console.log('user/REGISTER', request)
-      Vue.notify({
-        group: 'foo',
-        title: 'Important message',
-        text: 'Hello user! This is a notification!',
-      })
       auth
         .register(request)
         .then(success => {

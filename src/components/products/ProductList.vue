@@ -21,11 +21,7 @@
       </div>
     </div>
     <div class="row">
-      <div
-        v-for="product in $store.getters.paginate"
-        :key="product.id"
-        :class="['col-md-6 mb-4', colValue]"
-      >
+      <div v-for="product in productList" :key="product.id" :class="['col-md-6 mb-4', colValue]">
         <Product :product="product"></Product>
       </div>
     </div>
@@ -33,6 +29,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import LayoutMode from '../core/LayoutMode'
 import Product from './Product'
 export default {
@@ -44,8 +41,11 @@ export default {
       gridValue: 3,
       currentPage: this.$store.state.currentPage,
       perPage: this.$store.state.perPage,
-      products: this.$store.getters.paginate,
     }
+  },
+
+  computed: {
+    ...mapState([{ productList: 'filterProducts' }]),
   },
   methods: {
     onChangeLayout(n) {

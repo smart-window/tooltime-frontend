@@ -1,12 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { phones } from '../data/phones'
 import { brands } from '../data/brands'
 import * as Types from './types'
-import { brandFilter } from '../filters/brandFilter'
-import { orderByFilter } from '../filters/orderByFilter'
 import { paginationPipe } from '../filters/paginationFilter'
 import user from './user'
+import * as api from '../services/api'
 
 Vue.use(Vuex)
 
@@ -15,10 +13,11 @@ const store = new Vuex.Store({
     user,
   },
   state: {
-    products: phones,
+    products: [],
     brands: brands,
+    categories: [],
     cart: [],
-    brandFilter: '',
+    categoryFilter: [],
     orderBy: '',
     perPage: 12,
     currentPage: 1,
@@ -69,29 +68,48 @@ const store = new Vuex.Store({
     [Types.CLEAR_ORDER_BY_PRICE](state) {
       state.orderBy = ''
     },
-    [Types.ADD_BRAND_TO_FILTER](state, brand) {
-      if (state.brandFilter.includes(brand)) return void 0
+    [Types.ADD_CATEGORY_TO_FILTER](state, categoryId) {
+      const filters = state.categoryFilter
+      if (filters.includes(categoryId)) return void 0
 
-      state.brandFilter += brand
+      filters.push(categoryId)
+      state.categoryFilter = filters
     },
-    [Types.REMOVE_BRAND_FROM_FILTER](state, brand) {
-      const reg = new RegExp(brand, 'gi')
-      state.brandFilter = state.brandFilter.replace(reg, '')
+    [Types.REMOVE_CATEGORY_FROM_FILTER](state, categoryId) {
+      const filters = state.categoryFilter
+      state.categoryFilter = filters.filter(filterId => filterId !== categoryId)
     },
     [Types.CLEAR_BRAND_FILTER](state) {
-      state.brandFilter = ''
+      state.categoryFilter = ''
+    },
+    [Types.SET_PRODUCTS](state, products) {
+      state.products = products
+    },
+    [Types.SET_CATEGORIES](state, categories) {
+      console.log('[Types.SET_CATEGORIES] => ', categories)
+      state.categories = categories
+    },
+  },
+
+  actions: {
+    async LOAD_PRODUCTS({ commit }) {
+      const products = await api.getProducts()
+      commit(Types.SET_PRODUCTS, products)
+    },
+
+    async LOAD_CATEGORIES({ commit }) {
+      const categories = await api.getCategories()
+      console.log('categories => ', categories)
+      commit(Types.SET_CATEGORIES, categories)
     },
   },
   getters: {
     filterProducts(state) {
-      const brands = state.brandFilter
-      const orderBy = state.orderBy
-
-      const filterByBrandArr = brandFilter(state.products, brands)
-      const filterByOrderArr = orderByFilter(filterByBrandArr, orderBy)
-
-      return filterByOrderArr
+      const filters = state.categoryFilter
+      const filteredProducts = state.products.filter(p => filters.includes(p.categoryId))
+      return filteredProducts
     },
+
     paginate(state, getters) {
       return paginationPipe(getters.filterProducts, {
         perPage: state.perPage,
