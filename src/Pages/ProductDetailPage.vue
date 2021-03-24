@@ -25,7 +25,7 @@ export default {
 
   computed: {
     productImages() {
-      return this.product === undefined ? this.product.images.split(',') : sampleImages
+      return this.product.images !== undefined ? this.product.images.split(',') : sampleImages
     },
 
     productId() {

@@ -17,6 +17,7 @@
 
 <script>
 import router from '@/router'
+import { sampleImages } from '@/data'
 export default {
   name: 'Product',
   props: {
@@ -38,7 +39,9 @@ export default {
 
   computed: {
     currentImage() {
-      return this.product.images
+      const images = this.product.images.split(',')
+      if (images && images.length > 0) return images[0]
+      else return sampleImages[0]
     },
   },
   methods: {

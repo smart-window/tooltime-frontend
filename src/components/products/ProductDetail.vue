@@ -17,7 +17,7 @@
         <dd>{{ product.size }}</dd>
       </dl>
       <hr />
-      <button @click="onAddProductToCart()" class="btn btn-lg btn-outline-primary text-uppercase">
+      <button @click="onAddProductToCart()" class="btn btn-lg btn-secondary text-uppercase">
         <i class="fa fa-shopping-cart"></i> Add to cart
       </button>
     </article>

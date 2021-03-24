@@ -1,15 +1,26 @@
 @import 'mixins.scss';
 
 .btn {
-    &-primary {
-        color: #fff;
-        background-color: $primary;
-        border-color: $primary;
-        &:hover,
-        &:active,
-        &:focus {
-            background-color: $primary-light !important;
-            border-color: $primary-light !important;
-        }
+  &-primary {
+    color: #fff;
+    background-color: $primary;
+    border-color: $primary;
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: $primary-light !important;
+      border-color: $primary-light !important;
     }
+  }
+  &-secondary {
+    color: $primary;
+    background-color: white;
+    border-color: $primary;
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: $primary !important;
+      border-color: $primary !important;
+    }
+  }
 }
