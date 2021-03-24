@@ -1,18 +1,22 @@
 <template>
   <b-card no-body class="product d-flex flex-column">
-    <div class="card__image">
-      <img :src="currentImage" :alt="product.title" class="card-img-top product__img" />
+    <div class="card__image__wrapper">
+      <img :src="currentImage" :alt="product.title" class="product__img" />
     </div>
     <b-card-body class="card-body product__text">
-      <p>
+      <p class="product__name">
         {{ product.name }}
       </p>
-      <button @click="onAddProductToCart()" class="btn btn-info">Add to cart</button>
+
+      <button @click="onViewProductDetail(product.id)" class="btn btn-primary w-full">
+        View Product Detail
+      </button>
     </b-card-body>
   </b-card>
 </template>
 
 <script>
+import router from '@/router'
 export default {
   name: 'Product',
   props: {
@@ -37,7 +41,11 @@ export default {
       return this.product.images
     },
   },
-  methods: {},
+  methods: {
+    onViewProductDetail(productId) {
+      router.push(`/products/${productId}`)
+    },
+  },
 }
 </script>
 
@@ -46,22 +54,30 @@ export default {
   padding-bottom: 2rem;
   height: 350px;
 
-  & .card__image {
+  & .card__image__wrapper {
     height: 200px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 10px;
+  }
+
+  &__name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
 
   &__img {
+    width: inherit;
+    height: inherit;
     &:focus {
       outline: none;
     }
-  }
-
-  &__text {
-    flex: 0 0 40%;
   }
 
   &__link {
@@ -72,33 +88,8 @@ export default {
     cursor: pointer;
   }
 
-  &__description {
-    font-size: 0.7rem;
-  }
-
   &:hover {
     box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
-  }
-
-  &__add-to-cart {
-    position: absolute;
-    bottom: 0.8rem;
-    width: 60%;
-    left: 50%;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateX(-50%);
-    transition: all 0.2s;
-    padding: 3px 12px;
-  }
-
-  &:hover &__add-to-cart {
-    visibility: visible;
-    opacity: 1;
-  }
-
-  &:hover .owl-dots {
-    display: inline-block;
   }
 }
 
