@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { brands } from '../data/brands'
 import * as Types from './types'
 import { paginationPipe } from '../filters/paginationFilter'
 import user from './user'
@@ -14,7 +13,6 @@ const store = new Vuex.Store({
   },
   state: {
     products: [],
-    brands: brands,
     categories: [],
     cart: [],
     categoryFilter: [],

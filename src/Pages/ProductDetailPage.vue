@@ -2,7 +2,7 @@
   <div class="container">
     <div class="card">
       <div class="row">
-        <ProductSlider :images="product.images" class="col-sm-5 border-right"></ProductSlider>
+        <ProductSlider :images="productImages" class="col-sm-5 border-right"></ProductSlider>
         <ProductDetail :product="product" class="col-sm-7"></ProductDetail>
       </div>
     </div>
@@ -12,13 +12,30 @@
 <script>
 import ProductDetail from '../components/products/ProductDetail'
 import ProductSlider from '../components/products/ProductSlider'
+import * as api from '@/services/api'
+import { sampleImages } from '@/data'
 export default {
   name: 'ProductDetailPage',
   components: { ProductSlider, ProductDetail },
-  computed: {},
+
+  async mounted() {
+    this.product = await api.getProduct(this.productId)
+    console.log('product => ', this.product)
+  },
+
+  computed: {
+    productImages() {
+      return this.product === undefined ? this.product.images.split(',') : sampleImages
+    },
+
+    productId() {
+      return this.$route.params.id
+    },
+  },
+
   data() {
     return {
-      product: this.$store.state.products.find((p) => p.id === +this.$route.params.id),
+      product: {},
     }
   },
 }

@@ -16,6 +16,13 @@ export const getProducts = async () => {
     .catch(failFunc)
 }
 
+export const getProduct = async productId => {
+  return axiosClient
+    .get(`/product/${productId}`)
+    .then(successFunc)
+    .catch(failFunc)
+}
+
 export const getCategories = async () => {
   return axiosClient
     .get('/category')
