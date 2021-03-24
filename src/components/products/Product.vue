@@ -1,34 +1,24 @@
 <template>
-  <div class="card h-100 product">
-    <router-link class="product__link" :to="`/products/${product.id}`">
-      <img
-        :src="currentImage"
-        :alt="product.title"
-        ref="productImageContainer"
-        class="card-img-top product__img"
-      />
-    </router-link>
-
-    <div class="card-body product__text">
-      <h4 class="card-title product__title">
-        <a>{{ product.name }}</a>
-      </h4>
-      <p class="card-text product__description">{{ product.description }}</p>
-      <button @click="onAddProductToCart()" class="btn btn-info product__add-to-cart">
-        Add to cart
-      </button>
+  <b-card no-body class="product d-flex flex-column">
+    <div class="card__image">
+      <img :src="currentImage" :alt="product.title" class="card-img-top product__img" />
     </div>
-  </div>
+    <b-card-body class="card-body product__text">
+      <p>
+        {{ product.name }}
+      </p>
+      <button @click="onAddProductToCart()" class="btn btn-info">Add to cart</button>
+    </b-card-body>
+  </b-card>
 </template>
 
 <script>
-import * as Types from '../../store/types'
-
 export default {
   name: 'Product',
   props: {
     product: Object,
   },
+
   data() {
     return {
       currentImageIndex: 0,
@@ -38,73 +28,33 @@ export default {
     }
   },
 
+  mounted() {
+    console.log('product => ', this.product)
+  },
+
   computed: {
     currentImage() {
       return this.product.images
     },
   },
-  methods: {
-    onImageChange(e) {
-      const eventType = e.type
-      let clientX
-      // this.calculateOffSetLeftAndTop(eventType)
-      if (eventType === 'touchmove') {
-        clientX = e.touches[0].clientX
-      } else if (eventType === 'mousemove') {
-        clientX = e.clientX
-      }
-
-      const currentX = clientX - this.offSetLeft
-      const imgArrLength = this.product.images.length
-
-      const part = this.productImageContainerClientWidth / imgArrLength
-
-      let imgIndex = Math.ceil(currentX / part) - 1
-      if (imgIndex < 0) {
-        imgIndex = 0
-      }
-
-      if (imgIndex >= imgArrLength) {
-        imgIndex = imgArrLength - 1
-      }
-
-      this.currentImageIndex = imgIndex
-      this.currentImage = this.product.images[imgIndex]
-    },
-    onImageMouseOut() {
-      this.currentImage = this.product.images[0]
-    },
-    onAddProductToCart() {
-      this.$swal({
-        title: 'Added to cart!',
-        icon: 'success',
-        button: 'Done!',
-      })
-      this.$store.commit(Types.ADD_PRODUCT_TO_CART, this.product)
-    },
-    // calculateOffSetLeftAndTop() {
-    //   const offSetTopAndLeft = cumulativeOffset(
-    //     this.$refs.productImageContainer
-    //   );
-    //   this.offSetLeft = offSetTopAndLeft.left;
-    //   this.offSetTop = offSetTopAndLeft.top;
-    //   this.productImageContainerClientWidth = this.$refs.productImageContainer.clientWidth;
-    // },
-    onChangeImage(n) {
-      this.currentImage = this.product.images[n]
-      this.currentImageIndex = n
-    },
-  },
+  methods: {},
 }
 </script>
 
 <style scoped lang="scss">
 .product {
   padding-bottom: 2rem;
-  &__img {
-    width: 100%;
-    height: 100%;
+  height: 350px;
 
+  & .card__image {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__img {
     &:focus {
       outline: none;
     }
@@ -120,13 +70,6 @@ export default {
     padding: 1rem;
     position: relative;
     cursor: pointer;
-  }
-
-  &__title {
-    font-size: 0.8rem;
-  }
-
-  &__price {
   }
 
   &__description {

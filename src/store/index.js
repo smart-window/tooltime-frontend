@@ -69,6 +69,7 @@ const store = new Vuex.Store({
       state.orderBy = ''
     },
     [Types.ADD_CATEGORY_TO_FILTER](state, categoryId) {
+      console.log('type of state.categoryFilter', typeof state.categoryFilter)
       const filters = state.categoryFilter
       if (filters.includes(categoryId)) return void 0
 
@@ -80,7 +81,7 @@ const store = new Vuex.Store({
       state.categoryFilter = filters.filter(filterId => filterId !== categoryId)
     },
     [Types.CLEAR_BRAND_FILTER](state) {
-      state.categoryFilter = ''
+      state.categoryFilter = []
     },
     [Types.SET_PRODUCTS](state, products) {
       state.products = products
@@ -106,6 +107,7 @@ const store = new Vuex.Store({
   getters: {
     filterProducts(state) {
       const filters = state.categoryFilter
+      if (filters === undefined || filters.length === 0) return state.products
       const filteredProducts = state.products.filter(p => filters.includes(p.categoryId))
       return filteredProducts
     },

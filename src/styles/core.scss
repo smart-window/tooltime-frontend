@@ -4,8 +4,8 @@
 /*  "CORE" STYLES */
 
 :root {
-  --kit-color-primary: #984C1A;
-  --primary: #984C1A;
+  --kit-color-primary: #984c1a;
+  --primary: #984c1a;
   --kit-font-family: 'Mukta', sans-serif;
 }
 
@@ -115,5 +115,22 @@ svg {
     color: $dark-gray-1;
   }
 
-  
+  h1 {
+    font-size: rem(18);
+  }
+  h2 {
+    font-size: rem(16);
+  }
+  h3 {
+    font-size: rem(14);
+  }
+  h4 {
+    font-size: rem(8) !important;
+  }
+  h5 {
+    font-size: rem(10);
+  }
+  h6 {
+    font-size: rem(8);
+  }
 }

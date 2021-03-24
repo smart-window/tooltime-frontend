@@ -52,7 +52,8 @@ export default {
         this.$store.commit(Types.ADD_CATEGORY_TO_FILTER, categoryId)
         // this.addCategoryToFilter(categoryId)
       } else {
-        this.removeCategoryFromFilter(categoryId)
+        this.$store.commit(Types.REMOVE_CATEGORY_FROM_FILTER, categoryId)
+        // this.removeCategoryFromFilter(categoryId)
       }
     },
   },
