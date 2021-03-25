@@ -23,6 +23,7 @@ const store = new Vuex.Store({
   },
   mutations: {
     [Types.ADD_PRODUCT_TO_CART](state, product) {
+      console.log('Types.ADD_PRODUCT_TO_CART =>', product)
       const cartItemIndex = state.cart.findIndex(item => item.id === product.id)
 
       if (cartItemIndex < 0) {

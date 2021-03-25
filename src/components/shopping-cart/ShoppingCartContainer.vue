@@ -1,38 +1,37 @@
 <template>
-  <div class="container">
-    <div class="card shopping-cart">
-      <div class="card-header bg-dark text-light">
-        <i class="fa fa-shopping-cart pr-2" aria-hidden="true"></i>
-        Shopping cart
+  <b-container>
+    <b-card no-body>
+      <b-card-header class="text-primary">
+        <h3 class="text-primary">
+          <i class="fa fa-shopping-cart pr-2" aria-hidden="true"></i> Shopping cart
+        </h3>
         <div class="clearfix"></div>
-      </div>
-      <div class="card-body">
+      </b-card-header>
+      <b-card-body>
         <ShoppingCartItem
-          v-for="(cartItem, index) in $store.state.cart"
+          v-for="(cartItem, index) in cart"
           :product="cartItem"
           :key="index"
         ></ShoppingCartItem>
-        <h2 class="display-4 text-center" v-if="$store.state.cart.length === 0">
-          There is no item in cart
-        </h2>
-      </div>
-      <div class="card-footer">
-        <div class="pull-right" style="margin: 10px">
-          <div class="pull-right" style="margin: 5px">
-            Total price:
-            <b>{{ $store.getters.totalPrice | priceFormatter }}$</b>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+        <h4 class="text-center" v-if="cart.length === 0">There is no item in cart</h4>
+      </b-card-body>
+      <b-card-footer>
+        <div class="pull-right" style="margin: 10px">Total Items:</div>
+      </b-card-footer>
+    </b-card>
+  </b-container>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import ShoppingCartItem from './ShoppingCartItem'
 export default {
   name: 'ShoppingCartContainer',
   components: { ShoppingCartItem },
+
+  computed: {
+    ...mapState(['cart']),
+  },
 }
 </script>
 

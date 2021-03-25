@@ -20,7 +20,6 @@ Vue.prototype.$notification = Notifications
 
 //filters
 import { brandFilter } from './filters/brandFilter'
-import { formatMoney } from './filters/priceFormatter'
 import { paginationPipe } from './filters/paginationFilter'
 import { shortenTitle } from './filters/shortenTitle'
 
@@ -28,7 +27,6 @@ Vue.config.productionTip = false
 
 Vue.filter('brandFilter', brandFilter)
 Vue.filter('shortenTitle', shortenTitle)
-Vue.filter('priceFormatter', formatMoney)
 Vue.filter('pagination', paginationPipe)
 
 new Vue({

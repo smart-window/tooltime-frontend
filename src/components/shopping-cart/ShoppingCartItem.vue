@@ -1,16 +1,16 @@
 <template>
-  <div class="row align-items-center mb-3">
+  <div class="row align-items-center mb-3 cart-row">
     <div class="col-12 col-sm-12 col-md-2 text-center">
       <img
         class="img-responsive"
         alt="prewiew"
         style="height: 60%; width: 60%"
-        :src="product.images[0]"
+        :src="currentImage"
       />
     </div>
     <div class="col-12 text-sm-center col-sm-12 text-md-left col-md-6">
       <h4 class="product-name">
-        <strong>{{ product.title | shortenTitle }}</strong>
+        <strong>{{ product.name | shortenTitle }}</strong>
       </h4>
       <h4>
         <small class="product-description">{{ product.description }}</small>
@@ -21,7 +21,7 @@
     >
       <div class="col-6 col-sm-6 col-md-6 text-md-right" style="padding-top: 5px">
         <h6>
-          <strong>{{ product.price | priceFormatter }}$ <span class="text-muted">x</span></strong>
+          <span class="text-muted">x</span>
         </h6>
       </div>
       <div class="col-4 col-sm-4 col-md-4">
@@ -51,6 +51,7 @@
 </template>
 
 <script>
+import { sampleImages } from '@/data'
 import {
   REMOVE_PRODUCT_FROM_CART,
   DECREMENT_CART_ITEM_QUANTITY,
@@ -61,6 +62,13 @@ export default {
   name: 'ShoppingCartItem',
   props: {
     product: Object,
+  },
+  computed: {
+    currentImage() {
+      const images = this.product.images.split(',')
+      if (images && images.length > 0) return images[0]
+      else return sampleImages[0]
+    },
   },
   methods: {
     onIncrementCartItem() {
@@ -77,7 +85,11 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.cart-row {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
 .quantity {
   float: left;
   margin-right: 15px;
@@ -85,65 +97,60 @@ export default {
   position: relative;
   width: 80px;
   overflow: hidden;
-}
 
-.quantity input {
-  margin: 0;
-  text-align: center;
-  width: 15px;
-  height: 15px;
-  padding: 0;
-  float: right;
-  color: #000;
-  font-size: 20px;
-  border: 0;
-  outline: 0;
-  background-color: #f6f6f6;
-}
+  & input {
+    margin: 0;
+    text-align: center;
+    width: 15px;
+    height: 15px;
+    padding: 0;
+    float: right;
+    color: #000;
+    font-size: 20px;
+    border: 0;
+    outline: 0;
+    background-color: #f6f6f6;
 
-.quantity input.qty {
-  position: relative;
-  border: 0;
-  width: 100%;
-  height: 40px;
-  padding: 10px 25px 10px 10px;
-  text-align: center;
-  font-weight: 400;
-  font-size: 15px;
-  border-radius: 0;
-  background-clip: padding-box;
-}
+    &.qty {
+      position: relative;
+      border: 0;
+      width: 100%;
+      height: 40px;
+      padding: 10px 25px 10px 10px;
+      text-align: center;
+      font-weight: 400;
+      font-size: 15px;
+      border-radius: 0;
+      background-clip: padding-box;
+    }
+  }
 
-.quantity .minus,
-.quantity .plus {
-  line-height: 0;
-  background-clip: padding-box;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0;
-  -webkit-background-size: 6px 30px;
-  -moz-background-size: 6px 30px;
-  color: #bbb;
-  font-size: 20px;
-  position: absolute;
-  height: 50%;
-  border: 0;
-  right: 0;
-  padding: 0;
-  width: 25px;
-  z-index: 3;
-}
+  & .minus,
+  & .plus {
+    line-height: 0;
+    background-clip: padding-box;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    -webkit-background-size: 6px 30px;
+    -moz-background-size: 6px 30px;
+    color: #bbb;
+    font-size: 20px;
+    position: absolute;
+    height: 50%;
+    border: 0;
+    right: 0;
+    padding: 0;
+    width: 25px;
+    z-index: 3;
+    &:hover {
+      background-color: #dad8da;
+    }
+  }
 
-.quantity .minus:hover,
-.quantity .plus:hover {
-  background-color: #dad8da;
-}
-
-.quantity .minus {
-  bottom: 0;
-}
-.shopping-cart {
-  margin-top: 20px;
+  & .minus {
+    bottom: 0;
+  }
 }
 
 @media only screen and (max-width: 768px) {
