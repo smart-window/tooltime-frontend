@@ -16,14 +16,21 @@
         <h4 class="text-center" v-if="cart.length === 0">There is no item in cart</h4>
       </b-card-body>
       <b-card-footer>
-        <div class="pull-right" style="margin: 10px">Total Items:</div>
+        <div class="pull-left">
+          <button class="btn btn-secondary" :disabled="totalCartItems === 0">
+            Make Reservation
+          </button>
+        </div>
+        <div class="pull-right" style="margin: 10px">
+          Total Items: <span> {{ totalCartItems }} </span>
+        </div>
       </b-card-footer>
     </b-card>
   </b-container>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import ShoppingCartItem from './ShoppingCartItem'
 export default {
   name: 'ShoppingCartContainer',
@@ -31,6 +38,7 @@ export default {
 
   computed: {
     ...mapState(['cart']),
+    ...mapGetters(['totalCartItems']),
   },
 }
 </script>

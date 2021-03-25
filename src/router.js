@@ -11,6 +11,7 @@ import RegisterPage from './pages/auth/RegisterPage'
 import MainLayout from './layouts/main'
 import AuthLayout from './layouts/auth'
 import ProfilePage from './pages/ProfilePage'
+import OrderPage from './pages/OrderPage'
 
 Vue.use(Router)
 
@@ -45,6 +46,10 @@ const router = new Router({
         {
           path: '/profile',
           component: ProfilePage,
+        },
+        {
+          path: '/order',
+          component: OrderPage,
         },
       ],
     },

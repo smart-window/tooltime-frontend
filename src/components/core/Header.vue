@@ -7,11 +7,9 @@
         <router-link to="/products" class="navbar-brand text-primary"> TOOLTIME </router-link>
         <b-navbar-nav class="ml-auto" v-show="this.$store.state.user.authorized === true">
           <router-link to="/cart" class="nav-link text-primary">
-            <i class="fa fa-shopping-cart mr-2" aria-hidden="true"></i> Cart ({{
-              $store.getters.cartLength
-            }})
+            <i class="fa fa-shopping-cart mr-2" aria-hidden="true"></i> Cart ({{ totalCartItems }})
           </router-link>
-
+          <router-link to="/order" class="nav-link text-primary"> Orders </router-link>
           <b-nav-item-dropdown :text="user.name" right>
             <b-dropdown-item v-on:click="handleSignOut">Sign Out</b-dropdown-item>
             <b-dropdown-item href="/profile">Profile</b-dropdown-item>
@@ -23,11 +21,12 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 export default {
   name: 'Header',
   computed: {
     ...mapState(['user']),
+    ...mapGetters(['totalCartItems']),
   },
   methods: {
     handleSignOut() {

@@ -128,12 +128,14 @@ const store = new Vuex.Store({
 
       return counts
     },
+
     cartLength(state) {
       return state.cart.length
     },
-    totalPrice(state) {
+
+    totalCartItems(state) {
       return state.cart.reduce((count, curItem) => {
-        return count + curItem.quantity * curItem.price
+        return count + curItem.quantity
       }, 0)
     },
   },
