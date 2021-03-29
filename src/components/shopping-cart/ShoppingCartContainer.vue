@@ -17,13 +17,59 @@
       </b-card-body>
       <b-card-footer>
         <div class="pull-left">
-          <button class="btn btn-secondary" :disabled="totalCartItems === 0">
+          <button
+            class="btn btn-secondary"
+            :disabled="totalCartItems === 0"
+            @click="handleMakeReservation"
+          >
             Make Reservation
           </button>
         </div>
         <div class="pull-right" style="margin: 10px">
           Total Items: <span> {{ totalCartItems }} </span>
         </div>
+
+        <b-card v-show="showReservePanel">
+          <b-card-title>
+            <h3 class="text-primary">Reservation Details</h3>
+          </b-card-title>
+          <b-card-body>
+            <b-form>
+              <b-form-group id="form-group-name" label="Name" label-for="name">
+                <b-form-input id="name" type="text" v-model="form.name" />
+              </b-form-group>
+              <b-form-group id="form-group-email" label="Email" label-for="email">
+                <b-form-input id="email" type="email" v-model="form.email" />
+              </b-form-group>
+              <b-form-group id="form-group-phone" label="phone" label-for="phone">
+                <b-form-input id="phone" type="text" v-model="form.phone" />
+              </b-form-group>
+              <b-form-group id="form-group-address" label="address" label-for="address">
+                <b-form-input id="address" type="text" v-model="form.address" />
+              </b-form-group>
+              <b-form-group id="form-group-city" label="city" label-for="city">
+                <b-form-input id="city" type="text" v-model="form.city" />
+              </b-form-group>
+              <b-form-group id="form-group-state" label="state" label-for="state">
+                <b-form-input id="state" type="text" v-model="form.state" />
+              </b-form-group>
+              <b-form-group id="form-group-zip" label="zip" label-for="zip">
+                <b-form-input id="zip" type="text" v-model="form.zip" />
+              </b-form-group>
+              <b-form-group id="form-group-location" label="location" label-for="location">
+                <b-form-select id="location" v-model="form.location">
+                  <b-form-select-option value="AAA"> AAA </b-form-select-option>
+                  <b-form-select-option value="BBB"> BBB </b-form-select-option>
+                  <b-form-select-option value="CCC"> CCC </b-form-select-option>
+                </b-form-select>
+              </b-form-group>
+              <b-form-row class="d-flex">
+                <b-button type="submit" class="btn btn-success"> OK </b-button>
+                <b-button class="btn btn-default"> Cancel </b-button>
+              </b-form-row>
+            </b-form>
+          </b-card-body>
+        </b-card>
       </b-card-footer>
     </b-card>
   </b-container>
@@ -36,9 +82,22 @@ export default {
   name: 'ShoppingCartContainer',
   components: { ShoppingCartItem },
 
+  data() {
+    return {
+      showReservePanel: false,
+      form: {},
+    }
+  },
   computed: {
     ...mapState(['cart']),
     ...mapGetters(['totalCartItems']),
+  },
+
+  methods: {
+    handleMakeReservation(e) {
+      e.preventDefault()
+      this.showReservePanel = true
+    },
   },
 }
 </script>

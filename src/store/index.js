@@ -4,10 +4,12 @@ import * as Types from './types'
 import { paginationPipe } from '../filters/paginationFilter'
 import user from './user'
 import * as api from '../services/api'
+import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
+  plugins: [createPersistedState()],
   modules: {
     user,
   },
