@@ -7,10 +7,17 @@
         <router-link to="/products" class="navbar-brand text-primary"> TOOLTIME </router-link>
         <b-navbar-nav class="ml-auto" v-show="this.$store.state.user.authorized === true">
           <router-link to="/cart" class="nav-link text-primary">
-            <i class="fa fa-shopping-cart mr-2" aria-hidden="true"></i> Cart ({{ totalCartItems }})
+            <i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart ({{ totalCartItems }})
           </router-link>
-          <router-link to="/order" class="nav-link text-primary"> Orders </router-link>
-          <b-nav-item-dropdown :text="user.name" right>
+          <router-link to="/order" class="nav-link text-primary">
+            <i class="fas fa-bookmark"> </i>
+            Orders
+          </router-link>
+          <b-nav-item-dropdown right>
+            <template slot="button-content">
+              <i class="fas fa-user-circle"></i>
+              <span> {{ user.name }}</span>
+            </template>
             <b-dropdown-item v-on:click="handleSignOut">Sign Out</b-dropdown-item>
             <b-dropdown-item href="/profile">Profile</b-dropdown-item>
           </b-nav-item-dropdown>

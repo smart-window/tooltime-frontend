@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import './styles/global.scss'
-
+import '@fortawesome/fontawesome-free/css/all.css'
 Vue.config.devtools = true
 import store from './store'
 import VueSwal from 'vue-swal'
