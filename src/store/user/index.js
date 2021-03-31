@@ -53,6 +53,7 @@ export default {
           commit('SET_STATE', { ...response, authorized: true })
           dispatch('LOAD_PRODUCTS', {}, { root: true })
           dispatch('LOAD_CATEGORIES', {}, { root: true })
+          dispatch('LOAD_LOCATIONS', {}, { root: true })
         }
 
         commit('SET_STATE', { loading: false })

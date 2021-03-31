@@ -26,9 +26,13 @@ export const getProduct = async productId => {
 export const getCategories = async () => {
   return axiosClient
     .get('/category')
-    .then(response => {
-      console.log(response)
-      return response.data
-    })
+    .then(successFunc)
+    .catch(failFunc)
+}
+
+export const getLocations = async () => {
+  return axiosClient
+    .get('/location')
+    .then(successFunc)
     .catch(failFunc)
 }

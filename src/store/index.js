@@ -16,6 +16,7 @@ const store = new Vuex.Store({
   state: {
     products: [],
     categories: [],
+    locations: [],
     cart: [],
     categoryFilter: [],
     orderBy: '',
@@ -91,6 +92,10 @@ const store = new Vuex.Store({
       console.log('[Types.SET_CATEGORIES] => ', categories)
       state.categories = categories
     },
+    [Types.SET_LOCATIONS](state, locations) {
+      console.log('[Types.SET_CATEGORIES] => ', locations)
+      state.locations = locations
+    },
   },
 
   actions: {
@@ -103,6 +108,11 @@ const store = new Vuex.Store({
       const categories = await api.getCategories()
       console.log('categories => ', categories)
       commit(Types.SET_CATEGORIES, categories)
+    },
+    async LOAD_LOCATIONS({ commit }) {
+      const locations = await api.getLocations()
+      console.log('categories => ', locations)
+      commit(Types.SET_LOCATIONS, locations)
     },
   },
   getters: {
