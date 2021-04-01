@@ -5,12 +5,13 @@
     </b-card-header>
     <b-card-body class="order-list-wrapper">
       <ul class="order-list">
-        <li>Pressure Washer <b-badge pill variant="success">6</b-badge></li>
-        <li>Compressor <b-badge pill variant="success">1</b-badge></li>
-        <li>Grinder <b-badge pill variant="success">4</b-badge></li>
-        <li>
-          20V MAX* XR 1/2 IN. BRUSHLESS HAMMER DRILL/DRIVER
-          <b-badge pill variant="success">3</b-badge>
+        <li v-for="order in orders" v-bind:key="order.id">
+          {{ order.name }}
+          <b-badge pill variant="success">
+            {{ getOrderItemsCount(order) }}
+          </b-badge>
+          <p>{{ pickDate(order.pickupDate) }}</p>
+          <b-badge> {{ order.status }} </b-badge>
         </li>
       </ul>
     </b-card-body>
@@ -18,8 +19,33 @@
   </b-card>
 </template>
 
+<script>
+import { mapState } from 'vuex'
+import moment from 'moment'
+export default {
+  name: 'OrderList',
+
+  computed: {
+    ...mapState(['orders']),
+  },
+
+  methods: {
+    getOrderItemsCount(order) {
+      console.log('getOrderItemsCount.order => ', order)
+      return order.orderItems.reduce(
+        (totalItems, orderItem) => totalItems + orderItem.orderCount,
+        0,
+      )
+    },
+
+    pickDate(date) {
+      return moment(date).format('YYYY-MM-DD')
+    },
+  },
+}
+</script>
 <style scoped lang="scss">
-order-list-wrapper {
+.order-list-wrapper {
   padding: 0px;
 }
 
