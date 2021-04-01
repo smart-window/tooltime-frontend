@@ -36,3 +36,10 @@ export const getLocations = async () => {
     .then(successFunc)
     .catch(failFunc)
 }
+
+export const createOrder = async request => {
+  return axiosClient
+    .post('/order', request)
+    .then(successFunc)
+    .catch(failFunc)
+}

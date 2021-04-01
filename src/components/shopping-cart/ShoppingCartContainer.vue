@@ -34,7 +34,7 @@
             <h3 class="text-primary">Reservation Details</h3>
           </b-card-title>
           <b-card-body>
-            <b-form>
+            <b-form @submit="handleSumbitOrder">
               <b-form-group id="form-group-name" label="Name" label-for="name">
                 <b-form-input id="name" type="text" v-model="form.name" required />
               </b-form-group>
@@ -57,15 +57,25 @@
                 <b-form-input id="zip" type="text" v-model="form.zip" required />
               </b-form-group>
               <b-form-group id="form-group-location" label="location" label-for="location">
-                <b-form-select id="location" v-model="form.location" required>
+                <b-form-select id="location" v-model="form.locationId" required>
                   <b-form-select-option
-                    value="AAA"
+                    :value="location.id"
                     v-for="location in locations"
                     v-bind:key="location.id"
                   >
                     {{ location.name }}
                   </b-form-select-option>
                 </b-form-select>
+              </b-form-group>
+              <b-form-group id="form-group-pick-date" label="Pick date" label-for="pick-date">
+                <b-form-datepicker
+                  id="pick-date"
+                  v-model="form.pickupDate"
+                  required
+                ></b-form-datepicker>
+              </b-form-group>
+              <b-form-group id="form-group-notes" label="Notes" label-for="notes">
+                <b-form-textarea id="notes" v-model="form.notes" debounce="500"> </b-form-textarea>
               </b-form-group>
               <b-form-row class="d-flex justify-content-between">
                 <b-button type="submit" class="btn btn-primary"> OK </b-button>
@@ -82,6 +92,7 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 import ShoppingCartItem from './ShoppingCartItem'
+import * as api from '@/services/api'
 export default {
   name: 'ShoppingCartContainer',
   components: { ShoppingCartItem },
@@ -93,6 +104,7 @@ export default {
     }
   },
   mounted() {
+    this.form.customerId = this.user.id
     this.form.name = this.user.name
     this.form.email = this.user.email
     this.form.phone = this.user.phone
@@ -111,6 +123,20 @@ export default {
     handleMakeReservation(e) {
       e.preventDefault()
       this.showReservePanel = true
+    },
+
+    async handleSumbitOrder(e) {
+      e.preventDefault()
+      this.form.orders = this.cart.map((product) => {
+        return {
+          productId: product.id,
+          orderCount: product.quantity,
+          customerId: this.user.id,
+        }
+      })
+      console.log('submit order =>', this.form)
+      // await api.createOrder(this.form)
+      this.$store.dispatch('CREATE_ORDER', this.form)
     },
   },
 }

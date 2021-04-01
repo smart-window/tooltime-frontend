@@ -114,6 +114,10 @@ const store = new Vuex.Store({
       console.log('categories => ', locations)
       commit(Types.SET_LOCATIONS, locations)
     },
+
+    async CREATE_ORDER({ commit }, payload) {
+      await api.createOrder({ ...payload })
+    },
   },
   getters: {
     filterProducts(state) {
