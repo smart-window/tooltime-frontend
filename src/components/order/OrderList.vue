@@ -6,7 +6,7 @@
     <b-card-body class="order-list-wrapper">
       <ul class="order-list">
         <li v-for="order in orders" v-bind:key="order.id">
-          {{ order.name }}
+          <a href="#" @click="handleSelectOrder(order, $event)"> {{ order.name }} </a>
           <b-badge pill variant="success">
             {{ getOrderItemsCount(order) }}
           </b-badge>
@@ -40,6 +40,11 @@ export default {
 
     pickDate(date) {
       return moment(date).format('YYYY-MM-DD')
+    },
+
+    handleSelectOrder(order, e) {
+      e.preventDefault()
+      this.$emit('onSelect', order)
     },
   },
 }
