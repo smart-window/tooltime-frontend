@@ -37,6 +37,13 @@ export const getLocations = async () => {
     .catch(failFunc)
 }
 
+export const getOrders = async () => {
+  return axiosClient
+    .get('/order')
+    .then(successFunc)
+    .catch(failFunc)
+}
+
 export const createOrder = async request => {
   return axiosClient
     .post('/order', request)

@@ -11,7 +11,7 @@
           </router-link>
           <router-link to="/order" class="nav-link text-primary">
             <i class="fas fa-bookmark"> </i>
-            Orders
+            Orders({{ orders.length }})
           </router-link>
           <b-nav-item-dropdown right>
             <template slot="button-content">
@@ -32,7 +32,7 @@ import { mapGetters, mapState } from 'vuex'
 export default {
   name: 'Header',
   computed: {
-    ...mapState(['user']),
+    ...mapState(['user', 'orders']),
     ...mapGetters(['totalCartItems']),
   },
   methods: {

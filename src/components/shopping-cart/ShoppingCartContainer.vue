@@ -92,7 +92,6 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 import ShoppingCartItem from './ShoppingCartItem'
-import * as api from '@/services/api'
 export default {
   name: 'ShoppingCartContainer',
   components: { ShoppingCartItem },
@@ -127,7 +126,7 @@ export default {
 
     async handleSumbitOrder(e) {
       e.preventDefault()
-      this.form.orders = this.cart.map((product) => {
+      this.form.orderItems = this.cart.map((product) => {
         return {
           productId: product.id,
           orderCount: product.quantity,
@@ -136,7 +135,14 @@ export default {
       })
       console.log('submit order =>', this.form)
       // await api.createOrder(this.form)
-      this.$store.dispatch('CREATE_ORDER', this.form)
+      this.$store
+        .dispatch('CREATE_ORDER', this.form)
+        .then(() => {
+          this.$swal('New order has been created!')
+        })
+        .catch((e) => {
+          this.$swal(e.message)
+        })
     },
   },
 }

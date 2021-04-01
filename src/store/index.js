@@ -18,6 +18,7 @@ const store = new Vuex.Store({
     categories: [],
     locations: [],
     cart: [],
+    orders: [],
     categoryFilter: [],
     orderBy: '',
     perPage: 12,
@@ -85,6 +86,9 @@ const store = new Vuex.Store({
     [Types.CLEAR_BRAND_FILTER](state) {
       state.categoryFilter = []
     },
+    [Types.SET_CART](state, cartItems) {
+      state.cart = cartItems
+    },
     [Types.SET_PRODUCTS](state, products) {
       state.products = products
     },
@@ -95,6 +99,10 @@ const store = new Vuex.Store({
     [Types.SET_LOCATIONS](state, locations) {
       console.log('[Types.SET_CATEGORIES] => ', locations)
       state.locations = locations
+    },
+    [Types.SET_ORDERS](state, orders) {
+      console.log('[Types.SET_ORDERS] => ', orders)
+      state.orders = orders
     },
   },
 
@@ -114,9 +122,19 @@ const store = new Vuex.Store({
       console.log('categories => ', locations)
       commit(Types.SET_LOCATIONS, locations)
     },
-
-    async CREATE_ORDER({ commit }, payload) {
-      await api.createOrder({ ...payload })
+    async LOAD_ORDERS({ commit }) {
+      const orders = await api.getOrders()
+      console.log('orders => ', orders)
+      commit(Types.SET_ORDERS, orders)
+    },
+    async CREATE_ORDER({ dispatch, commit }, payload) {
+      try {
+        await api.createOrder({ ...payload })
+        dispatch('LOAD_ORDERS')
+        commit(Types.SET_CART, [])
+      } catch (e) {
+        throw new Error(e.message)
+      }
     },
   },
   getters: {

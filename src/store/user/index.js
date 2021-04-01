@@ -54,6 +54,7 @@ export default {
           dispatch('LOAD_PRODUCTS', {}, { root: true })
           dispatch('LOAD_CATEGORIES', {}, { root: true })
           dispatch('LOAD_LOCATIONS', {}, { root: true })
+          dispatch('LOAD_ORDERS', {}, { root: true })
         }
 
         commit('SET_STATE', { loading: false })
