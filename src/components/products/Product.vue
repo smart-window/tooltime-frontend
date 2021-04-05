@@ -9,7 +9,7 @@
       </p>
 
       <button @click="onViewProductDetail(product.id)" class="btn btn-primary w-full">
-        View Product Detail
+        Detail
       </button>
     </b-card-body>
   </b-card>
@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     onViewProductDetail(productId) {
-      router.push(`/products/${productId}`)
+      router.push(`/product/${productId}`)
     },
   },
 }

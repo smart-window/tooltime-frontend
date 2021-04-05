@@ -36,7 +36,7 @@ const router = new Router({
           component: Home,
         },
         {
-          path: '/products/:id',
+          path: '/product/:id',
           component: ProductDetailPage,
         },
         {

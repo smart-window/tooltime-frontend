@@ -6,21 +6,23 @@
     background-color: $primary;
     border-color: $primary;
     &:hover,
-    &:active,
-    &:focus {
+    &:active {
       background-color: $primary-light !important;
       border-color: $primary-light !important;
     }
   }
+
   &-secondary {
     color: $primary;
     background-color: white;
     border-color: $primary;
     &:hover,
-    &:active,
-    &:focus {
+    &:active {
       background-color: $primary !important;
       border-color: $primary !important;
+    }
+    &:focus {
+      background-color: none !important;
     }
   }
 }
