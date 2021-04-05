@@ -2,7 +2,7 @@
   <b-container>
     <div class="row">
       <div class="col-sm-12 col-md-4">
-        <OrderList @onSelect="handleSelectOrder" />
+        <OrderList @onSelect="handleSelectOrder" :selectedOrder="selectedOrder" />
       </div>
       <div class="col-sm-12 col-md-8">
         <OrderDetail :order="selectedOrder" />
