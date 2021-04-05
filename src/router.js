@@ -51,6 +51,10 @@ const router = new Router({
           path: '/order',
           component: OrderPage,
         },
+        {
+          path: '/order/:id',
+          component: OrderPage,
+        },
       ],
     },
 

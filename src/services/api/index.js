@@ -44,6 +44,13 @@ export const getOrders = async () => {
     .catch(failFunc)
 }
 
+export const getOrder = async orderId => {
+  return axiosClient
+    .get(`/order/${orderId}`)
+    .then(successFunc)
+    .catch(failFunc)
+}
+
 export const createOrder = async request => {
   return axiosClient
     .post('/order', request)

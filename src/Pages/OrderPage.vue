@@ -2,10 +2,10 @@
   <b-container>
     <div class="row">
       <div class="col-sm-12 col-md-4">
-        <OrderList @onSelect="handleSelectOrder" :selectedOrder="selectedOrder" />
+        <OrderList :selectedOrder="selectedOrder" />
       </div>
       <div class="col-sm-12 col-md-8">
-        <OrderDetail :order="selectedOrder" />
+        <OrderDetail />
       </div>
     </div>
   </b-container>
@@ -14,6 +14,7 @@
 <script>
 import OrderList from '@/components/order/OrderList'
 import OrderDetail from '@/components/order/OrderDetail'
+import { mapState } from 'vuex'
 export default {
   name: 'OrderPage',
   components: {
@@ -21,15 +22,26 @@ export default {
     OrderDetail,
   },
 
-  data() {
-    return {
-      selectedOrder: {},
-    }
+  computed: {
+    ...mapState(['selectedOrder']),
+
+    orderId() {
+      return this.$route.params.id
+    },
   },
 
-  methods: {
-    handleSelectOrder(order) {
-      this.selectedOrder = order
+  methods: {},
+
+  mounted() {
+    if (this.orderId === undefined && this.selectedOrder.id === undefined)
+      this.$store.commit('SET_SELECTED_ORDER', {})
+    else this.$store.dispatch('LOAD_SELECTED_ORDER', this.orderId)
+  },
+
+  watch: {
+    // eslint-disable-next-line
+    $route(to, from) {
+      this.$store.dispatch('LOAD_SELECTED_ORDER', this.orderId)
     },
   },
 }

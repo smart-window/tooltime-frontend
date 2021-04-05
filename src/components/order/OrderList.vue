@@ -27,6 +27,7 @@
 <script>
 import { mapState } from 'vuex'
 import moment from 'moment'
+import route from '@/router'
 export default {
   name: 'OrderList',
   props: ['selectedOrder'],
@@ -48,7 +49,9 @@ export default {
 
     handleSelectOrder(order, e) {
       e.preventDefault()
-      this.$emit('onSelect', order)
+      //this.$emit('onSelect', order)
+      // this.$store.commit('SET_SELECTED_ORDER', order)
+      if (order.id !== this.selectedOrder.id) route.push(`/order/${order.id}`)
     },
 
     orderItemClass(order) {

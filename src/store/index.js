@@ -19,6 +19,7 @@ const store = new Vuex.Store({
     locations: [],
     cart: [],
     orders: [],
+    selectedOrder: {},
     categoryFilter: [],
     orderBy: '',
     perPage: 12,
@@ -104,6 +105,10 @@ const store = new Vuex.Store({
       console.log('[Types.SET_ORDERS] => ', orders)
       state.orders = orders
     },
+    [Types.SET_SELECTED_ORDER](state, order) {
+      console.log('[Types.SET_SELECTED_ORDER] => ', order)
+      state.selectedOrder = order
+    },
   },
 
   actions: {
@@ -114,18 +119,26 @@ const store = new Vuex.Store({
 
     async LOAD_CATEGORIES({ commit }) {
       const categories = await api.getCategories()
-      console.log('categories => ', categories)
       commit(Types.SET_CATEGORIES, categories)
     },
     async LOAD_LOCATIONS({ commit }) {
       const locations = await api.getLocations()
-      console.log('categories => ', locations)
       commit(Types.SET_LOCATIONS, locations)
     },
     async LOAD_ORDERS({ commit }) {
       const orders = await api.getOrders()
-      console.log('orders => ', orders)
       commit(Types.SET_ORDERS, orders)
+    },
+    async LOAD_SELECTED_ORDER({ commit }, orderId) {
+      try {
+        if (orderId === undefined) {
+          return
+        }
+        const order = await api.getOrder(orderId)
+        commit(Types.SET_SELECTED_ORDER, order)
+      } catch (e) {
+        throw new Error(e.message)
+      }
     },
     async CREATE_ORDER({ dispatch, commit }, payload) {
       try {
