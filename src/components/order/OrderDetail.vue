@@ -9,7 +9,6 @@
       <p>Phone: {{ order.phone }}</p>
       <p>Address: {{ order.address }},{{ order.city }}, {{ order.state }}</p>
       <p>Pickup Date: {{ pickDate(order.pickupDate) }}</p>
-
       <b-table striped hover :items="orderItems" :fields="orderFields"> </b-table>
     </b-card-body>
   </b-card>
@@ -17,21 +16,30 @@
 
 <script>
 import moment from 'moment'
+import { mapState } from 'vuex'
 export default {
   name: 'OrderDetail',
   props: ['order'],
 
   computed: {
+    ...mapState(['products']),
     orderTitle() {
       return !this.order.name || this.order.name === undefined ? 'Select Order' : this.order.name
     },
 
     orderItems() {
-      return this.order.orderItems || []
+      return (this.order.orderItems || []).map((order) => {
+        const product = this.products.find((product) => product.id === order.productId)
+        return {
+          productName: product.name,
+          images: product.images.split(','),
+          orderCount: order.orderCount,
+        }
+      })
     },
 
     orderFields() {
-      return ['orderId', 'productId', 'orderCount']
+      return ['productName', 'orderCount']
     },
   },
 
