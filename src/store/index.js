@@ -149,6 +149,14 @@ const store = new Vuex.Store({
         throw new Error(e.message)
       }
     },
+    async REMOVE_ORDER({ dispatch }, orderId) {
+      try {
+        await api.removeOrder(orderId)
+        dispatch('LOAD_ORDERS')
+      } catch (e) {
+        throw new Error(e.message)
+      }
+    },
   },
   getters: {
     filterProducts(state) {

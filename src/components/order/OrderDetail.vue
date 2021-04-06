@@ -62,14 +62,34 @@
     </b-card>
     <b-row v-if="order.id !== undefined">
       <b-container class="d-flex flex-row justify-content-between pt-2" v-if="!editing">
-        <b-button @click="handleEditOrder"> <i class="fas fa-edit"> </i> Edit </b-button>
-        <b-button> <i class="fas fa-trash-alt"> </i> Remove </b-button>
+        <b-button variant="primary" @click="handleEditOrder">
+          <i class="fas fa-edit"> </i> Edit
+        </b-button>
+        <b-button @click="handleRemoveOrder"> <i class="fas fa-trash-alt"> </i> Remove </b-button>
       </b-container>
       <b-container class="d-flex flex-row justify-content-between pt-2" v-if="editing">
-        <b-button> <i class="fas fa-save"> </i> Save </b-button>
-        <b-button @click="handleSetDefault"> <i class="fas fa-default"> </i> Default </b-button>
+        <b-button variant="primary"> <i class="fas fa-save"> </i> Save </b-button>
+        <b-button variant="primary" @click="handleSetDefault">
+          <i class="fas fa-default"> </i> Default
+        </b-button>
         <b-button @click="handleCloseEditing"><i class="fas fa-times"></i> Cancel </b-button>
       </b-container>
+      <b-modal content-class="modal-confirm" v-model="showRemoveConfirmModal">
+        <template #modal-title>
+          <h5 class="text-primary">
+            <i class="fas fa-exclamation-triangle"></i> Are you sure to remove?
+          </h5>
+        </template>
+        <p class="text-secondary">
+          Once you remove the order, it will be removed forever you can not recover it again.!
+        </p>
+        <template #modal-footer>
+          <b-button @click="handleConfirmRemove" variant="primary" class="btn btn-primary">
+            Yes
+          </b-button>
+          <b-button class="btn btn-secondary"> No </b-button>
+        </template>
+      </b-modal>
     </b-row>
   </div>
 </template>
@@ -85,6 +105,7 @@ export default {
     return {
       editing: false,
       order: {},
+      showRemoveConfirmModal: false,
     }
   },
 
@@ -147,19 +168,23 @@ export default {
     pickDate(date) {
       return moment(date).format('YYYY-MM-DD')
     },
-
     handleEditOrder() {
       this.editing = true
     },
-
     handleCloseEditing() {
       this.editing = false
     },
-
     handleSetDefault() {
       console.log('handleSetDefault')
       console.log(this.selectedOrder)
       this.order = { ...this.selectedOrder }
+    },
+    handleRemoveOrder() {
+      console.log('handleRemoveOrder')
+      this.showRemoveConfirmModal = true
+    },
+    handleConfirmRemove() {
+      this.$store.dispatch('REMOVE_ORDER', this.order.id)
     },
   },
 
@@ -176,5 +201,11 @@ export default {
 <style lang="scss" scoped>
 .order-detail {
   padding: 10px 10px;
+}
+
+/deep/ .modal-confirm {
+  & footer {
+    border-top: none;
+  }
 }
 </style>

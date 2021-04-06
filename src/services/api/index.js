@@ -57,3 +57,10 @@ export const createOrder = async request => {
     .then(successFunc)
     .catch(failFunc)
 }
+
+export const removeOrder = async orderId => {
+  return axiosClient
+    .delete(`/order/${orderId}`)
+    .then(successFunc)
+    .catch(failFunc)
+}
