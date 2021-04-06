@@ -130,11 +130,10 @@ export default {
         return {
           productId: product.id,
           orderCount: product.quantity,
-          customerId: this.user.id,
         }
       })
       console.log('submit order =>', this.form)
-      // await api.createOrder(this.form)
+
       this.$store
         .dispatch('CREATE_ORDER', this.form)
         .then(() => {

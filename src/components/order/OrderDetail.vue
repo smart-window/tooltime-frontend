@@ -44,6 +44,27 @@
           <b-form-group id="form-group-zip" label="zip" label-for="zip">
             <b-form-input id="zip" type="text" v-model="order.zip" required />
           </b-form-group>
+          <b-form-group id="form-group-location" label="location" label-for="location">
+            <b-form-select id="location" v-model="order.locationId" required>
+              <b-form-select-option
+                :value="location.id"
+                v-for="location in locations"
+                v-bind:key="location.id"
+              >
+                {{ location.name }}
+              </b-form-select-option>
+            </b-form-select>
+          </b-form-group>
+          <b-form-group id="form-group-pick-date" label="Pick date" label-for="pick-date">
+            <b-form-datepicker
+              id="pick-date"
+              v-model="order.pickupDate"
+              required
+            ></b-form-datepicker>
+          </b-form-group>
+          <b-form-group id="form-group-notes" label="Notes" label-for="notes">
+            <b-form-textarea id="notes" v-model="order.notes" debounce="500"> </b-form-textarea>
+          </b-form-group>
         </b-form>
         <b-table striped hover :items="orderItems" :fields="orderFields">
           <template #cell(productName)="row">
@@ -52,7 +73,7 @@
           <template #cell(orderCount)="row">
             <b-form-spinbutton v-model="row.item.orderCount"> </b-form-spinbutton>
           </template>
-          <template #cell(actions)="row">
+          <template #cell(actions)>
             <b-button class="btn btn-danger">
               <span> <i class="fas fa-trash-alt"></i> </span>
             </b-button>
@@ -68,8 +89,10 @@
         <b-button @click="handleRemoveOrder"> <i class="fas fa-trash-alt"> </i> Remove </b-button>
       </b-container>
       <b-container class="d-flex flex-row justify-content-between pt-2" v-if="editing">
-        <b-button variant="primary"> <i class="fas fa-save"> </i> Save </b-button>
-        <b-button variant="primary" @click="handleSetDefault">
+        <b-button @click="handleSaveUpdates" variant="primary">
+          <i class="fas fa-save"> </i> Save
+        </b-button>
+        <b-button @click="handleSetDefault" variant="primary">
           <i class="fas fa-default"> </i> Default
         </b-button>
         <b-button @click="handleCloseEditing"><i class="fas fa-times"></i> Cancel </b-button>
@@ -87,7 +110,7 @@
           <b-button @click="handleConfirmRemove" variant="primary" class="btn btn-primary">
             Yes
           </b-button>
-          <b-button class="btn btn-secondary"> No </b-button>
+          <b-button @click="handleCancelRemove" class="btn btn-secondary"> No </b-button>
         </template>
       </b-modal>
     </b-row>
@@ -115,7 +138,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['products', 'selectedOrder']),
+    ...mapState(['products', 'selectedOrder', 'locations']),
 
     orderTitle() {
       return !this.order.name || this.order.name === undefined ? 'Select Order' : this.order.name
@@ -184,7 +207,23 @@ export default {
       this.showRemoveConfirmModal = true
     },
     handleConfirmRemove() {
-      this.$store.dispatch('REMOVE_ORDER', this.order.id)
+      this.$store
+        .dispatch('REMOVE_ORDER', this.order.id)
+        .then(() => {
+          this.showRemoveConfirmModal = false
+        })
+        .catch((e) => {
+          console.log(e.message)
+          this.showRemoveConfirmModal = false
+        })
+    },
+
+    handleCancelRemove() {
+      this.showRemoveConfirmModal = false
+    },
+
+    handleSaveUpdates() {
+      console.log('handleSaveUpdates => ', this.order)
     },
   },
 

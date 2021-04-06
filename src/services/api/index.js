@@ -58,6 +58,13 @@ export const createOrder = async request => {
     .catch(failFunc)
 }
 
+export const updateOrder = async (orderId, request) => {
+  return axiosClient
+    .put(`/order/${orderId}`, request)
+    .then(successFunc)
+    .catch(failFunc)
+}
+
 export const removeOrder = async orderId => {
   return axiosClient
     .delete(`/order/${orderId}`)

@@ -15,6 +15,7 @@
 import OrderList from '@/components/order/OrderList'
 import OrderDetail from '@/components/order/OrderDetail'
 import { mapState } from 'vuex'
+import router from '@/router'
 export default {
   name: 'OrderPage',
   components: {
@@ -23,7 +24,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['selectedOrder']),
+    ...mapState(['selectedOrder', 'orders']),
 
     orderId() {
       return this.$route.params.id
@@ -33,15 +34,31 @@ export default {
   methods: {},
 
   mounted() {
-    if (this.orderId === undefined && this.selectedOrder.id === undefined)
-      this.$store.commit('SET_SELECTED_ORDER', {})
-    else this.$store.dispatch('LOAD_SELECTED_ORDER', this.orderId)
+    if (this.orderId === undefined) {
+      if (
+        this.selectedOrder.id !== undefined &&
+        this.orders.findIndex((order) => order.id === this.selectedOrder.id) > -1
+      )
+        router.push(`/order/${this.selectedOrder.id}`)
+      else this.$store.commit('SET_SELECTED_ORDER', {})
+    } else this.$store.dispatch('LOAD_SELECTED_ORDER', this.orderId)
   },
 
   watch: {
     // eslint-disable-next-line
     $route(to, from) {
       this.$store.dispatch('LOAD_SELECTED_ORDER', this.orderId)
+    },
+
+    orderId(nextOrderId) {
+      if (nextOrderId === undefined) {
+        if (
+          this.selectedOrder.id !== undefined &&
+          this.orders.findIndex((order) => order.id === this.selectedOrder.id) > -1
+        )
+          router.push(`/order/${this.selectedOrder.id}`)
+        else this.$store.commit('SET_SELECTED_ORDER', {})
+      }
     },
   },
 }
