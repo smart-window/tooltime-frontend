@@ -133,7 +133,7 @@ export default {
         }
       })
       console.log('submit order =>', this.form)
-
+      this.form.customerId = this.user.id
       this.$store
         .dispatch('CREATE_ORDER', this.form)
         .then(() => {

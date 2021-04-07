@@ -71,3 +71,10 @@ export const removeOrder = async orderId => {
     .then(successFunc)
     .catch(failFunc)
 }
+
+export const removeOrderItem = async orderItemId => {
+  return axiosClient
+    .delete(`/order-item/${orderItemId}`)
+    .then(successFunc)
+    .catch(failFunc)
+}

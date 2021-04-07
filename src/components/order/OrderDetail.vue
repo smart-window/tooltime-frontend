@@ -8,13 +8,35 @@
         <h5 class="text-primary">{{ orderTitle }}</h5>
       </b-card-title>
       <b-card-body class="order-list-wrapper" v-if="!editing">
-        <p>Location: {{ order.location }}</p>
-        <p>Email: {{ order.email }}</p>
-        <p>Phone: {{ order.phone }}</p>
-        <p>Address: {{ order.address }},{{ order.city }}, {{ order.state }}</p>
-        <p>Pickup Date: {{ pickDate(order.pickupDate) }}</p>
-        <p>Notes</p>
-        <p>{{ order.notes }}</p>
+        <p>
+          <span> <i class="far fa-envelope"></i> </span> {{ order.email }}
+        </p>
+        <p>
+          <span><i class="fas fa-phone-alt"></i> </span> {{ order.phone }}
+        </p>
+        <p>
+          <span> <i class="fas fa-map-marker-alt"></i> </span> {{ order.address }},{{ order.city }},
+          {{ order.state }}
+        </p>
+        <p>
+          <span> <i class="fas fa-calendar-alt"></i> </span> {{ pickDate(order.pickupDate) }}
+        </p>
+        <p>
+          <span> <i class="fas fa-house-user"></i> </span> Agency
+          <b-select v-model="order.locationId" disabled>
+            <b-select-option
+              :value="location.id"
+              v-for="location in locations"
+              v-bind:key="location.id"
+            >
+              {{ location.name }}
+            </b-select-option>
+          </b-select>
+        </p>
+        <p>
+          <span> <i class="far fa-clipboard"></i> Notes </span>
+          <b-textarea v-model="order.notes" debounce="500" disabled> </b-textarea>
+        </p>
         <b-table striped hover :items="orderItems" :fields="orderFields">
           <template #cell(productName)="row">
             <router-link :to="`/product/${row.item.productId}`"> {{ row.value }} </router-link>
@@ -45,7 +67,7 @@
             <b-form-input id="zip" type="text" v-model="order.zip" required />
           </b-form-group>
           <b-form-group id="form-group-location" label="location" label-for="location">
-            <b-form-select id="location" v-model="order.locationId" required>
+            <b-form-select id="location" v-model="order.locationId" disabled>
               <b-form-select-option
                 :value="location.id"
                 v-for="location in locations"
@@ -73,8 +95,8 @@
           <template #cell(orderCount)="row">
             <b-form-spinbutton v-model="row.item.orderCount"> </b-form-spinbutton>
           </template>
-          <template #cell(actions)>
-            <b-button class="btn btn-danger">
+          <template #cell(actions)="row">
+            <b-button @click="handleClickRemoveOrderItem(row.item)" class="btn btn-danger">
               <span> <i class="fas fa-trash-alt"></i> </span>
             </b-button>
           </template>
@@ -86,7 +108,9 @@
         <b-button variant="primary" @click="handleEditOrder">
           <i class="fas fa-edit"> </i> Edit
         </b-button>
-        <b-button @click="handleRemoveOrder"> <i class="fas fa-trash-alt"> </i> Remove </b-button>
+        <b-button @click="handleClickRemoveOrder">
+          <i class="fas fa-trash-alt"> </i> Remove
+        </b-button>
       </b-container>
       <b-container class="d-flex flex-row justify-content-between pt-2" v-if="editing">
         <b-button @click="handleSaveUpdates" variant="primary">
@@ -107,10 +131,10 @@
           Once you remove the order, it will be removed forever you can not recover it again.!
         </p>
         <template #modal-footer>
-          <b-button @click="handleConfirmRemove" variant="primary" class="btn btn-primary">
+          <b-button @click="handleConfirmRemoveOrder" variant="primary" class="btn btn-primary">
             Yes
           </b-button>
-          <b-button @click="handleCancelRemove" class="btn btn-secondary"> No </b-button>
+          <b-button @click="handleCancelRemoveOrder" class="btn btn-secondary"> No </b-button>
         </template>
       </b-modal>
     </b-row>
@@ -123,7 +147,6 @@ import { mapState } from 'vuex'
 import * as _ from 'lodash'
 export default {
   name: 'OrderDetail',
-
   data() {
     return {
       editing: false,
@@ -202,11 +225,10 @@ export default {
       console.log(this.selectedOrder)
       this.order = { ...this.selectedOrder }
     },
-    handleRemoveOrder() {
-      console.log('handleRemoveOrder')
+    handleClickRemoveOrder() {
       this.showRemoveConfirmModal = true
     },
-    handleConfirmRemove() {
+    handleConfirmRemoveOrder() {
       this.$store
         .dispatch('REMOVE_ORDER', this.order.id)
         .then(() => {
@@ -217,13 +239,59 @@ export default {
           this.showRemoveConfirmModal = false
         })
     },
-
-    handleCancelRemove() {
+    handleCancelRemoveOrder() {
       this.showRemoveConfirmModal = false
     },
+    handleClickRemoveOrderItem(orderItem) {
+      if (this.orderItems.length <= 1) {
+        this.$swal("Can't remove the item")
+        return
+      }
 
+      this.$bvModal
+        .msgBoxConfirm('Please confirm that you want to delete order item.', {
+          title: 'Confirm',
+          size: 'sm',
+          buttonSize: 'sm',
+          okVariant: 'danger',
+          okTitle: 'YES',
+          cancelTitle: 'NO',
+          footerClass: 'p-2',
+          hideHeaderClose: false,
+          centered: true,
+        })
+        .then((confirmed) => {
+          if (confirmed) {
+            console.log('orderItem => ', orderItem)
+            this.$store
+              .dispatch('REMOVE_ORDER_ITEM', orderItem.id)
+              .then(() => {
+                this.$swal('OrderItem has been updated!')
+                this.order.orderItems = _.cloneDeep(this.order.orderItems).filter(
+                  (oitem) => oitem.id !== orderItem.id,
+                )
+                this.editing = false
+              })
+              .catch((err) => {
+                console.log('error =>', err.message)
+              })
+          }
+        })
+        .catch((err) => {
+          console.log(err.message)
+        })
+    },
     handleSaveUpdates() {
       console.log('handleSaveUpdates => ', this.order)
+      this.$store
+        .dispatch('UPDATE_ORDER', { orderId: this.order.id, newOrder: this.order })
+        .then(() => {
+          this.$swal('Order has been updated!')
+          this.editing = false
+        })
+        .catch((e) => {
+          console.log(e.message)
+        })
     },
   },
 

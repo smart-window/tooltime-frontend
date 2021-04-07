@@ -149,11 +149,27 @@ const store = new Vuex.Store({
         throw new Error(e.message)
       }
     },
+    async UPDATE_ORDER({ dispatch }, payload) {
+      try {
+        await api.updateOrder(payload.orderId, payload.newOrder)
+        dispatch('LOAD_ORDERS')
+      } catch (e) {
+        throw new Error(e.message)
+      }
+    },
     async REMOVE_ORDER({ dispatch, commit }, orderId) {
       try {
         await api.removeOrder(orderId)
         dispatch('LOAD_ORDERS')
         commit(Types.SET_SELECTED_ORDER, {})
+      } catch (e) {
+        throw new Error(e.message)
+      }
+    },
+    async REMOVE_ORDER_ITEM({ dispatch }, orderItemId) {
+      try {
+        await api.removeOrderItem(orderItemId)
+        dispatch('LOAD_ORDERS')
       } catch (e) {
         throw new Error(e.message)
       }
