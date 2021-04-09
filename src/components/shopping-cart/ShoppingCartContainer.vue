@@ -72,6 +72,7 @@
                   id="pick-date"
                   v-model="form.pickupDate"
                   required
+                  aria-required="true"
                 ></b-form-datepicker>
               </b-form-group>
               <b-form-group id="form-group-notes" label="Notes" label-for="notes">
@@ -92,6 +93,7 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 import ShoppingCartItem from './ShoppingCartItem'
+import router from '@/router'
 export default {
   name: 'ShoppingCartContainer',
   components: { ShoppingCartItem },
@@ -138,6 +140,7 @@ export default {
         .dispatch('CREATE_ORDER', this.form)
         .then(() => {
           this.$swal('New order has been created!')
+          router.push('/order')
         })
         .catch((e) => {
           this.$swal(e.message)
