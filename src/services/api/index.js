@@ -6,7 +6,7 @@ const successFunc = response => {
 
 const failFunc = err => {
   console.log(err.message)
-  return null
+  throw new Error(err.message)
 }
 
 export const getProducts = async () => {
@@ -75,6 +75,13 @@ export const removeOrder = async orderId => {
 export const removeOrderItem = async orderItemId => {
   return axiosClient
     .delete(`/order-item/${orderItemId}`)
+    .then(successFunc)
+    .catch(failFunc)
+}
+
+export const updateProfile = async (customerId, updates) => {
+  return axiosClient
+    .patch(`/customer/${customerId}`, updates)
     .then(successFunc)
     .catch(failFunc)
 }

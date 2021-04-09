@@ -4,12 +4,12 @@ import * as Types from './types'
 import { paginationPipe } from '../filters/paginationFilter'
 import user from './user'
 import * as api from '../services/api'
-import createPersistedState from 'vuex-persistedstate'
+// import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
-  plugins: [createPersistedState()],
+  // plugins: [createPersistedState()],
   modules: {
     user,
   },
@@ -113,21 +113,38 @@ const store = new Vuex.Store({
 
   actions: {
     async LOAD_PRODUCTS({ commit }) {
-      const products = await api.getProducts()
-      commit(Types.SET_PRODUCTS, products)
+      try {
+        const products = await api.getProducts()
+        commit(Types.SET_PRODUCTS, products)
+      } catch (e) {
+        commit(Types.SET_PRODUCTS, [])
+      }
     },
-
     async LOAD_CATEGORIES({ commit }) {
-      const categories = await api.getCategories()
-      commit(Types.SET_CATEGORIES, categories)
+      try {
+        const categories = await api.getCategories()
+        commit(Types.SET_CATEGORIES, categories)
+      } catch (e) {
+        commit(Types.SET_PRODUCTS, [])
+      }
     },
     async LOAD_LOCATIONS({ commit }) {
-      const locations = await api.getLocations()
-      commit(Types.SET_LOCATIONS, locations)
+      try {
+        const locations = await api.getLocations()
+        commit(Types.SET_LOCATIONS, locations)
+      } catch (e) {
+        const locations = await api.getLocations()
+        commit(Types.SET_LOCATIONS, locations)
+      }
     },
     async LOAD_ORDERS({ commit }) {
-      const orders = await api.getOrders()
-      commit(Types.SET_ORDERS, orders)
+      try {
+        const orders = await api.getOrders()
+        commit(Types.SET_ORDERS, orders)
+      } catch (e) {
+        const orders = await api.getOrders()
+        commit(Types.SET_ORDERS, orders)
+      }
     },
     async LOAD_SELECTED_ORDER({ commit }, orderId) {
       try {
@@ -137,6 +154,7 @@ const store = new Vuex.Store({
         const order = await api.getOrder(orderId)
         commit(Types.SET_SELECTED_ORDER, order)
       } catch (e) {
+        commit(Types.SET_SELECTED_ORDER, {})
         throw new Error(e.message)
       }
     },
@@ -170,6 +188,14 @@ const store = new Vuex.Store({
       try {
         await api.removeOrderItem(orderItemId)
         dispatch('LOAD_ORDERS')
+      } catch (e) {
+        throw new Error(e.message)
+      }
+    },
+    async UPDATE_PROFILE({ dispatch, state }, payload) {
+      try {
+        await api.updateProfile(state.user.id, payload)
+        dispatch('user/LOAD_CURRENT_ACCOUNT')
       } catch (e) {
         throw new Error(e.message)
       }

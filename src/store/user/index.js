@@ -48,17 +48,33 @@ export default {
     LOAD_CURRENT_ACCOUNT({ commit, dispatch }) {
       commit('SET_STATE', { loading: true })
 
-      auth.currentAccount().then(response => {
-        if (response) {
-          commit('SET_STATE', { ...response, authorized: true })
-          dispatch('LOAD_PRODUCTS', {}, { root: true })
-          dispatch('LOAD_CATEGORIES', {}, { root: true })
-          dispatch('LOAD_LOCATIONS', {}, { root: true })
-          dispatch('LOAD_ORDERS', {}, { root: true })
-        }
+      auth
+        .currentAccount()
+        .then(response => {
+          if (response) {
+            commit('SET_STATE', { ...response, authorized: true })
+            dispatch('LOAD_PRODUCTS', {}, { root: true })
+            dispatch('LOAD_CATEGORIES', {}, { root: true })
+            dispatch('LOAD_LOCATIONS', {}, { root: true })
+            dispatch('LOAD_ORDERS', {}, { root: true })
+          }
 
-        commit('SET_STATE', { loading: false })
-      })
+          commit('SET_STATE', { loading: false })
+        })
+        .catch(e => {
+          console.log(e.message)
+          commit('SET_STATE', {
+            id: '',
+            name: '',
+            role: '',
+            email: '',
+            avatar: '',
+            authorized: false,
+            loading: false,
+          })
+
+          router.push('/auth/login')
+        })
     },
 
     LOGOUT({ commit }) {
