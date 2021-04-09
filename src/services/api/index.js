@@ -60,7 +60,7 @@ export const createOrder = async request => {
 
 export const updateOrder = async (orderId, request) => {
   return axiosClient
-    .put(`/order/${orderId}`, request)
+    .patch(`/order/${orderId}`, request)
     .then(successFunc)
     .catch(failFunc)
 }

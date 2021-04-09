@@ -93,7 +93,11 @@
             <router-link :to="`/product/${row.item.productId}`"> {{ row.value }} </router-link>
           </template>
           <template #cell(orderCount)="row">
-            <b-form-spinbutton v-model="row.item.orderCount"> </b-form-spinbutton>
+            <b-form-spinbutton
+              v-model="row.item.orderCount"
+              @change="handleChangeOrderCount(row.item)"
+            >
+            </b-form-spinbutton>
           </template>
           <template #cell(actions)="row">
             <b-button @click="handleClickRemoveOrderItem(row.item)" class="btn btn-danger">
@@ -247,7 +251,6 @@ export default {
         this.$swal("Can't remove the item")
         return
       }
-
       this.$bvModal
         .msgBoxConfirm('Please confirm that you want to delete order item.', {
           title: 'Confirm',
@@ -292,6 +295,10 @@ export default {
         .catch((e) => {
           console.log(e.message)
         })
+    },
+    handleChangeOrderCount(updated) {
+      const updatedId = this.order.orderItems.findIndex((item) => (item.id = updated.id))
+      if (updatedId !== -1) this.order.orderItems[updatedId] = updated
     },
   },
 
