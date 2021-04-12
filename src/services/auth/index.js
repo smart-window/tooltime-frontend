@@ -27,16 +27,12 @@ export async function register(request) {
   return apiClient
     .post('/auth/register', request)
     .then(response => {
-      if (response) {
-        const { accessToken } = response.data
-        if (accessToken) {
-          store.set('accessToken', accessToken)
-        }
-        return response.data
-      }
-      return false
+      return response.data
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+      console.log(err.message)
+      throw new Error(err.message)
+    })
 }
 
 export async function currentAccount() {

@@ -93,21 +93,15 @@ export default {
       })
     },
 
-    REGISTER({ commit, dispatch }, request) {
+    REGISTER({ commit }, request) {
       commit('SET_STATE', { loading: true })
       auth
         .register(request)
-        .then(success => {
-          if (success) {
-            this.$swal('Hello')
-            dispatch('LOAD_CURRENT_ACCOUNT')
-          } else {
-            alert('Register Failed')
-            commit('SET_STATE', { loading: false })
-          }
+        .then(() => {
+          commit('SET_STATE', { loading: false })
         })
         .catch(err => {
-          alert('Register Failed', err.message)
+          throw new Error(err.message)
         })
     },
   },

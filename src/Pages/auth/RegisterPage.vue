@@ -26,7 +26,7 @@
             <b-form-input
               id="name"
               v-model="form.name"
-              type="string"
+              type="text"
               placeholder="Enter name"
               required
             />
@@ -35,7 +35,7 @@
             <b-form-input
               id="address"
               v-model="form.address"
-              type="string"
+              type="text"
               placeholder="Enter address"
               required
             />
@@ -44,7 +44,7 @@
             <b-form-input
               id="city"
               v-model="form.city"
-              type="string"
+              type="text"
               placeholder="Enter city"
               required
             />
@@ -53,19 +53,25 @@
             <b-form-input
               id="state"
               v-model="form.state"
-              type="string"
+              type="text"
               placeholder="Enter state"
               required
             />
           </b-form-group>
           <b-form-group id="form-group-zip" label="zip" label-for="zip">
-            <b-form-input id="zip" v-model="form.zip" type="zip" placeholder="Enter zip" required />
+            <b-form-input
+              id="zip"
+              v-model="form.zip"
+              type="text"
+              placeholder="Enter zip"
+              required
+            />
           </b-form-group>
           <b-form-group id="form-group-phone" label="phone" label-for="phone">
             <b-form-input
               id="phone"
               v-model="form.phone"
-              type="string"
+              type="tel"
               placeholder="Enter phone"
               required
             />
@@ -74,7 +80,7 @@
             <b-form-input
               id="stripeId"
               v-model="form.stripeId"
-              type="string"
+              type="text"
               placeholder="Enter address"
               required
             />
@@ -102,6 +108,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+import router from '@/router'
 export default {
   name: 'RegisterPage',
 
@@ -114,9 +122,20 @@ export default {
   mounted() {},
 
   methods: {
+    ...mapActions({
+      registerUser: 'user/REGISTER',
+    }),
     handleSubmit(e) {
       e.preventDefault()
-      this.$store.dispatch('user/REGISTER', this.form)
+      this.registerUser(this.form)
+        .then(() => {
+          this.$swal(`${this.form.name} has been successfully registered!`)
+          router.push('/auth/login')
+        })
+        .catch((e) => {
+          console.log(e.memssage)
+          this.$swal('Registeration failed!')
+        })
     },
   },
 }
