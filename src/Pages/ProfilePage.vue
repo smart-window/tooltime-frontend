@@ -124,7 +124,6 @@ export default {
       this.$store
         .dispatch('UPDATE_PROFILE', this.form)
         .then(() => {
-          console.log('asdf')
           this.$swal('Profile updated')
           this.editing = false
         })
@@ -132,7 +131,9 @@ export default {
           console.log(e.message)
         })
     },
-    handleEdit() {
+
+    handleEdit(e) {
+      e.preventDefault()
       this.editing = true
     },
     handleCloseEdit() {

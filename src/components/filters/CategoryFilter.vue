@@ -38,10 +38,10 @@ export default {
     ...mapState(['categories']),
   },
   methods: {
-    ...mapMutations([
-      { addCategoryToFilter: Types.ADD_CATEGORY_TO_FILTER },
-      { removeCategoryFromFilter: Types.REMOVE_CATEGORY_FROM_FILTER },
-    ]),
+    ...mapMutations({
+      addCategoryToFilter: Types.ADD_CATEGORY_TO_FILTER,
+      removeCategoryFromFilter: Types.REMOVE_CATEGORY_FROM_FILTER,
+    }),
 
     onChangeSelectBox(e) {
       const categoryId = e.target.value
@@ -49,11 +49,9 @@ export default {
       console.log('categoryId => ', categoryId)
 
       if (value) {
-        this.$store.commit(Types.ADD_CATEGORY_TO_FILTER, categoryId)
-        // this.addCategoryToFilter(categoryId)
+        this.addCategoryToFilter(categoryId)
       } else {
-        this.$store.commit(Types.REMOVE_CATEGORY_FROM_FILTER, categoryId)
-        // this.removeCategoryFromFilter(categoryId)
+        this.removeCategoryFromFilter(categoryId)
       }
     },
   },

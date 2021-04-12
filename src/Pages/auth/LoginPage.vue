@@ -46,9 +46,7 @@
 export default {
   name: 'LoginPage',
 
-  mounted() {
-    console.log('asdf')
-  },
+  mounted() {},
 
   data() {
     return {

@@ -18,11 +18,24 @@
       </dl>
       <hr />
       <b-row>
-        <div class="col-12 col-md-4"><b-spinbutton min="1" v-model="quantity"> </b-spinbutton></div>
-        <div class="col-12 col-md-8">
-          <button @click="onAddProductToCart()" class="btn btn-lg btn-secondary text-uppercase">
+        <div class="col-12 col-md-6"><b-spinbutton min="1" v-model="quantity"> </b-spinbutton></div>
+        <div class="col-12 col-md-6">
+          <button @click="onAddProductToCart()" class="btn btn-secondary text-uppercase">
             <i class="fa fa-shopping-cart"></i> Add to cart
           </button>
+        </div>
+      </b-row>
+      <hr />
+      <b-row v-if="getCartItem != undefined">
+        <div class="col-12 col-md-6">
+          <b-alert show variant="info">
+            <router-link to="/cart"> {{ getCartItem.quantity }} items are in the cart </router-link>
+          </b-alert>
+        </div>
+        <div class="col-12 col-md-6">
+          <b-button variant="danger" @click="handleRemoveFromCart">
+            <i class="fas fa-trash-alt"> </i> Remove
+          </b-button>
         </div>
       </b-row>
     </article>
@@ -30,7 +43,8 @@
 </template>
 
 <script>
-import { ADD_PRODUCT_TO_CART } from '../../store/types'
+import { mapMutations, mapState } from 'vuex'
+import { ADD_PRODUCT_TO_CART, REMOVE_PRODUCT_FROM_CART } from '../../store/types'
 export default {
   name: 'ProductDetail',
   props: {
@@ -41,13 +55,29 @@ export default {
       quantity: 1,
     }
   },
-  mounted() {},
+  computed: {
+    ...mapState(['cart']),
+
+    getCartItem() {
+      console.log('this.cart =>', this.cart)
+      const found = this.cart.find((item) => item.id === this.product.id)
+      return found
+    },
+  },
   methods: {
+    ...mapMutations({
+      addProductToCart: ADD_PRODUCT_TO_CART,
+      removeProductFromCart: REMOVE_PRODUCT_FROM_CART,
+    }),
     onAddProductToCart() {
-      console.log('quantity =>', this.quantity)
-      this.$store.commit(ADD_PRODUCT_TO_CART, { product: this.product, quantity: this.quantity })
+      this.addProductToCart({ product: this.product, quantity: this.quantity })
       this.$swal(`${this.product.name} was successfully added to cart!`)
       this.quantity = 1
+    },
+
+    handleRemoveFromCart() {
+      this.removeProductFromCart(this.product.id)
+      this.$swal(`${this.product.name} has been removed  from cart!`)
     },
   },
 }
