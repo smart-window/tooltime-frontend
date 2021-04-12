@@ -17,9 +17,14 @@
         <dd>{{ product.size }}</dd>
       </dl>
       <hr />
-      <button @click="onAddProductToCart()" class="btn btn-lg btn-secondary text-uppercase">
-        <i class="fa fa-shopping-cart"></i> Add to cart
-      </button>
+      <b-row>
+        <div class="col-12 col-md-4"><b-spinbutton min="1" v-model="quantity"> </b-spinbutton></div>
+        <div class="col-12 col-md-8">
+          <button @click="onAddProductToCart()" class="btn btn-lg btn-secondary text-uppercase">
+            <i class="fa fa-shopping-cart"></i> Add to cart
+          </button>
+        </div>
+      </b-row>
     </article>
   </aside>
 </template>
@@ -31,10 +36,18 @@ export default {
   props: {
     product: Object,
   },
+  data() {
+    return {
+      quantity: 1,
+    }
+  },
   mounted() {},
   methods: {
     onAddProductToCart() {
-      this.$store.commit(ADD_PRODUCT_TO_CART, this.product)
+      console.log('quantity =>', this.quantity)
+      this.$store.commit(ADD_PRODUCT_TO_CART, { product: this.product, quantity: this.quantity })
+      this.$swal(`${this.product.name} was successfully added to cart!`)
+      this.quantity = 1
     },
   },
 }

@@ -27,26 +27,22 @@ const store = new Vuex.Store({
     pagesToShow: 3,
   },
   mutations: {
-    [Types.ADD_PRODUCT_TO_CART](state, product) {
+    [Types.ADD_PRODUCT_TO_CART](state, { product, quantity }) {
       console.log('Types.ADD_PRODUCT_TO_CART =>', product)
       const cartItemIndex = state.cart.findIndex(item => item.id === product.id)
 
       if (cartItemIndex < 0) {
-        state.cart.push({ ...product, quantity: 1 })
+        state.cart.push({ ...product, quantity })
       } else {
-        if (state.cart[cartItemIndex].quantity === 10) return void 0
-        state.cart[cartItemIndex].quantity++
+        state.cart[cartItemIndex].quantity += quantity
       }
     },
     [Types.REMOVE_PRODUCT_FROM_CART](state, id) {
       const cartItemIndex = state.cart.findIndex(item => item.id === id)
-
-      state.cart.splice(cartItemIndex, 1)
+      if (cartItemIndex > -1) state.cart.splice(cartItemIndex, 1)
     },
     [Types.INCREMENT_CART_ITEM_QUANTITY](state, id) {
       const cartItemIndex = state.cart.findIndex(item => item.id === id)
-      window.console.log(state.cart[cartItemIndex])
-      if (state.cart[cartItemIndex].quantity === 10) return void 0
       state.cart[cartItemIndex].quantity++
     },
     [Types.DECREMENT_CART_ITEM_QUANTITY](state, id) {
