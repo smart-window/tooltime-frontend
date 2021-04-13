@@ -33,10 +33,6 @@ export default {
     }
   },
 
-  mounted() {
-    console.log('product => ', this.product)
-  },
-
   computed: {
     currentImage() {
       const images = this.product.images.split(',')

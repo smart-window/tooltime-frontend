@@ -15,6 +15,7 @@ export const PREV_PAGE = 'PREV_PAGE'
 export const NEXT_PAGE = 'NEXT_PAGE'
 export const GO_PAGE = 'GO_PAGE'
 export const COUNT_ITEM = 'COUNT_ITEM'
+export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 
 export const SET_PRODUCTS = 'SET_PRODUCTS'
 export const SET_CATEGORIES = 'SET_CATEGORIES'

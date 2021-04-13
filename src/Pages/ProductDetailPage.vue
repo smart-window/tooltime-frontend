@@ -20,7 +20,6 @@ export default {
 
   async mounted() {
     this.product = await api.getProduct(this.productId)
-    console.log('product => ', this.product)
   },
 
   computed: {

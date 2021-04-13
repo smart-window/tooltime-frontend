@@ -59,7 +59,6 @@ export default {
     ...mapState(['cart']),
 
     getCartItem() {
-      console.log('this.cart =>', this.cart)
       const found = this.cart.find((item) => item.id === this.product.id)
       return found
     },

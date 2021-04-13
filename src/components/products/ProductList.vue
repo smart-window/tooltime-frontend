@@ -15,7 +15,7 @@
       </div>
     </b-row>
     <div class="row">
-      <div v-for="product in filterProducts" :key="product.id" class="col-md-6 col-lg-4 mb-4">
+      <div v-for="product in pageProducts" :key="product.id" class="col-md-6 col-lg-4 mb-4">
         <Product :product="product"></Product>
       </div>
     </div>
@@ -37,6 +37,13 @@ export default {
   computed: {
     ...mapState(['currentPage', 'perPage']),
     ...mapGetters(['filterProducts']),
+
+    pageProducts() {
+      return this.filterProducts.slice(
+        (this.currentPage - 1) * this.perPage,
+        Math.min(this.currentPage * this.perPage, this.filterProducts.length),
+      )
+    },
   },
   methods: {},
 }

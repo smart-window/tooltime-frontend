@@ -97,7 +97,6 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  console.log(to.matched)
   if (to.matched.some(record => record.meta.authRequired)) {
     if (!store.state.user.authorized) {
       next({

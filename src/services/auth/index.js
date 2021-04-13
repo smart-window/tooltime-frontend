@@ -19,7 +19,7 @@ export async function login(email, password) {
     })
     .catch(err => {
       alert('Incorrect credentials')
-      console.log(err.message)
+      throw new Error(err.message)
     })
 }
 
@@ -30,7 +30,6 @@ export async function register(request) {
       return response.data
     })
     .catch(err => {
-      console.log(err.message)
       throw new Error(err.message)
     })
 }
@@ -48,7 +47,9 @@ export async function currentAccount() {
       }
       return false
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+      throw new Error(err.message)
+    })
 }
 
 export async function logout() {
@@ -58,5 +59,7 @@ export async function logout() {
       store.remove('accessToken')
       return true
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+      throw new Error(err.message)
+    })
 }

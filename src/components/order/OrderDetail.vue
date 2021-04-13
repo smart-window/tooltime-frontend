@@ -108,7 +108,7 @@
       </b-card-body>
     </b-card>
     <b-row v-if="order.id !== undefined">
-      <b-container class="d-flex flex-row justify-content-between pt-2" v-if="!editing">
+      <b-container class="d-flex flex-row justify-content-between pt-2 pb-2" v-if="!editing">
         <b-button variant="primary" @click="handleEditOrder">
           <i class="fas fa-edit"> </i> Edit
         </b-button>
@@ -116,7 +116,7 @@
           <i class="fas fa-trash-alt"> </i> Remove
         </b-button>
       </b-container>
-      <b-container class="d-flex flex-row justify-content-between pt-2" v-if="editing">
+      <b-container class="d-flex flex-row justify-content-between pt-2 pb-2" v-if="editing">
         <b-button @click="handleSaveUpdates" variant="primary">
           <i class="fas fa-save"> </i> Save
         </b-button>
@@ -172,16 +172,19 @@ export default {
     },
 
     orderItems() {
-      return (this.order.orderItems || []).map((order) => {
-        const product = this.products.find((product) => product.id === order.productId)
-        return {
-          id: order.id,
-          productId: product.id,
-          productName: product.name,
-          images: product.images.split(','),
-          orderCount: order.orderCount,
-        }
-      })
+      return (this.order.orderItems || [])
+        .map((order) => {
+          const product = this.products.find((product) => product.id === order.productId)
+          if (product === undefined) return null
+          return {
+            id: order.id,
+            productId: product.id,
+            productName: product.name,
+            images: product.images.split(','),
+            orderCount: order.orderCount,
+          }
+        })
+        .filter((orderItem) => orderItem !== null)
     },
 
     orderFields() {
@@ -225,8 +228,6 @@ export default {
       this.editing = false
     },
     handleSetDefault() {
-      console.log('handleSetDefault')
-      console.log(this.selectedOrder)
       this.order = { ...this.selectedOrder }
     },
     handleClickRemoveOrder() {
@@ -239,7 +240,6 @@ export default {
           this.showRemoveConfirmModal = false
         })
         .catch((e) => {
-          console.log(e.message)
           this.showRemoveConfirmModal = false
         })
     },
@@ -265,7 +265,6 @@ export default {
         })
         .then((confirmed) => {
           if (confirmed) {
-            console.log('orderItem => ', orderItem)
             this.$store
               .dispatch('REMOVE_ORDER_ITEM', orderItem.id)
               .then(() => {
@@ -275,9 +274,7 @@ export default {
                 )
                 this.editing = false
               })
-              .catch((err) => {
-                console.log('error =>', err.message)
-              })
+              .catch((err) => {})
           }
         })
         .catch((err) => {
@@ -285,7 +282,6 @@ export default {
         })
     },
     handleSaveUpdates() {
-      console.log('handleSaveUpdates => ', this.order)
       this.$store
         .dispatch('UPDATE_ORDER', { orderId: this.order.id, newOrder: this.order })
         .then(() => {

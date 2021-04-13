@@ -62,13 +62,16 @@ export default {
           commit('SET_STATE', { loading: false })
         })
         .catch(e => {
-          console.log(e.message)
           commit('SET_STATE', {
             id: '',
             name: '',
             role: '',
             email: '',
-            avatar: '',
+            address: '',
+            city: '',
+            state: '',
+            phone: '',
+            stripeId: '',
             authorized: false,
             loading: false,
           })
@@ -84,7 +87,11 @@ export default {
           name: '',
           role: '',
           email: '',
-          avatar: '',
+          address: '',
+          city: '',
+          state: '',
+          phone: '',
+          stripeId: '',
           authorized: false,
           loading: false,
         })

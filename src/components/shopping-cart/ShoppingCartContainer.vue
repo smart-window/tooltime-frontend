@@ -80,7 +80,9 @@
               </b-form-group>
               <b-form-row class="d-flex justify-content-between">
                 <b-button type="submit" class="btn btn-primary"> OK </b-button>
-                <b-button class="btn btn-secondary"> Cancel </b-button>
+                <b-button @click="handleCancelReservation" class="btn btn-secondary">
+                  Cancel
+                </b-button>
               </b-form-row>
             </b-form>
           </b-card-body>
@@ -126,6 +128,11 @@ export default {
       this.showReservePanel = true
     },
 
+    handleCancelReservation(e) {
+      e.preventDefault()
+      this.showReservePanel = false
+    },
+
     async handleSumbitOrder(e) {
       e.preventDefault()
       this.form.orderItems = this.cart.map((product) => {
@@ -134,7 +141,6 @@ export default {
           orderCount: product.quantity,
         }
       })
-      console.log('submit order =>', this.form)
       this.form.customerId = this.user.id
       this.$store
         .dispatch('CREATE_ORDER', this.form)

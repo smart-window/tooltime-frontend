@@ -29,6 +29,7 @@ const store = new Vuex.Store({
   mutations: {
     [Types.ADD_PRODUCT_TO_CART](state, { product, quantity }) {
       console.log('Types.ADD_PRODUCT_TO_CART =>', product)
+      if (product === undefined || product === null) return
       const cartItemIndex = state.cart.findIndex(item => item.id === product.id)
 
       if (cartItemIndex < 0) {
@@ -49,6 +50,9 @@ const store = new Vuex.Store({
       const cartItemIndex = state.cart.findIndex(item => item.id === id)
       if (state.cart[cartItemIndex].quantity === 1) return void 0
       state.cart[cartItemIndex].quantity--
+    },
+    [Types.SET_CURRENT_PAGE](state, page) {
+      state.currentPage = page
     },
     [Types.PREV_PAGE](state) {
       state.currentPage--
@@ -210,9 +214,6 @@ const store = new Vuex.Store({
         perPage: state.perPage,
         currentPage: state.currentPage,
       })
-    },
-    totalItemCountAfterFilter(state, getters) {
-      return getters.filterProducts.length
     },
     brandsCount(state) {
       const counts = {}
