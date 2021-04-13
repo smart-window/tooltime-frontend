@@ -23,13 +23,17 @@ export default {
   },
   data() {
     return {
-      currentImage: this.$props.images[0],
+      curImageNo: 0,
     }
   },
-
+  computed: {
+    currentImage() {
+      return this.images[this.curImageNo]
+    },
+  },
   methods: {
     changeImage(n) {
-      this.currentImage = this.$props.images[n]
+      this.curImageNo = n
     },
   },
 }
