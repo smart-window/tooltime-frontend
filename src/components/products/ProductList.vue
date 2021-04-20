@@ -31,6 +31,7 @@ export default {
   data() {
     return {
       gridValue: 3,
+      sortType: 'newest',
     }
   },
 

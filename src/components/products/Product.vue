@@ -7,10 +7,17 @@
       <p class="product__name">
         {{ product.name }}
       </p>
-
-      <button @click="onViewProductDetail(product.id)" class="btn btn-primary w-full">
-        Detail
-      </button>
+      <b-row>
+        <div class="col-12">
+          <b-button
+            variant="primary"
+            @click="onViewProductDetail(product.id)"
+            class="btn btn-primary product__detail"
+          >
+            VIEW PRODUCT
+          </b-button>
+        </div>
+      </b-row>
     </b-card-body>
   </b-card>
 </template>
@@ -79,16 +86,12 @@ export default {
     }
   }
 
-  &__link {
-    flex: 0 0 60%;
-    height: 60%;
-    padding: 1rem;
-    position: relative;
-    cursor: pointer;
-  }
-
   &:hover {
     box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+  }
+
+  &__detail {
+    width: 100%;
   }
 }
 
