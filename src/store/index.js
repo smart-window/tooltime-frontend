@@ -125,7 +125,7 @@ const store = new Vuex.Store({
         const categories = await api.getCategories()
         commit(Types.SET_CATEGORIES, categories)
       } catch (e) {
-        commit(Types.SET_PRODUCTS, [])
+        commit(Types.SET_CATEGORIES, [])
       }
     },
     async LOAD_LOCATIONS({ commit }) {
