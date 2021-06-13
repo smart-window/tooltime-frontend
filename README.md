@@ -1,15 +1,19 @@
 # Tooltime-consumer
 
-## Project setup
+## Quick start
+- How to run
 ```
 yarn install
-```
-
-### Compiles and hot-reloads for development
-```
 yarn run serve
 ```
+- Test credentials
+  ```
+  email: user1@gmail.com
+  password: user
 
+  email: user2@gmail.com
+  password: user
+  ```
 ### Compiles and minifies for production
 ```
 yarn run build
