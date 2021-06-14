@@ -241,6 +241,7 @@ export default {
         })
         .catch((e) => {
           this.showRemoveConfirmModal = false
+          console.log(e)
         })
     },
     handleCancelRemoveOrder() {
@@ -274,7 +275,9 @@ export default {
                 )
                 this.editing = false
               })
-              .catch((err) => {})
+              .catch((err) => {
+                console.log(err)
+              })
           }
         })
         .catch((err) => {

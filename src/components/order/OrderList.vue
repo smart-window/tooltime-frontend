@@ -37,7 +37,7 @@ export default {
 
   methods: {
     getOrderItemsCount(order) {
-      return order.orderItems.reduce(
+      return order.OrderItems.reduce(
         (totalItems, orderItem) => totalItems + orderItem.orderCount,
         0,
       )
