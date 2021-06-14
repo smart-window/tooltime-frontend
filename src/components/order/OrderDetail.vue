@@ -172,7 +172,7 @@ export default {
     },
 
     orderItems() {
-      return (this.order.orderItems || [])
+      return (this.order.OrderItems || [])
         .map((order) => {
           const product = this.products.find((product) => product.id === order.productId)
           if (product === undefined) return null
@@ -270,7 +270,7 @@ export default {
               .dispatch('REMOVE_ORDER_ITEM', orderItem.id)
               .then(() => {
                 this.$swal('OrderItem has been updated!')
-                this.order.orderItems = _.cloneDeep(this.order.orderItems).filter(
+                this.order.OrderItems = _.cloneDeep(this.order.OrderItems).filter(
                   (oitem) => oitem.id !== orderItem.id,
                 )
                 this.editing = false
@@ -296,8 +296,10 @@ export default {
         })
     },
     handleChangeOrderCount(updated) {
-      const updatedId = this.order.orderItems.findIndex((item) => (item.id = updated.id))
-      if (updatedId !== -1) this.order.orderItems[updatedId] = updated
+      const updatedId = this.order.OrderItems.findIndex((item) => {
+        return item.id === updated.id
+      })
+      if (updatedId !== -1) this.order.OrderItems[updatedId] = updated
     },
   },
 
