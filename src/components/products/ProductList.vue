@@ -7,7 +7,7 @@
             <div class="col-4">
               <b-form-select v-model="sortType">
                 <b-form-select-option value="newest"> Newest </b-form-select-option>
-                <b-form-select-option value="price"> Price </b-form-select-option>
+                <!-- <b-form-select-option value="price"> Price </b-form-select-option> -->
               </b-form-select>
             </div>
           </b-card-header>

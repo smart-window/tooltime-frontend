@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-lg-3">
           <CategoryFilter></CategoryFilter>
-          <PriceFilter></PriceFilter>
+          <!-- <PriceFilter></PriceFilter> -->
         </div>
         <div class="col-lg-9">
           <ProductList></ProductList>
@@ -19,12 +19,17 @@
 
 <script>
 import CategoryFilter from '../components/filters/CategoryFilter'
-import PriceFilter from '../components/filters/PriceFilter'
+// import PriceFilter from '../components/filters/PriceFilter'
 import ProductList from '../components/products/ProductList'
 import Pagination from '../components/pagination/Pagination'
 export default {
   name: 'Home',
-  components: { Pagination, ProductList, PriceFilter, CategoryFilter },
+  components: {
+    Pagination,
+    ProductList,
+    // PriceFilter,
+    CategoryFilter,
+  },
   data() {
     return {}
   },
