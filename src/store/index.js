@@ -27,13 +27,13 @@ const store = new Vuex.Store({
     pagesToShow: 3,
   },
   mutations: {
-    [Types.ADD_PRODUCT_TO_CART](state, { product, quantity }) {
+    [Types.ADD_PRODUCT_TO_CART](state, { product, quantity, startDate, endDate }) {
       console.log('Types.ADD_PRODUCT_TO_CART =>', product)
       if (product === undefined || product === null) return
       const cartItemIndex = state.cart.findIndex(item => item.id === product.id)
 
       if (cartItemIndex < 0) {
-        state.cart.push({ ...product, quantity })
+        state.cart.push({ ...product, quantity, startDate, endDate })
       } else {
         state.cart[cartItemIndex].quantity += quantity
       }
