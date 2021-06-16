@@ -139,6 +139,8 @@ export default {
         return {
           productId: product.id,
           orderCount: product.quantity,
+          startDate: product.startDate,
+          endDate: product.endDate,
         }
       })
       this.form.customerId = this.user.id

@@ -17,18 +17,16 @@ import { sampleImages } from '@/data'
 export default {
   name: 'ProductDetailPage',
   components: { ProductSlider, ProductDetail },
+  props: ['productId'],
 
   async mounted() {
+    console.log(this.productId)
     this.product = await api.getProduct(this.productId)
   },
 
   computed: {
     productImages() {
       return this.product.images !== undefined ? this.product.images.split(',') : sampleImages
-    },
-
-    productId() {
-      return this.$route.params.id
     },
   },
 

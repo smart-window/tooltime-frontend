@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     onViewProductDetail(productId) {
-      router.push(`/product/${productId}`)
+      router.push({ name: `product`, params: { productId: productId } })
     },
   },
 }

@@ -13,6 +13,33 @@
         <dd class="text-capitalize">{{ product.brand }}</dd>
       </dl>
       <dl class="param param-feature">
+        <dt>Reservation Date</dt>
+        <b-row>
+          <div class="col-12 col-md-4 text-center" style="padding-top: 5px">Start Date</div>
+          <div class="col-12 col-md-8">
+            <b-form-group id="form-group-pick-date">
+              <b-form-datepicker
+                v-model="startDate"
+                required
+                aria-required="true"
+              ></b-form-datepicker>
+            </b-form-group>
+          </div>
+        </b-row>
+        <b-row>
+          <div class="col-12 col-md-4 text-center" style="padding-top: 5px">End Date</div>
+          <div class="col-12 col-md-8">
+            <b-form-group id="form-group-pick-date">
+              <b-form-datepicker
+                v-model="endDate"
+                required
+                aria-required="true"
+              ></b-form-datepicker>
+            </b-form-group>
+          </div>
+        </b-row>
+      </dl>
+      <dl class="param param-feature">
         <dt>Size</dt>
         <dd>{{ product.size }}</dd>
       </dl>
@@ -45,6 +72,7 @@
 <script>
 import { mapMutations, mapState } from 'vuex'
 import { ADD_PRODUCT_TO_CART, REMOVE_PRODUCT_FROM_CART } from '../../store/types'
+import moment from 'moment'
 export default {
   name: 'ProductDetail',
   props: {
@@ -53,6 +81,8 @@ export default {
   data() {
     return {
       quantity: 1,
+      startDate: new Date(),
+      endDate: new Date(),
     }
   },
   computed: {
@@ -69,7 +99,12 @@ export default {
       removeProductFromCart: REMOVE_PRODUCT_FROM_CART,
     }),
     onAddProductToCart() {
-      this.addProductToCart({ product: this.product, quantity: this.quantity })
+      this.addProductToCart({
+        product: this.product,
+        startDate: moment(this.startDate).format('YYYY-MM-DD'),
+        endDate: moment(this.endDate).format('YYYY-MM-DD'),
+        quantity: this.quantity,
+      })
       this.$swal(`${this.product.name} was successfully added to cart!`)
       this.quantity = 1
     },

@@ -36,8 +36,10 @@ const router = new Router({
           component: Home,
         },
         {
-          path: '/product/:id',
+          path: '/product',
+          name: 'product',
           component: ProductDetailPage,
+          props: true
         },
         {
           path: '/cart',

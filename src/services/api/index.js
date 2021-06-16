@@ -5,8 +5,11 @@ const successFunc = response => {
 }
 
 const failFunc = err => {
-  console.log(err.message)
-  throw new Error(err.message)
+  if (err.message == "Network Error") {
+    alert("Server is down")
+  } else {
+    throw new Error(err.message)
+  }
 }
 
 export const getProducts = async () => {

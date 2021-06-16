@@ -1,6 +1,14 @@
 import apiClient from '@/services/axios'
 import store from 'store'
 
+const failFunc = err => {
+  if (err.message == "Network Error") {
+    alert("Server is down")
+  } else {
+    throw new Error(err.message)
+  }
+}
+
 export async function login(email, password) {
   return apiClient
     .post('/auth/login', {
@@ -18,8 +26,11 @@ export async function login(email, password) {
       return false
     })
     .catch(err => {
-      alert('Incorrect credentials')
-      throw new Error(err.message)
+      if (err.message == "Network Error") {
+        failFunc(err)
+      } else {
+        alert('Incorrect credentials')
+      }
     })
 }
 
@@ -29,9 +40,7 @@ export async function register(request) {
     .then(response => {
       return response.data
     })
-    .catch(err => {
-      throw new Error(err.message)
-    })
+    .catch(failFunc)
 }
 
 export async function currentAccount() {
@@ -47,9 +56,7 @@ export async function currentAccount() {
       }
       return false
     })
-    .catch(err => {
-      throw new Error(err.message)
-    })
+    .catch(failFunc)
 }
 
 export async function logout() {
@@ -59,7 +66,5 @@ export async function logout() {
       store.remove('accessToken')
       return true
     })
-    .catch(err => {
-      throw new Error(err.message)
-    })
+    .catch(failFunc)
 }
