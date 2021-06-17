@@ -4,6 +4,41 @@
       <h3 class="text-primary">Categories</h3>
     </b-card-header>
     <b-card-body>
+      <!-- <b-menu
+        style="width: 256px"
+        :default-selected-keys="['1']"
+        mode="inline"
+      > -->
+        <!-- <b-sub-menu key="sub1">
+          <span slot="title"><b-icon type="mail" /><span>Navigation One</span></span>
+          <b-menu-item-group key="g1">
+            <template slot="title"> <b-icon type="qq" /><span>Item 1</span> </template>
+            <b-menu-item key="1"> Option 1 </b-menu-item>
+            <b-menu-item key="2"> Option 2 </b-menu-item>
+          </b-menu-item-group>
+          <b-menu-item-group key="g2" title="Item 2">
+            <b-menu-item key="3"> Option 3 </b-menu-item>
+            <b-menu-item key="4"> Option 4 </b-menu-item>
+          </b-menu-item-group>
+        </b-sub-menu>
+        <b-sub-menu key="sub2">
+          <span slot="title"><b-icon type="appstore" /><span>Navigation Two</span></span>
+          <b-menu-item key="5"> Option 5 </b-menu-item>
+          <b-menu-item key="6"> Option 6 </b-menu-item>
+          <b-sub-menu key="sub3" title="Submenu">
+            <b-menu-item key="7"> Option 7 </b-menu-item>
+            <b-menu-item key="8"> Option 8 </b-menu-item>
+          </b-sub-menu>
+        </b-sub-menu>
+        <b-sub-menu key="sub4">
+          <span slot="title"><b-icon type="setting" /><span>Navigation Three</span></span>
+          <b-menu-item key="9"> Option 9 </b-menu-item>
+          <b-menu-item key="10"> Option 10 </b-menu-item>
+          <b-menu-item key="11"> Option 11 </b-menu-item>
+          <b-menu-item key="12"> Option 12 </b-menu-item>
+        </b-sub-menu>
+      </b-menu> -->
+
       <ul class="list-group flex-row flex-wrap">
         <li class="list-group-item flex-50" v-for="category in categories" :key="category.id">
           <label class="custom-checkbox text-capitalize">

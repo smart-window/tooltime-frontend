@@ -40,7 +40,7 @@
               required
             />
           </b-form-group>
-          <b-form-group id="form-group-city" label="city" label-for="city">
+          <b-form-group id="form-group-city" label="City" label-for="city">
             <b-form-input
               id="city"
               v-model="form.city"
@@ -49,7 +49,7 @@
               required
             />
           </b-form-group>
-          <b-form-group id="form-group-state" label="state" label-for="state">
+          <b-form-group id="form-group-state" label="State" label-for="state">
             <b-form-input
               id="state"
               v-model="form.state"
@@ -58,7 +58,7 @@
               required
             />
           </b-form-group>
-          <b-form-group id="form-group-zip" label="zip" label-for="zip">
+          <b-form-group id="form-group-zip" label="Zip" label-for="zip">
             <b-form-input
               id="zip"
               v-model="form.zip"
@@ -67,7 +67,7 @@
               required
             />
           </b-form-group>
-          <b-form-group id="form-group-phone" label="phone" label-for="phone">
+          <b-form-group id="form-group-phone" label="Phone" label-for="phone">
             <b-form-input
               id="phone"
               v-model="form.phone"
@@ -76,7 +76,7 @@
               required
             />
           </b-form-group>
-          <b-form-group id="form-group-stripe" label="StripId" label-for="stripeId">
+          <!-- <b-form-group id="form-group-stripe" label="StripId" label-for="stripeId">
             <b-form-input
               id="stripeId"
               v-model="form.stripeId"
@@ -84,7 +84,7 @@
               placeholder="Enter address"
               required
             />
-          </b-form-group>
+          </b-form-group> -->
           <b-form-row>
             <b-container class="d-flex flex-row justify-content-between">
               <b-button type="submit" variant="primary"> Submit </b-button>
@@ -92,9 +92,9 @@
             </b-container>
           </b-form-row>
         </b-form>
-        <b-card class="mt-3" header="Form Data Result">
+        <!-- <b-card class="mt-3" header="Form Data Result">
           <pre class="m-0">{{ form }}</pre>
-        </b-card>
+        </b-card> -->
       </b-card-body>
     </b-card>
 
