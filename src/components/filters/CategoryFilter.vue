@@ -31,7 +31,7 @@
                   :name="section.name"
                   :value="section.id"
                   class="custom-checkbox__input"
-                  @input="onChangeSelectBox($event)"
+                  @input="onChangeSection($event)"
                 />
                 <span class="custom-checkbox__span"></span>
               </label>
@@ -73,6 +73,9 @@ export default {
       } else {
         this.removeCategoryFromFilter(categoryId)
       }
+    },
+    onChangeSection(sectionId) {
+      console.log(sectionId)
     },
   },
 }
