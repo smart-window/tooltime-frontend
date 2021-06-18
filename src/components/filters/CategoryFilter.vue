@@ -49,7 +49,6 @@ import * as Types from '../../store/types'
 export default {
   name: 'CategoryFilter',
   data() {
-    window.console.log(this.$store.getters.brandsCount, this.$store.brands)
     return {
       brandsCount: this.$store.getters.brandsCount,
     }
@@ -61,12 +60,13 @@ export default {
     ...mapMutations({
       addCategoryToFilter: Types.ADD_CATEGORY_TO_FILTER,
       removeCategoryFromFilter: Types.REMOVE_CATEGORY_FROM_FILTER,
+      addSectionToFilter: Types.ADD_SECTION_TO_FILTER,
+      removeSectionFromFilter: Types.REMOVE_SECTION_FROM_FILTER,
     }),
 
     onChangeSelectBox(e) {
       const categoryId = e.target.value
       const value = e.target.checked
-      console.log('categoryId => ', categoryId)
 
       if (value) {
         this.addCategoryToFilter(categoryId)
@@ -74,8 +74,15 @@ export default {
         this.removeCategoryFromFilter(categoryId)
       }
     },
-    onChangeSection(sectionId) {
-      console.log(sectionId)
+    onChangeSection(e) {
+      const sectionId = e.target.value
+      const value = e.target.checked
+
+      if (value) {
+        this.addSectionToFilter(sectionId)
+      } else {
+        this.removeSectionFromFilter(sectionId)
+      }
     },
   },
 }

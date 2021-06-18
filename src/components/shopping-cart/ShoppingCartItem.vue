@@ -72,7 +72,6 @@ export default {
   },
   methods: {
     onIncrementCartItem() {
-      window.console.log(INCREMENT_CART_ITEM_QUANTITY)
       this.$store.commit(INCREMENT_CART_ITEM_QUANTITY, this.product.id)
     },
     onDecrementCartItem() {

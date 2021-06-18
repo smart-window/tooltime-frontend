@@ -46,7 +46,6 @@ export default {
   },
   methods: {
     handleSignOut() {
-      console.log('handleSignOut called!')
       this.$store.dispatch('user/LOGOUT')
     },
   },

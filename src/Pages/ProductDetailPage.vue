@@ -20,7 +20,6 @@ export default {
   props: ['productId'],
 
   async mounted() {
-    console.log(this.productId)
     this.product = await api.getProduct(this.productId)
   },
 

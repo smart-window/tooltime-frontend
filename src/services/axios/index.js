@@ -18,13 +18,4 @@ apiClient.interceptors.request.use(request => {
   return request
 })
 
-// apiClient.interceptors.response.use(undefined, error => {
-//   // Errors handling
-//   const { response } = error
-//   const { data } = response
-//   if (data) {
-//     console.log(data)
-//   }
-// })
-
 export default apiClient

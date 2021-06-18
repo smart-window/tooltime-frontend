@@ -37,6 +37,10 @@ export default {
     }
   },
 
+  mounted() {
+    this.searchProducts = this.filterProducts
+  },
+
   computed: {
     ...mapState(['currentPage', 'perPage']),
     ...mapGetters(['filterProducts']),

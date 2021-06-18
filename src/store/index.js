@@ -21,6 +21,7 @@ const store = new Vuex.Store({
     orders: [],
     selectedOrder: {},
     categoryFilter: [],
+    sectionFilter: [],
     orderBy: '',
     perPage: 12,
     currentPage: 1,
@@ -28,7 +29,6 @@ const store = new Vuex.Store({
   },
   mutations: {
     [Types.ADD_PRODUCT_TO_CART](state, { product, quantity, startDate, endDate }) {
-      console.log('Types.ADD_PRODUCT_TO_CART =>', product)
       if (product === undefined || product === null) return
       const cartItemIndex = state.cart.findIndex(item => item.id === product.id)
 
@@ -73,16 +73,29 @@ const store = new Vuex.Store({
       state.orderBy = ''
     },
     [Types.ADD_CATEGORY_TO_FILTER](state, categoryId) {
-      console.log('type of state.categoryFilter', typeof state.categoryFilter)
       const filters = state.categoryFilter
       if (filters.includes(categoryId)) return void 0
 
       filters.push(categoryId)
       state.categoryFilter = filters
+
     },
     [Types.REMOVE_CATEGORY_FROM_FILTER](state, categoryId) {
       const filters = state.categoryFilter
       state.categoryFilter = filters.filter(filterId => filterId !== categoryId)
+    },
+    [Types.ADD_SECTION_TO_FILTER](state, sectionId) {
+      console.log(state)
+      console.log(sectionId)
+      const filters = state.sectionFilter
+      if (filters.includes(sectionId)) return void 0
+
+      filters.push(sectionId)
+      state.sectionFilter = filters
+    },
+    [Types.REMOVE_SECTION_FROM_FILTER](state, sectionId) {
+      const filters = state.sectionFilter
+      state.sectionFilter = filters.filter(filterId => filterId !== sectionId)
     },
     [Types.CLEAR_BRAND_FILTER](state) {
       state.categoryFilter = []
@@ -94,19 +107,15 @@ const store = new Vuex.Store({
       state.products = products
     },
     [Types.SET_CATEGORIES](state, categories) {
-      console.log('[Types.SET_CATEGORIES] => ', categories)
       state.categories = categories
     },
     [Types.SET_LOCATIONS](state, locations) {
-      console.log('[Types.SET_CATEGORIES] => ', locations)
       state.locations = locations
     },
     [Types.SET_ORDERS](state, orders) {
-      console.log('[Types.SET_ORDERS] => ', orders)
       state.orders = orders
     },
     [Types.SET_SELECTED_ORDER](state, order) {
-      console.log('[Types.SET_SELECTED_ORDER] => ', order)
       state.selectedOrder = order
     },
   },
@@ -203,10 +212,19 @@ const store = new Vuex.Store({
   },
   getters: {
     filterProducts(state) {
-      const filters = state.categoryFilter
-      if (filters === undefined || filters.length === 0) return state.products
-      const filteredProducts = state.products.filter(p => filters.includes(p.categoryId))
-      return filteredProducts
+      console.log(state)
+      const categoryFilter = state.categoryFilter
+      const sectionFilter = state.sectionFilter
+      if ((categoryFilter === undefined || categoryFilter.length === 0) && (sectionFilter === undefined || sectionFilter.length === 0)) {
+        return state.products
+      } else {
+        const filteredProducts = state.products.filter(p => {
+          if (categoryFilter.includes(p.categoryId) || sectionFilter.includes(p.sectionId)) {
+            return p
+          }
+        })
+        return filteredProducts
+      }
     },
 
     paginate(state, getters) {
