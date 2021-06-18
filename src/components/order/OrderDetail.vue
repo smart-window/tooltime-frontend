@@ -239,9 +239,8 @@ export default {
         .then(() => {
           this.showRemoveConfirmModal = false
         })
-        .catch((e) => {
+        .catch(() => {
           this.showRemoveConfirmModal = false
-          console.log(e)
         })
     },
     handleCancelRemoveOrder() {
@@ -275,14 +274,10 @@ export default {
                 )
                 this.editing = false
               })
-              .catch((err) => {
-                console.log(err)
-              })
+              .catch(() => {})
           }
         })
-        .catch((err) => {
-          console.log(err.message)
-        })
+        .catch(() => {})
     },
     handleSaveUpdates() {
       this.$store
@@ -291,9 +286,7 @@ export default {
           this.$swal('Order has been updated!')
           this.editing = false
         })
-        .catch((e) => {
-          console.log(e.message)
-        })
+        .catch(() => {})
     },
     handleChangeOrderCount(updated) {
       const updatedId = this.order.OrderItems.findIndex((item) => {

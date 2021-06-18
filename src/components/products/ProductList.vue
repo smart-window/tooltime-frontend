@@ -37,6 +37,10 @@ export default {
     }
   },
 
+  mounted() {
+    this.searchProducts = this.filterProducts
+  },
+
   computed: {
     ...mapState(['currentPage', 'perPage']),
     ...mapGetters(['filterProducts']),
@@ -48,15 +52,17 @@ export default {
     },
   },
 
-  mounted() {
-    this.searchProducts = this.filterProducts
-  },
-
   methods: {
     onSearch(e) {
       this.searchProducts = this.filterProducts.filter((product) => {
         return product.name.toLowerCase().includes(e.target.value.toLowerCase())
       })
+    },
+  },
+
+  watch: {
+    filterProducts(filterProducts) {
+      this.searchProducts = filterProducts
     },
   },
 }

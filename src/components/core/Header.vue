@@ -6,6 +6,15 @@
       <b-container>
         <router-link to="/products" class="navbar-brand text-primary"> TOOLTIME </router-link>
         <b-navbar-nav class="ml-auto" v-show="this.$store.state.user.authorized === true">
+          <b-nav-item-dropdown>
+            <template slot="button-content">
+              <i class="fas fa-map"></i>
+              <span> Location </span>
+            </template>
+            <b-dropdown-item v-on:click="handleSignOut"
+              >{{ user.address }}, {{ user.city }}, {{ user.state }}</b-dropdown-item
+            >
+          </b-nav-item-dropdown>
           <router-link to="/cart" class="nav-link text-primary">
             <i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart ({{ totalCartItems }})
           </router-link>
@@ -37,7 +46,6 @@ export default {
   },
   methods: {
     handleSignOut() {
-      console.log('handleSignOut called!')
       this.$store.dispatch('user/LOGOUT')
     },
   },

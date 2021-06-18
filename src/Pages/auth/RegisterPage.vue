@@ -31,42 +31,47 @@
               required
             />
           </b-form-group>
+
+          <b-form-group id="form-group-zip" label="Zip" label-for="zip">
+            <b-form-input placeholder="Zip" @input="selectZip" list="zip-list"></b-form-input>
+            <datalist id="zip-list">
+              <option v-for="location in locations" v-bind:key="location.id">
+                {{ location.zip }}
+              </option>
+            </datalist>
+          </b-form-group>
+
           <b-form-group id="form-group-address" label="Address" label-for="address">
             <b-form-input
+              :disabled="true"
               id="address"
-              v-model="form.address"
               type="text"
-              placeholder="Enter address"
+              placeholder="Address"
+              v-model="this.location.address_1"
               required
             />
           </b-form-group>
           <b-form-group id="form-group-city" label="City" label-for="city">
             <b-form-input
+              :disabled="true"
               id="city"
-              v-model="form.city"
+              v-model="this.location.city"
               type="text"
-              placeholder="Enter city"
+              placeholder="City"
               required
             />
           </b-form-group>
           <b-form-group id="form-group-state" label="State" label-for="state">
             <b-form-input
+              :disabled="true"
               id="state"
-              v-model="form.state"
+              v-model="this.location.state"
               type="text"
-              placeholder="Enter state"
+              placeholder="State"
               required
             />
           </b-form-group>
-          <b-form-group id="form-group-zip" label="Zip" label-for="zip">
-            <b-form-input
-              id="zip"
-              v-model="form.zip"
-              type="text"
-              placeholder="Enter zip"
-              required
-            />
-          </b-form-group>
+
           <b-form-group id="form-group-phone" label="Phone" label-for="phone">
             <b-form-input
               id="phone"
@@ -76,15 +81,6 @@
               required
             />
           </b-form-group>
-          <!-- <b-form-group id="form-group-stripe" label="StripId" label-for="stripeId">
-            <b-form-input
-              id="stripeId"
-              v-model="form.stripeId"
-              type="text"
-              placeholder="Enter address"
-              required
-            />
-          </b-form-group> -->
           <b-form-row>
             <b-container class="d-flex flex-row justify-content-between">
               <b-button type="submit" variant="primary"> Submit </b-button>
@@ -92,9 +88,6 @@
             </b-container>
           </b-form-row>
         </b-form>
-        <!-- <b-card class="mt-3" header="Form Data Result">
-          <pre class="m-0">{{ form }}</pre>
-        </b-card> -->
       </b-card-body>
     </b-card>
 
@@ -108,7 +101,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import router from '@/router'
 export default {
   name: 'RegisterPage',
@@ -116,24 +109,35 @@ export default {
   data() {
     return {
       form: {},
+      location: {},
     }
   },
-
-  mounted() {},
+  computed: {
+    ...mapState(['user', 'cart', 'locations']),
+  },
 
   methods: {
     ...mapActions({
       registerUser: 'user/REGISTER',
     }),
+    selectZip(zip) {
+      this.location = this.locations.find((location) => {
+        return location.zip === zip
+      })
+    },
     handleSubmit(e) {
       e.preventDefault()
+      this.form.address = this.location.address_1
+      this.form.city = this.location.city
+      this.form.state = this.location.state
+      this.form.zip = this.location.zip
+
       this.registerUser(this.form)
         .then(() => {
           this.$swal(`${this.form.name} has been successfully registered!`)
           router.push('/auth/login')
         })
-        .catch((e) => {
-          console.log(e.memssage)
+        .catch(() => {
           this.$swal('Registeration failed!')
         })
     },

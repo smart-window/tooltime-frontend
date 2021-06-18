@@ -4,41 +4,6 @@
       <h3 class="text-primary">Categories</h3>
     </b-card-header>
     <b-card-body>
-      <!-- <b-menu
-        style="width: 256px"
-        :default-selected-keys="['1']"
-        mode="inline"
-      > -->
-        <!-- <b-sub-menu key="sub1">
-          <span slot="title"><b-icon type="mail" /><span>Navigation One</span></span>
-          <b-menu-item-group key="g1">
-            <template slot="title"> <b-icon type="qq" /><span>Item 1</span> </template>
-            <b-menu-item key="1"> Option 1 </b-menu-item>
-            <b-menu-item key="2"> Option 2 </b-menu-item>
-          </b-menu-item-group>
-          <b-menu-item-group key="g2" title="Item 2">
-            <b-menu-item key="3"> Option 3 </b-menu-item>
-            <b-menu-item key="4"> Option 4 </b-menu-item>
-          </b-menu-item-group>
-        </b-sub-menu>
-        <b-sub-menu key="sub2">
-          <span slot="title"><b-icon type="appstore" /><span>Navigation Two</span></span>
-          <b-menu-item key="5"> Option 5 </b-menu-item>
-          <b-menu-item key="6"> Option 6 </b-menu-item>
-          <b-sub-menu key="sub3" title="Submenu">
-            <b-menu-item key="7"> Option 7 </b-menu-item>
-            <b-menu-item key="8"> Option 8 </b-menu-item>
-          </b-sub-menu>
-        </b-sub-menu>
-        <b-sub-menu key="sub4">
-          <span slot="title"><b-icon type="setting" /><span>Navigation Three</span></span>
-          <b-menu-item key="9"> Option 9 </b-menu-item>
-          <b-menu-item key="10"> Option 10 </b-menu-item>
-          <b-menu-item key="11"> Option 11 </b-menu-item>
-          <b-menu-item key="12"> Option 12 </b-menu-item>
-        </b-sub-menu>
-      </b-menu> -->
-
       <ul class="list-group flex-row flex-wrap">
         <li class="list-group-item flex-50" v-for="category in categories" :key="category.id">
           <label class="custom-checkbox text-capitalize">
@@ -52,6 +17,26 @@
             />
             <span class="custom-checkbox__span"></span>
           </label>
+          <ul class="list-group flex-row flex-wrap">
+            <li
+              class="list-group-item flex-50"
+              v-for="section in category.sections"
+              :key="section.id"
+            >
+              <label class="custom-checkbox text-capitalize">
+                {{ section.name }}
+
+                <input
+                  type="checkbox"
+                  :name="section.name"
+                  :value="section.id"
+                  class="custom-checkbox__input"
+                  @input="onChangeSection($event)"
+                />
+                <span class="custom-checkbox__span"></span>
+              </label>
+            </li>
+          </ul>
         </li>
       </ul>
     </b-card-body>
@@ -64,7 +49,6 @@ import * as Types from '../../store/types'
 export default {
   name: 'CategoryFilter',
   data() {
-    window.console.log(this.$store.getters.brandsCount, this.$store.brands)
     return {
       brandsCount: this.$store.getters.brandsCount,
     }
@@ -76,17 +60,28 @@ export default {
     ...mapMutations({
       addCategoryToFilter: Types.ADD_CATEGORY_TO_FILTER,
       removeCategoryFromFilter: Types.REMOVE_CATEGORY_FROM_FILTER,
+      addSectionToFilter: Types.ADD_SECTION_TO_FILTER,
+      removeSectionFromFilter: Types.REMOVE_SECTION_FROM_FILTER,
     }),
 
     onChangeSelectBox(e) {
       const categoryId = e.target.value
       const value = e.target.checked
-      console.log('categoryId => ', categoryId)
 
       if (value) {
         this.addCategoryToFilter(categoryId)
       } else {
         this.removeCategoryFromFilter(categoryId)
+      }
+    },
+    onChangeSection(e) {
+      const sectionId = e.target.value
+      const value = e.target.checked
+
+      if (value) {
+        this.addSectionToFilter(sectionId)
+      } else {
+        this.removeSectionFromFilter(sectionId)
       }
     },
   },

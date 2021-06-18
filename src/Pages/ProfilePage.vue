@@ -127,9 +127,7 @@ export default {
           this.$swal('Profile updated')
           this.editing = false
         })
-        .catch((e) => {
-          console.log(e.message)
-        })
+        .catch(() => {})
     },
 
     handleEdit(e) {
