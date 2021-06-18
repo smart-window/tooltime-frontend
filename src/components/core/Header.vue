@@ -15,7 +15,6 @@
               >{{ user.address }}, {{ user.city }}, {{ user.state }}</b-dropdown-item
             >
           </b-nav-item-dropdown>
-
           <router-link to="/cart" class="nav-link text-primary">
             <i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart ({{ totalCartItems }})
           </router-link>
