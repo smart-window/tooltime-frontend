@@ -33,10 +33,14 @@
           </b-form-group>
 
           <b-form-group id="form-group-zip" label="Service Area Zip" label-for="zip">
-            <b-form-input placeholder="Service Area Zip" @input="selectZip" list="zip-list"></b-form-input>
+            <b-form-input
+              placeholder="Service Area Zip"
+              @input="selectZip"
+              list="zip-list"
+            ></b-form-input>
             <datalist id="zip-list">
-              <option v-for="location in locations" v-bind:key="location.id">
-                {{ location.zip }}
+              <option v-for="location in serviceAreas" v-bind:key="location.id">
+                {{ location.Location.zip }}
               </option>
             </datalist>
           </b-form-group>
@@ -47,7 +51,7 @@
               id="address"
               type="text"
               placeholder="Address"
-              v-model="this.location.address_1"
+              v-model="this.location.Location.address_1"
               required
             />
           </b-form-group>
@@ -55,7 +59,7 @@
             <b-form-input
               :disabled="true"
               id="city"
-              v-model="this.location.city"
+              v-model="this.location.Location.city"
               type="text"
               placeholder="City"
               required
@@ -65,7 +69,7 @@
             <b-form-input
               :disabled="true"
               id="state"
-              v-model="this.location.state"
+              v-model="this.location.Location.state"
               type="text"
               placeholder="State"
               required
@@ -103,17 +107,24 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 import router from '@/router'
+import * as api from '../../services/api'
+
 export default {
   name: 'RegisterPage',
 
   data() {
     return {
       form: {},
-      location: {},
+      location: {Location:{}},
+      serviceAreas: [],
     }
   },
   computed: {
-    ...mapState(['user', 'cart', 'locations']),
+    ...mapState(['user', 'cart']),
+  },
+
+  async mounted() {
+    this.serviceAreas = await api.getServiceAreas()
   },
 
   methods: {
@@ -121,16 +132,16 @@ export default {
       registerUser: 'user/REGISTER',
     }),
     selectZip(zip) {
-      this.location = this.locations.find((location) => {
-        return location.zip === zip
+      this.location = this.serviceAreas.find((location) => {
+        return location.Location.zip === zip
       })
     },
     handleSubmit(e) {
       e.preventDefault()
-      this.form.address = this.location.address_1
-      this.form.city = this.location.city
-      this.form.state = this.location.state
-      this.form.zip = this.location.zip
+      this.form.address = this.location.Location.address_1
+      this.form.city = this.location.Location.city
+      this.form.state = this.location.Location.state
+      this.form.zip = this.location.Location.zip
 
       this.registerUser(this.form)
         .then(() => {
