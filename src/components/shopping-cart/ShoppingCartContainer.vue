@@ -146,8 +146,13 @@ export default {
       this.form.customerId = this.user.id
       this.$store
         .dispatch('CREATE_ORDER', this.form)
-        .then(() => {
-          this.$swal('New order has been created!')
+        .then((res) => {
+          console.log(res)
+          if (res.invalidName) {
+            this.$swal(res.invalidName + ' is not available!')
+          } else {
+            this.$swal('New order has been created!')
+          }
           router.push('/order')
         })
         .catch((e) => {

@@ -180,9 +180,10 @@ const store = new Vuex.Store({
     },
     async CREATE_ORDER({ dispatch, commit }, payload) {
       try {
-        await api.createOrder({ ...payload })
+        const res = await api.createOrder({ ...payload })
         dispatch('LOAD_ORDERS')
         commit(Types.SET_CART, [])
+        return res
       } catch (e) {
         throw new Error(e.message)
       }
