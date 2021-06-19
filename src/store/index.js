@@ -16,6 +16,7 @@ const store = new Vuex.Store({
   state: {
     products: [],
     categories: [],
+    serviceAreas: [],
     locations: [],
     cart: [],
     orders: [],
@@ -85,8 +86,6 @@ const store = new Vuex.Store({
       state.categoryFilter = filters.filter(filterId => filterId !== categoryId)
     },
     [Types.ADD_SECTION_TO_FILTER](state, sectionId) {
-      console.log(state)
-      console.log(sectionId)
       const filters = state.sectionFilter
       if (filters.includes(sectionId)) return void 0
 
@@ -108,6 +107,9 @@ const store = new Vuex.Store({
     },
     [Types.SET_CATEGORIES](state, categories) {
       state.categories = categories
+    },
+    [Types.SET_SERVICE_AREAS](state, serviceAreas) {
+      state.serviceAreas = serviceAreas
     },
     [Types.SET_LOCATIONS](state, locations) {
       state.locations = locations
@@ -135,6 +137,14 @@ const store = new Vuex.Store({
         commit(Types.SET_CATEGORIES, categories)
       } catch (e) {
         commit(Types.SET_CATEGORIES, [])
+      }
+    },
+    async LOAD_SERVICE_AREAS({ commit }) {
+      try {
+        const service_areas = await api.getServiceAreas()
+        commit(Types.SET_SERVICE_AREAS, service_areas)
+      } catch (e) {
+        commit(Types.SET_SERVICE_AREAS, [])
       }
     },
     async LOAD_LOCATIONS({ commit }) {
@@ -212,7 +222,6 @@ const store = new Vuex.Store({
   },
   getters: {
     filterProducts(state) {
-      console.log(state)
       const categoryFilter = state.categoryFilter
       const sectionFilter = state.sectionFilter
       if ((categoryFilter === undefined || categoryFilter.length === 0) && (sectionFilter === undefined || sectionFilter.length === 0)) {

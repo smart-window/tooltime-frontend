@@ -32,8 +32,8 @@
             />
           </b-form-group>
 
-          <b-form-group id="form-group-zip" label="Zip" label-for="zip">
-            <b-form-input placeholder="Zip" @input="selectZip" list="zip-list"></b-form-input>
+          <b-form-group id="form-group-zip" label="Service Area Zip" label-for="zip">
+            <b-form-input placeholder="Service Area Zip" @input="selectZip" list="zip-list"></b-form-input>
             <datalist id="zip-list">
               <option v-for="location in locations" v-bind:key="location.id">
                 {{ location.zip }}

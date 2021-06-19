@@ -12,7 +12,8 @@ import MainLayout from './layouts/main'
 import AuthLayout from './layouts/auth'
 import ProfilePage from './pages/ProfilePage'
 import OrderPage from './pages/OrderPage'
-
+import Alert from './pages/Alert'
+var ping = require('ping')
 Vue.use(Router)
 
 const router = new Router({
@@ -22,6 +23,10 @@ const router = new Router({
     return { x: 0, y: 0 }
   },
   routes: [
+    {
+      path: '/alert',
+      component: Alert,
+    },
     {
       path: '/',
       redirect: '/products',
@@ -99,6 +104,20 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
+  var cfg = {
+    timeout: 10,
+    // WARNING: -i 2 may not work in other platform like windows
+    extra: ['-i', '2'],
+  }
+
+  var hosts = ['google.com', '8.8.4.4'];
+  hosts.forEach(async (host) => {
+    await ping.sys.probe(host, function (isAlive) {
+      var msg = isAlive ? 'host ' + host + ' is alive' : 'host ' + host + ' is dead';
+      return msg
+    }, cfg)
+  })
+
   if (to.matched.some(record => record.meta.authRequired)) {
     if (!store.state.user.authorized) {
       next({

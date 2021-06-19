@@ -1,4 +1,5 @@
 import axiosClient from '../axios'
+import router from '@/router'
 
 const successFunc = response => {
   return response.data
@@ -6,7 +7,7 @@ const successFunc = response => {
 
 const failFunc = err => {
   if (err.message == "Network Error") {
-    alert("Server is down")
+    router.push('/alert')
   } else {
     throw new Error(err.message)
   }
@@ -29,6 +30,13 @@ export const getProduct = async productId => {
 export const getCategories = async () => {
   return axiosClient
     .get('/category')
+    .then(successFunc)
+    .catch(failFunc)
+}
+
+export const getServiceAreas = async () => {
+  return axiosClient
+    .get('/servicearea')
     .then(successFunc)
     .catch(failFunc)
 }

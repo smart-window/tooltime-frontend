@@ -9,10 +9,6 @@
         </dd>
       </dl>
       <dl class="param param-feature">
-        <dt>Brand</dt>
-        <dd class="text-capitalize">{{ product.brand }}</dd>
-      </dl>
-      <dl class="param param-feature">
         <dt>Reservation Date</dt>
         <b-row>
           <div class="col-12 col-md-4 text-center" style="padding-top: 5px">Start Date</div>
@@ -38,10 +34,6 @@
             </b-form-group>
           </div>
         </b-row>
-      </dl>
-      <dl class="param param-feature">
-        <dt>Size</dt>
-        <dd>{{ product.size }}</dd>
       </dl>
       <hr />
       <b-row>

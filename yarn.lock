@@ -2138,6 +2138,13 @@ check-types@^8.0.3:
   resolved "https://registry.yarnpkg.com/check-types/-/check-types-8.0.3.tgz#3356cca19c889544f2d7a95ed49ce508a0ecf552"
   integrity sha512-YpeKZngUmG65rLudJ4taU7VLkOCTMhNl/u4ctNC56LQS/zJTyNH0Lrtwm1tfTsbLlwvlfsA2d1c8vCf/Kh2KwQ==
 
+childprocess@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/childprocess/-/childprocess-2.0.2.tgz#3d684929748b1e13e8521cf619bde5440de85eb4"
+  integrity sha1-PWhJKXSLHhPoUhz2Gb3lRA3oXrQ=
+  dependencies:
+    utility "~1.6.0"
+
 chokidar@^2.1.8:
   version "2.1.8"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-2.1.8.tgz#804b3a7b6a99358c3c5c61e71d8728f041cff917"
@@ -2505,6 +2512,11 @@ copy-descriptor@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/copy-descriptor/-/copy-descriptor-0.1.1.tgz#676f6eb3c39997c2ee1ac3a924fd6124748f578d"
   integrity sha1-Z29us8OZl8LuGsOpJP1hJHSPV40=
+
+copy-to@~2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/copy-to/-/copy-to-2.0.1.tgz#2680fbb8068a48d08656b6098092bdafc906f4a5"
+  integrity sha1-JoD7uAaKSNCGVrYJgJK9r8kG9KU=
 
 copy-webpack-plugin@^4.6.0:
   version "4.6.0"
@@ -6454,6 +6466,14 @@ pify@^4.0.1:
   resolved "https://registry.yarnpkg.com/pify/-/pify-4.0.1.tgz#4b2cd25c50d598735c50292224fd8c6df41e3231"
   integrity sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g==
 
+ping@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/ping/-/ping-0.4.1.tgz#1436575a39baafe3ed2b76f6a116c51780f32299"
+  integrity sha512-zYouogtyis0QpEZwWY1T26iuIOMJx+ajtjVMcPKIdWRq2Ie3Ftkbel8I25M5kCAQQMQhsez6ZbPiYjNe7aBjSQ==
+  dependencies:
+    q "1.x"
+    underscore "^1.12.0"
+
 pinkie-promise@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/pinkie-promise/-/pinkie-promise-2.0.1.tgz#2135d6dfa7a358c069ac9b178776288228450ffa"
@@ -6996,7 +7016,7 @@ punycode@^2.1.0, punycode@^2.1.1:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
-q@^1.1.2:
+q@1.x, q@^1.1.2:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
   integrity sha1-fjL3W0E4EpHQRhHxvxQQmsAGUdc=
@@ -8231,6 +8251,11 @@ tar@^2.0.0:
     fstream "^1.0.12"
     inherits "2"
 
+tcp-ping@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/tcp-ping/-/tcp-ping-0.1.1.tgz#02dd7f42b5bf7d7cb78d5b7aacefa155fd8f7c0c"
+  integrity sha1-At1/QrW/fXy3jVt6rO+hVf2PfAw=
+
 terser-webpack-plugin@^1.2.3, terser-webpack-plugin@^1.4.3:
   version "1.4.5"
   resolved "https://registry.yarnpkg.com/terser-webpack-plugin/-/terser-webpack-plugin-1.4.5.tgz#a217aefaea330e734ffacb6120ec1fa312d6040b"
@@ -8462,6 +8487,11 @@ unbox-primitive@^1.0.0:
     has-symbols "^1.0.0"
     which-boxed-primitive "^1.0.1"
 
+underscore@^1.12.0:
+  version "1.13.1"
+  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.13.1.tgz#0c1c6bd2df54b6b69f2314066d65b6cde6fcf9d1"
+  integrity sha512-hzSoAVtJF+3ZtiFX0VgfFPHEDRm7Y/QPjGyNo4TVdnDTdft3tr8hEkD25a1jC+TjTuE7tkHGKkhwCgs9dgBB2g==
+
 unicode-canonical-property-names-ecmascript@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/unicode-canonical-property-names-ecmascript/-/unicode-canonical-property-names-ecmascript-1.0.4.tgz#2619800c4c825800efdd8343af7dd9933cbe2818"
@@ -8635,6 +8665,14 @@ utila@~0.4:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/utila/-/utila-0.4.0.tgz#8a16a05d445657a3aea5eecc5b12a4fa5379772c"
   integrity sha1-ihagXURWV6Oupe7MWxKk+lN5dyw=
+
+utility@~1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/utility/-/utility-1.6.0.tgz#e5bfb6a783a9c392b9fe70fe45c67fc24405c7e9"
+  integrity sha1-5b+2p4Opw5K5/nD+RcZ/wkQFx+k=
+  dependencies:
+    copy-to "~2.0.1"
+    escape-html "~1.0.3"
 
 utils-merge@1.0.1:
   version "1.0.1"

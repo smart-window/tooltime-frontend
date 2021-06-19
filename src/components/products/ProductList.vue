@@ -4,6 +4,7 @@
       <div class="col-12 d-none d-lg-block d-xl-block">
         <b-card no-body>
           <b-card-header class="d-flex justify-content-end">
+            <label style="float: left">Featured Products</label>
             <b-input placeholder="Search" style="width: 200px" @keyup="onSearch" />
             <div class="col-4">
               <b-form-select v-model="sortType">
@@ -16,8 +17,8 @@
       </div>
     </b-row>
     <div class="row">
-      <div v-for="product in pageProducts" :key="product.id" class="col-md-6 col-lg-4 mb-4">
-        <Product :product="product"></Product>
+      <div v-for="(product, index) in pageProducts" :key="product.id" class="col-md-6 col-lg-4 mb-4">
+        <Product :product="product" :index="index"></Product>
       </div>
     </div>
   </div>
