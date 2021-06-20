@@ -55,13 +55,14 @@ export default {
             commit('SET_STATE', { ...response, authorized: true })
             dispatch('LOAD_PRODUCTS', {}, { root: true })
             dispatch('LOAD_CATEGORIES', {}, { root: true })
+            dispatch('LOAD_SERVICE_AREAS', {}, { root: true })
             dispatch('LOAD_LOCATIONS', {}, { root: true })
             dispatch('LOAD_ORDERS', {}, { root: true })
           }
 
           commit('SET_STATE', { loading: false })
         })
-        .catch(e => {
+        .catch(() => {
           commit('SET_STATE', {
             id: '',
             name: '',

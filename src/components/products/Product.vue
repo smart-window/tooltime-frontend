@@ -1,5 +1,7 @@
 <template>
   <b-card no-body class="product d-flex flex-column">
+    <b-badge class="feature_mark" variant="danger" :hidden="index > 5">Featured Product</b-badge>
+
     <div class="card__image__wrapper">
       <img :src="currentImage" :alt="product.title" class="product__img" />
     </div>
@@ -29,6 +31,7 @@ export default {
   name: 'Product',
   props: {
     product: Object,
+    index: Number,
   },
 
   data() {
@@ -56,6 +59,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.feature_mark {
+  position: absolute;
+  right: -11px;
+  top: 32px;
+  transform: rotate(45deg);
+}
 .product {
   padding-bottom: 2rem;
   height: 350px;

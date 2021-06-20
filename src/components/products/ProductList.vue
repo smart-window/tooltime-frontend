@@ -16,8 +16,8 @@
       </div>
     </b-row>
     <div class="row">
-      <div v-for="product in pageProducts" :key="product.id" class="col-md-6 col-lg-4 mb-4">
-        <Product :product="product"></Product>
+      <div v-for="(product, index) in pageProducts" :key="product.id" class="col-md-6 col-lg-4 mb-4">
+        <Product :product="product" :index="index"></Product>
       </div>
     </div>
   </div>

@@ -11,9 +11,9 @@
               <i class="fas fa-map"></i>
               <span> Location </span>
             </template>
-            <b-dropdown-item v-on:click="handleSignOut"
-              >{{ user.address }}, {{ user.city }}, {{ user.state }}</b-dropdown-item
-            >
+            <b-dropdown-item>
+              <label>{{ user.address }}, {{ user.city }}, {{ user.state }}</label>
+            </b-dropdown-item>
           </b-nav-item-dropdown>
           <router-link to="/cart" class="nav-link text-primary">
             <i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart ({{ totalCartItems }})

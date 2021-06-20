@@ -51,13 +51,13 @@
             <b-form-input id="email" type="email" v-model="form.email" readonly />
           </b-form-group>
           <b-form-group id="form-group-address" label="Address" label-for="address">
-            <b-form-input id="address" type="text" v-model="form.address" required />
+            <b-form-input id="address" type="text" v-model="form.address" readonly />
           </b-form-group>
           <b-form-group id="form-group-city" label="city" label-for="city">
-            <b-form-input id="city" v-model="form.city" type="text" required />
+            <b-form-input id="city" v-model="form.city" type="text" readonly />
           </b-form-group>
           <b-form-group id="form-group-state" label="state" label-for="state">
-            <b-form-input id="state" v-model="form.state" type="text" required />
+            <b-form-input id="state" v-model="form.state" type="text" readonly />
           </b-form-group>
           <b-form-group id="form-group-zip" label="zip" label-for="zip">
             <b-form-input
@@ -65,7 +65,7 @@
               v-model="form.zip"
               type="number"
               placeholder="Enter zip"
-              required
+              readonly
             />
           </b-form-group>
           <b-form-group id="form-group-phone" label="phone" label-for="phone">

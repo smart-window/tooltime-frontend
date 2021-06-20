@@ -21,6 +21,7 @@ export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 
 export const SET_PRODUCTS = 'SET_PRODUCTS'
 export const SET_CATEGORIES = 'SET_CATEGORIES'
+export const SET_SERVICE_AREAS = 'SET_SERVICE_AREAS'
 export const SET_LOCATIONS = 'SET_LOCATIONS'
 export const SET_ORDERS = 'SET_ORDERS'
 export const SET_CART = 'SET_CART'

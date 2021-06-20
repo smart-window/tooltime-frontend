@@ -1,9 +1,10 @@
 import apiClient from '@/services/axios'
+import router from '@/router'
 import store from 'store'
 
 const failFunc = err => {
   if (err.message == "Network Error") {
-    alert("Server is down")
+    router.push("/alert")
   } else {
     throw new Error(err.message)
   }
