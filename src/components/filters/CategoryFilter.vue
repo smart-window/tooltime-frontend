@@ -1,51 +1,53 @@
 <template>
-  <b-card no-body class="mb-3">
-    <b-card-header>
-      <h3 class="text-primary">Categories</h3>
-    </b-card-header>
-    <b-card-body>
-      <ul class="list-group flex-row flex-wrap">
-        <li class="list-group-item flex-50" v-for="category in categories" :key="category.id">
-          <label class="custom-checkbox text-capitalize">
-            {{ category.name }}
-            <input
-              type="checkbox"
-              :name="category.name"
-              :value="category.id"
-              class="custom-checkbox__input"
-              @input="onChangeSelectBox($event)"
-            />
-            <span class="custom-checkbox__span"></span>
-          </label>
-          <ul class="list-group flex-row flex-wrap">
-            <li
-              class="list-group-item flex-50"
-              v-for="section in category.sections"
-              :key="section.id"
-            >
-              <label class="custom-checkbox text-capitalize">
-                {{ section.name }}
+  <div>
+    <a-collapse accordion>
+      <a-collapse-panel key="1" header="Categories">
+        <ul class="list-group flex-row flex-wrap">
+          <li class="list-group-item flex-50" v-for="category in categories" :key="category.id">
+            <label class="custom-checkbox text-capitalize">
+              {{ category.name }}
+              <input
+                type="checkbox"
+                :name="category.name"
+                :value="category.id"
+                class="custom-checkbox__input"
+                @input="onChangeSelectBox($event)"
+              />
+              <span class="custom-checkbox__span"></span>
+            </label>
+            <ul class="list-group flex-row flex-wrap">
+              <li
+                class="list-group-item flex-50"
+                v-for="section in category.sections"
+                :key="section.id"
+              >
+                <label class="custom-checkbox text-capitalize">
+                  {{ section.name }}
 
-                <input
-                  type="checkbox"
-                  :name="section.name"
-                  :value="section.id"
-                  class="custom-checkbox__input"
-                  @input="onChangeSection($event)"
-                />
-                <span class="custom-checkbox__span"></span>
-              </label>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </b-card-body>
-  </b-card>
+                  <input
+                    type="checkbox"
+                    :name="section.name"
+                    :value="section.id"
+                    class="custom-checkbox__input"
+                    @input="onChangeSection($event)"
+                  />
+                  <span class="custom-checkbox__span"></span>
+                </label>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </a-collapse-panel>
+      <a-collapse-panel key="2" header="Search" :disabled="false"> </a-collapse-panel>
+      <a-collapse-panel key="3" header="Order By"> </a-collapse-panel>
+    </a-collapse>
+  </div>
 </template>
 
 <script>
 import { mapMutations, mapState } from 'vuex'
 import * as Types from '../../store/types'
+
 export default {
   name: 'CategoryFilter',
   data() {
@@ -65,6 +67,7 @@ export default {
     }),
 
     onChangeSelectBox(e) {
+      // console.log(this.categories)
       const categoryId = e.target.value
       const value = e.target.checked
 
@@ -89,6 +92,31 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.ant-collapse {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 14px;
+  font-variant: tabular-nums;
+  line-height: 1.5;
+  list-style: none;
+  font-feature-settings: 'tnum';
+  background-color: #fafafa;
+  border: 1px solid #d9d9d9;
+  border-bottom: 0;
+  border-radius: 4px;
+  .ant-collapse-item {
+    border-bottom: 1px solid #d9d9d9;
+    .ant-collapse-header {
+      padding: 12px 16px 12px 40px !important;
+      color: rgba(0, 0, 0, 0.85);
+      line-height: 22px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+  }
+}
 .custom-checkbox {
   display: block;
   position: relative;

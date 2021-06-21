@@ -17,7 +17,6 @@ import { sampleImages } from '@/data'
 export default {
   name: 'ProductDetailPage',
   components: { ProductSlider, ProductDetail },
-  props: ['productId'],
 
   async mounted() {
     this.product = await api.getProduct(this.productId)
@@ -26,6 +25,9 @@ export default {
   computed: {
     productImages() {
       return this.product.images !== undefined ? this.product.images.split(',') : sampleImages
+    },
+    productId() {
+      return this.$route.params.id
     },
   },
 

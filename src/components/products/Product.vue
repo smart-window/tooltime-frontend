@@ -1,7 +1,5 @@
 <template>
   <b-card no-body class="product d-flex flex-column">
-    <b-badge class="feature_mark" variant="danger" :hidden="index > 5">Featured Product</b-badge>
-
     <div class="card__image__wrapper">
       <img :src="currentImage" :alt="product.title" class="product__img" />
     </div>
@@ -52,7 +50,7 @@ export default {
   },
   methods: {
     onViewProductDetail(productId) {
-      router.push({ name: `product`, params: { productId: productId } })
+      router.push(`/product/${productId}`)
     },
   },
 }

@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.3",
+    "ant-design-vue": "^1.7.5",
     "axios": "^0.21.1",
     "axios-mock-adapter": "^1.19.0",
     "bootstrap": "^4.6.0",
