@@ -2,11 +2,11 @@
   <div>
     <div class="container">
       <div class="row">
-        <div class="col-lg-3">
+        <!-- <div class="col-lg-3">
           <CategoryFilter></CategoryFilter>
-          <!-- <PriceFilter></PriceFilter> -->
-        </div>
-        <div class="col-lg-9">
+          <PriceFilter></PriceFilter>
+        </div> -->
+        <div class="col-lg-12">
           <ProductList></ProductList>
           <div class="d-flex justify-content-end">
             <Pagination></Pagination>
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import CategoryFilter from '../components/filters/CategoryFilter'
+// import CategoryFilter from '../components/filters/CategoryFilter'
 // import PriceFilter from '../components/filters/PriceFilter'
 import ProductList from '../components/products/ProductList'
 import Pagination from '../components/pagination/Pagination'
@@ -28,7 +28,7 @@ export default {
     Pagination,
     ProductList,
     // PriceFilter,
-    CategoryFilter,
+    // CategoryFilter,
   },
   data() {
     return {}

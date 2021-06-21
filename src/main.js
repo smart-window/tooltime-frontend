@@ -8,13 +8,13 @@ import VueSwal from 'vue-swal'
 import router from './router'
 
 import { BootstrapVue } from 'bootstrap-vue'
-import Antd from 'ant-design-vue';
 import Notifications from 'vue-notification'
+import Antd from 'ant-design-vue'
 
 Vue.use(VueSwal)
 Vue.use(BootstrapVue)
-Vue.use(Antd)
 Vue.use(Notifications)
+Vue.use(Antd)
 
 Vue.prototype.$notification = Notifications
 // mocking api

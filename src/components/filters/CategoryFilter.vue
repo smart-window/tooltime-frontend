@@ -3,7 +3,12 @@
     <a-collapse accordion>
       <a-collapse-panel key="1" header="Categories">
         <ul class="list-group flex-row flex-wrap">
-          <li class="list-group-item flex-50" v-for="category in categories" :key="category.id">
+          <li
+            style="padding-top: 10px; padding-bottom: 0"
+            class="list-group-item flex-50"
+            v-for="category in categories"
+            :key="category.id"
+          >
             <label class="custom-checkbox text-capitalize">
               {{ category.name }}
               <input
@@ -20,6 +25,7 @@
                 class="list-group-item flex-50"
                 v-for="section in category.sections"
                 :key="section.id"
+                style="border: 0; padding-top: 0; padding-bottom: 0"
               >
                 <label class="custom-checkbox text-capitalize">
                   {{ section.name }}
@@ -47,6 +53,7 @@
 <script>
 import { mapMutations, mapState } from 'vuex'
 import * as Types from '../../store/types'
+import './CategoryFilter.css'
 
 export default {
   name: 'CategoryFilter',
@@ -92,31 +99,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.ant-collapse {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  color: rgba(0, 0, 0, 0.65);
-  font-size: 14px;
-  font-variant: tabular-nums;
-  line-height: 1.5;
-  list-style: none;
-  font-feature-settings: 'tnum';
-  background-color: #fafafa;
-  border: 1px solid #d9d9d9;
-  border-bottom: 0;
-  border-radius: 4px;
-  .ant-collapse-item {
-    border-bottom: 1px solid #d9d9d9;
-    .ant-collapse-header {
-      padding: 12px 16px 12px 40px !important;
-      color: rgba(0, 0, 0, 0.85);
-      line-height: 22px;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-  }
-}
+
 .custom-checkbox {
   display: block;
   position: relative;
