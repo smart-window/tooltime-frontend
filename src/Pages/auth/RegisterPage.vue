@@ -4,35 +4,12 @@
       <b-card-title class="text-primary"> Register </b-card-title>
       <b-card-body>
         <b-form @submit="handleSubmit">
-          <b-form-group id="form-group-email" label="Email address" label-for="email">
-            <b-form-input
-              id="email"
-              v-model="form.email"
-              type="email"
-              placeholder="Enter email"
-              required
-            />
-          </b-form-group>
-          <b-form-group id="form-group-password" label="Password" label-for="password">
-            <b-form-input
-              id="password"
-              v-model="form.password"
-              type="password"
-              placeholder="Enter password"
-              required
-            />
-          </b-form-group>
-          <b-form-group id="form-group-name" label="Name" label-for="name">
-            <b-form-input
-              id="name"
-              v-model="form.name"
-              type="text"
-              placeholder="Enter name"
-              required
-            />
-          </b-form-group>
-
-          <b-form-group id="form-group-zip" label="Service Area Zip" label-for="zip">
+          <b-form-group
+            v-if="step == 0"
+            id="form-group-zip"
+            label="Service Area Zip"
+            label-for="zip"
+          >
             <b-form-input
               placeholder="Service Area Zip"
               @input="selectZip"
@@ -44,39 +21,89 @@
               </option>
             </datalist>
           </b-form-group>
+          <b-form-group v-if="step == 0" id="form-group-location" :label="getLocation">
+          </b-form-group>
 
-          <b-form-group id="form-group-address" label="Address" label-for="address">
+          <b-form-group
+            v-if="step == 1"
+            id="form-group-email"
+            label="Email address"
+            label-for="email"
+          >
             <b-form-input
-              :disabled="true"
+              id="email"
+              v-model="form.email"
+              type="email"
+              placeholder="Enter email"
+              required
+            />
+          </b-form-group>
+          <b-form-group
+            v-if="step == 1"
+            id="form-group-password"
+            label="Password"
+            label-for="password"
+          >
+            <b-form-input
+              id="password"
+              v-model="form.password"
+              type="password"
+              placeholder="Enter password"
+              required
+            />
+          </b-form-group>
+          <b-form-group
+            v-if="step == 1"
+            id="form-group-retype-password"
+            label="Re-type Password"
+            label-for="retypePassword"
+          >
+            <b-form-input
+              id="retypePassword"
+              type="password"
+              v-model="retypePassword"
+              placeholder="Re-type password"
+              required
+            />
+          </b-form-group>
+          <b-form-group v-if="step == 2" id="form-group-name" label="Name" label-for="name">
+            <b-form-input
+              id="name"
+              v-model="form.name"
+              type="text"
+              placeholder="Enter name"
+              required
+            />
+          </b-form-group>
+
+          <b-form-group
+            v-if="step == 2"
+            id="form-group-address"
+            label="Address"
+            label-for="address"
+          >
+            <b-form-input
               id="address"
               type="text"
               placeholder="Address"
-              v-model="this.location.Location.address_1"
+              v-model="form.address"
               required
             />
           </b-form-group>
-          <b-form-group id="form-group-city" label="City" label-for="city">
-            <b-form-input
-              :disabled="true"
-              id="city"
-              v-model="this.location.Location.city"
-              type="text"
-              placeholder="City"
-              required
-            />
+          <b-form-group v-if="step == 2" id="form-group-city" label="City" label-for="city">
+            <b-form-input id="city" v-model="form.city" type="text" placeholder="City" required />
           </b-form-group>
-          <b-form-group id="form-group-state" label="State" label-for="state">
+          <b-form-group v-if="step == 2" id="form-group-state" label="State" label-for="state">
             <b-form-input
-              :disabled="true"
               id="state"
-              v-model="this.location.Location.state"
+              v-model="form.state"
               type="text"
               placeholder="State"
               required
             />
           </b-form-group>
 
-          <b-form-group id="form-group-phone" label="Phone" label-for="phone">
+          <b-form-group v-if="step == 2" id="form-group-phone" label="Phone" label-for="phone">
             <b-form-input
               id="phone"
               v-model="form.phone"
@@ -86,9 +113,19 @@
             />
           </b-form-group>
           <b-form-row>
-            <b-container class="d-flex flex-row justify-content-between">
-              <b-button type="submit" variant="primary"> Submit </b-button>
+            <b-container v-if="step == 0" class="d-flex flex-row justify-content-between">
+              <router-link to="/auth/login">
+                <b-button type="button"> Back </b-button>
+              </router-link>
+              <b-button @click="nextStep" type="button" variant="primary"> Next </b-button>
+            </b-container>
+            <b-container v-if="step == 1" class="d-flex flex-row justify-content-between">
+              <b-button @click="step--" type="button"> Back </b-button>
+              <b-button @click="finalStep" type="button" variant="primary"> Next </b-button>
+            </b-container>
+            <b-container v-if="step == 2" class="d-flex flex-row justify-content-between">
               <b-button type="reset"> Reset </b-button>
+              <b-button type="submit" variant="primary"> Submit </b-button>
             </b-container>
           </b-form-row>
         </b-form>
@@ -115,12 +152,26 @@ export default {
   data() {
     return {
       form: {},
-      location: {Location:{}},
+      location: { Location: {} },
       serviceAreas: [],
+      step: 0,
+      retypePassword: '',
     }
   },
   computed: {
     ...mapState(['user', 'cart']),
+    getLocation() {
+      return (
+        'Location: ' +
+        ('city' in this.location.Location
+          ? this.location.Location.address_1 +
+            ', ' +
+            this.location.Location.city +
+            ', ' +
+            this.location.Location.state
+          : 'Location not found.')
+      )
+    },
   },
 
   async mounted() {
@@ -136,6 +187,7 @@ export default {
         return location.Location.zip === zip
       })
     },
+
     handleSubmit(e) {
       e.preventDefault()
       this.form.address = this.location.Location.address_1
@@ -151,6 +203,24 @@ export default {
         .catch(() => {
           this.$swal('Registeration failed!')
         })
+    },
+    nextStep() {
+      if ('city' in this.location.Location) {
+        this.step++
+      } else {
+        alert('Please select service area.')
+      }
+    },
+    finalStep() {
+      if (!this.form.email) {
+        alert('Please fill the email')
+      } else if (!this.form.password) {
+        alert('Please fill the password')
+      } else if (this.form.password != this.retypePassword) {
+        alert('Password is not correct')
+      } else {
+        this.step++
+      }
     },
   },
 }
