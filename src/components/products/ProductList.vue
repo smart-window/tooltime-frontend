@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-3 d-none d-lg-block d-xl-block">
-      <a-collapse accordion>
+      <a-collapse :activeKey="['1', '2', '3']">
         <a-collapse-panel key="1" header="Categories">
           <ul class="list-group flex-row flex-wrap">
             <li
