@@ -57,13 +57,9 @@
                 <b-form-input id="zip" type="text" v-model="form.zip" readonly />
               </b-form-group>
               <b-form-group id="form-group-location" label="location" label-for="location">
-                <b-form-select id="location" v-model="form.locationId" required>
-                  <b-form-select-option
-                    :value="location.id"
-                    v-for="location in locations"
-                    v-bind:key="location.id"
-                  >
-                    {{ location.name }}
+                <b-form-select id="location" v-model="form.locationId" disabled>
+                  <b-form-select-option :value="user.Servicearea.Location.id">
+                    {{ user.Servicearea.Location.name }}
                   </b-form-select-option>
                 </b-form-select>
               </b-form-group>
@@ -115,6 +111,7 @@ export default {
     this.form.city = this.user.city
     this.form.state = this.user.state
     this.form.zip = this.user.zip
+    this.form.locationId = this.user.Servicearea.Location.id
   },
 
   computed: {
@@ -147,7 +144,6 @@ export default {
       this.$store
         .dispatch('CREATE_ORDER', this.form)
         .then((res) => {
-          console.log(res)
           if (res.invalidName) {
             this.$swal(res.invalidName + ' is not available!')
           } else {

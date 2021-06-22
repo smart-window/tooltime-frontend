@@ -1,8 +1,42 @@
 <template>
   <div class="row">
     <div class="col-3 d-none d-lg-block d-xl-block">
+      <!-- <div v-for="(category, index) in categories" :key="category.id">
+        <b-form-group>
+          <template #label>
+            <b-form-checkbox
+              v-model="allSelected[index]"
+              :indeterminate="indeterminate[index]"
+              aria-describedby="flavours"
+              aria-controls="flavours"
+              @change="toggleAll(index)"
+            >
+              {{ category.name }}
+            </b-form-checkbox>
+          </template>
+
+          <template v-slot="{ ariaDescribedby }">
+            <b-form-checkbox-group
+              id="flavors"
+              v-model="selected[index]"
+              :options="categories[index].sections.map((section) => section.name)"
+              :aria-describedby="ariaDescribedby"
+              name="flavors"
+              class="ml-4"
+              aria-label="Individual flavours"
+              @change="changeSection(index)"
+              stacked
+            ></b-form-checkbox-group>
+          </template>
+        </b-form-group>
+      </div> -->
       <a-collapse :activeKey="['1', '2', '3']">
-        <a-collapse-panel key="1" header="Categories">
+        <a-collapse-panel key="1" header="Search" :disabled="false">
+          <div style="padding: 10px">
+            <b-input placeholder="Search" @keyup="onSearch" />
+          </div>
+        </a-collapse-panel>
+        <a-collapse-panel key="2" header="Categories">
           <ul class="list-group flex-row flex-wrap">
             <li
               style="padding-top: 10px; padding-bottom: 0"
@@ -45,11 +79,7 @@
             </li>
           </ul>
         </a-collapse-panel>
-        <a-collapse-panel key="2" header="Search" :disabled="false">
-          <div style="padding: 10px">
-            <b-input placeholder="Search" @keyup="onSearch" />
-          </div>
-        </a-collapse-panel>
+
         <a-collapse-panel key="3" header="Order By">
           <div style="padding: 10px">
             <b-form-select v-model="sortType">
@@ -93,6 +123,10 @@ export default {
   components: { Product },
   data() {
     return {
+      flavours: ['Orange', 'Grape', 'Apple', 'Lime', 'Very Berry'],
+      selected: [[]],
+      allSelected: [false],
+      indeterminate: [false],
       // checkedList: defaultCheckedList,
       // indeterminate: true,
       // checkAll: false,
@@ -107,6 +141,15 @@ export default {
 
   mounted() {
     this.searchProducts = this.filterProducts
+    this.selected = this.categories.map(() => {
+      return []
+    })
+    this.allSelected = this.categories.map(() => {
+      return false
+    })
+    this.indeterminate = this.categories.map(() => {
+      return false
+    })
   },
 
   computed: {
@@ -121,6 +164,12 @@ export default {
   },
 
   methods: {
+    toggleAll(index) {
+      console.log(this.allSelected[index])
+      this.selected[index] = this.allSelected[index]
+        ? this.categories[index].sections.map((section) => section.name)
+        : []
+    },
     ...mapMutations({
       addCategoryToFilter: Types.ADD_CATEGORY_TO_FILTER,
       removeCategoryFromFilter: Types.REMOVE_CATEGORY_FROM_FILTER,
@@ -170,17 +219,22 @@ export default {
       })
     },
 
-    // onChange(checkedList) {
-    //   this.indeterminate = !!checkedList.length && checkedList.length < plainOptions.length
-    //   this.checkAll = checkedList.length === plainOptions.length
-    // },
-    // onCheckAllChange(e) {
-    //   Object.assign(this, {
-    //     checkedList: e.target.checked ? plainOptions : [],
-    //     indeterminate: false,
-    //     checkAll: e.target.checked,
-    //   })
-    // },
+    changeSection(index) {
+      const newValue = this.selected[index]
+      console.log(newValue)
+      if (newValue.length === 0) {
+        this.indeterminate[index] = false
+        this.allSelected[index] = false
+      } else if (newValue.length === this.categories[index].sections.length) {
+        this.indeterminate[index] = false
+        this.allSelected[index] = true
+      } else {
+        this.indeterminate[index] = true
+        this.allSelected[index] = false
+      }
+      console.log(this.indeterminate)
+      console.log(this.allSelected)
+    },
   },
 
   watch: {

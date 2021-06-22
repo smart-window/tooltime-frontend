@@ -4,20 +4,15 @@
       <b-card-title class="text-primary"> Register </b-card-title>
       <b-card-body>
         <b-form @submit="handleSubmit">
-          <b-form-group
-            v-if="step == 0"
-            id="form-group-zip"
-            label="Service Area Zip"
-            label-for="zip"
-          >
+          <b-form-group v-if="step == 0" id="form-group-zip" label="Service Area" label-for="zip">
             <b-form-input
-              placeholder="Service Area Zip"
+              placeholder="Service Area"
               @input="selectZip"
               list="zip-list"
             ></b-form-input>
             <datalist id="zip-list">
-              <option v-for="location in serviceAreas" v-bind:key="location.id">
-                {{ location.Location.zip }}
+              <option v-for="serviceArea in serviceAreas" v-bind:key="serviceArea.id">
+                {{ serviceArea.zip + ', ' + serviceArea.city + ', ' + serviceArea.state }}
               </option>
             </datalist>
           </b-form-group>
@@ -124,7 +119,7 @@
               <b-button @click="finalStep" type="button" variant="primary"> Next </b-button>
             </b-container>
             <b-container v-if="step == 2" class="d-flex flex-row justify-content-between">
-              <b-button type="reset"> Reset </b-button>
+              <b-button @click="step--" type="button"> Back </b-button>
               <b-button type="submit" variant="primary"> Submit </b-button>
             </b-container>
           </b-form-row>
@@ -159,12 +154,15 @@ export default {
     }
   },
   computed: {
-    ...mapState(['user', 'cart']),
+    ...mapState(['user', 'cart', 'locations']),
     getLocation() {
+      console.log(this.location)
       return (
         'Location: ' +
         ('city' in this.location.Location
-          ? this.location.Location.address_1 +
+          ? this.location.Location.zip +
+            ', ' +
+            this.location.Location.address_1 +
             ', ' +
             this.location.Location.city +
             ', ' +
@@ -183,8 +181,12 @@ export default {
       registerUser: 'user/REGISTER',
     }),
     selectZip(zip) {
-      this.location = this.serviceAreas.find((location) => {
-        return location.Location.zip === zip
+      zip = zip.split(',')[0]
+      this.location = this.serviceAreas.find((serviceArea) => {
+        console.log(serviceArea.zip, zip)
+        if (serviceArea.zip == zip) {
+          return serviceArea.Location
+        }
       })
     },
 

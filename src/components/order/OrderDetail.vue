@@ -55,16 +55,16 @@
             <b-form-input id="phone" type="text" v-model="order.phone" required />
           </b-form-group>
           <b-form-group id="form-group-address" label="address" label-for="address">
-            <b-form-input id="address" type="text" v-model="order.address" required />
+            <b-form-input id="address" type="text" v-model="order.address" readonly />
           </b-form-group>
           <b-form-group id="form-group-city" label="city" label-for="city">
-            <b-form-input id="city" type="text" v-model="order.city" required />
+            <b-form-input id="city" type="text" v-model="order.city" readonly />
           </b-form-group>
           <b-form-group id="form-group-state" label="state" label-for="state">
-            <b-form-input id="state" type="text" v-model="order.state" required />
+            <b-form-input id="state" type="text" v-model="order.state" readonly />
           </b-form-group>
           <b-form-group id="form-group-zip" label="zip" label-for="zip">
-            <b-form-input id="zip" type="text" v-model="order.zip" required />
+            <b-form-input id="zip" type="text" v-model="order.zip" readonly />
           </b-form-group>
           <b-form-group id="form-group-location" label="location" label-for="location">
             <b-form-select id="location" v-model="order.locationId" disabled>
