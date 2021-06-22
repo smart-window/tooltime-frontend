@@ -12,7 +12,10 @@
               <span> Location </span>
             </template>
             <b-dropdown-item>
-              <label>{{ user.address }}, {{ user.city }}, {{ user.state }}</label>
+              <label
+                >{{ user.Servicearea.Location.address_1 }}, {{ user.Servicearea.Location.city }},
+                {{ user.Servicearea.Location.state }}</label
+              >
             </b-dropdown-item>
           </b-nav-item-dropdown>
           <router-link to="/cart" class="nav-link text-primary">
