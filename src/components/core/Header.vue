@@ -44,6 +44,9 @@ export default {
     ...mapState(['user', 'orders']),
     ...mapGetters(['totalCartItems']),
   },
+  mounted() {
+    console.log(this.user)
+  },
   methods: {
     handleSignOut() {
       this.$store.dispatch('user/LOGOUT')

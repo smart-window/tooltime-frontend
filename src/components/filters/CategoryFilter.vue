@@ -2,6 +2,20 @@
   <div>
     <a-collapse accordion>
       <a-collapse-panel key="1" header="Categories">
+        <!-- <div>
+          <div :style="{ borderBottom: '1px solid #E9E9E9' }">
+            <a-checkbox
+              :indeterminate="indeterminate"
+              :checked="checkAll"
+              @change="onCheckAllChange"
+            >
+              Check all
+            </a-checkbox>
+          </div>
+          <br />
+          <a-checkbox-group v-model="checkedList" :options="plainOptions" @change="onChange" />
+        </div> -->
+
         <ul class="list-group flex-row flex-wrap">
           <li
             style="padding-top: 10px; padding-bottom: 0"
@@ -54,12 +68,18 @@
 import { mapMutations, mapState } from 'vuex'
 import * as Types from '../../store/types'
 import './CategoryFilter.css'
+const plainOptions = ['Apple', 'Pear', 'Orange']
+const defaultCheckedList = ['Apple', 'Orange']
 
 export default {
   name: 'CategoryFilter',
   data() {
     return {
       brandsCount: this.$store.getters.brandsCount,
+      checkedList: defaultCheckedList,
+      indeterminate: true,
+      checkAll: false,
+      plainOptions,
     }
   },
   computed: {
@@ -74,7 +94,6 @@ export default {
     }),
 
     onChangeSelectBox(e) {
-      // console.log(this.categories)
       const categoryId = e.target.value
       const value = e.target.checked
 
@@ -94,12 +113,22 @@ export default {
         this.removeSectionFromFilter(sectionId)
       }
     },
+    onChange(checkedList) {
+      this.indeterminate = !!checkedList.length && checkedList.length < plainOptions.length
+      this.checkAll = checkedList.length === plainOptions.length
+    },
+    onCheckAllChange(e) {
+      Object.assign(this, {
+        checkedList: e.target.checked ? plainOptions : [],
+        indeterminate: false,
+        checkAll: e.target.checked,
+      })
+    },
   },
 }
 </script>
 
 <style scoped lang="scss">
-
 .custom-checkbox {
   display: block;
   position: relative;

@@ -65,7 +65,9 @@
       <b-row class="mb-3">
         <div class="col-12 d-none d-lg-block d-xl-block">
           <b-card no-body>
-            <b-card-header class="d-flex"> Filtered Items: {{ pageProducts.length }} Items</b-card-header>
+            <b-card-header class="d-flex">
+              {{ topLabel }} {{ pageProducts.length }} Items</b-card-header
+            >
           </b-card>
         </div>
       </b-row>
@@ -84,20 +86,22 @@ import * as Types from '../../store/types'
 import Product from './Product'
 import './CategoryFilter.css'
 
-const plainOptions = ['Apple', 'Pear', 'Orange']
-const defaultCheckedList = ['Apple', 'Orange']
+// const plainOptions = ['Apple', 'Pear', 'Orange']
+// const defaultCheckedList = ['Apple', 'Orange']
 export default {
   name: 'ProductList',
   components: { Product },
   data() {
     return {
-      checkedList: defaultCheckedList,
-      indeterminate: true,
-      checkAll: false,
-      plainOptions,
-      gridValue: 3,
+      // checkedList: defaultCheckedList,
+      // indeterminate: true,
+      // checkAll: false,
+      // plainOptions,
+      // gridValue: 3,
       sortType: 'newest',
       searchProducts: [],
+      labels: ['Search Result: ', 'Featured Items: '],
+      topLabel: 'Featured Items: ',
     }
   },
 
@@ -106,7 +110,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['currentPage', 'perPage', 'categories']),
+    ...mapState(['currentPage', 'perPage', 'categories', 'categoryFilter', 'sectionFilter']),
     ...mapGetters(['filterProducts']),
     pageProducts() {
       return this.searchProducts.slice(
@@ -133,6 +137,11 @@ export default {
       } else {
         this.removeCategoryFromFilter(categoryId)
       }
+      if (this.categoryFilter.length) {
+        this.topLabel = this.labels[0]
+      } else {
+        this.topLabel = this.labels[1]
+      }
     },
     onChangeSection(e) {
       const sectionId = e.target.value
@@ -143,25 +152,35 @@ export default {
       } else {
         this.removeSectionFromFilter(sectionId)
       }
+      if (this.sectionFilter.length) {
+        this.topLabel = this.labels[0]
+      } else {
+        this.topLabel = this.labels[1]
+      }
     },
 
     onSearch(e) {
+      if (e.target.value) {
+        this.topLabel = this.labels[0]
+      } else {
+        this.topLabel = this.labels[1]
+      }
       this.searchProducts = this.filterProducts.filter((product) => {
         return product.name.toLowerCase().includes(e.target.value.toLowerCase())
       })
     },
 
-    onChange(checkedList) {
-      this.indeterminate = !!checkedList.length && checkedList.length < plainOptions.length
-      this.checkAll = checkedList.length === plainOptions.length
-    },
-    onCheckAllChange(e) {
-      Object.assign(this, {
-        checkedList: e.target.checked ? plainOptions : [],
-        indeterminate: false,
-        checkAll: e.target.checked,
-      })
-    },
+    // onChange(checkedList) {
+    //   this.indeterminate = !!checkedList.length && checkedList.length < plainOptions.length
+    //   this.checkAll = checkedList.length === plainOptions.length
+    // },
+    // onCheckAllChange(e) {
+    //   Object.assign(this, {
+    //     checkedList: e.target.checked ? plainOptions : [],
+    //     indeterminate: false,
+    //     checkAll: e.target.checked,
+    //   })
+    // },
   },
 
   watch: {
