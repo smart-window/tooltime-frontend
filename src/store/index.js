@@ -142,7 +142,6 @@ const store = new Vuex.Store({
     async LOAD_SERVICE_AREAS({ commit }) {
       try {
         const service_areas = await api.getServiceAreas()
-        console.log(service_areas)
         commit(Types.SET_SERVICE_AREAS, service_areas)
       } catch (e) {
         commit(Types.SET_SERVICE_AREAS, [])

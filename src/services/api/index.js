@@ -35,8 +35,6 @@ export const getCategories = async () => {
 }
 
 export const getServiceAreas = async () => {
-  console.log(axiosClient)
-  
   return axiosClient
     .get('/auth/servicearea')
     .then(successFunc)

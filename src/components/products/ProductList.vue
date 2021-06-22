@@ -165,7 +165,6 @@ export default {
 
   methods: {
     toggleAll(index) {
-      console.log(this.allSelected[index])
       this.selected[index] = this.allSelected[index]
         ? this.categories[index].sections.map((section) => section.name)
         : []
@@ -221,7 +220,6 @@ export default {
 
     changeSection(index) {
       const newValue = this.selected[index]
-      console.log(newValue)
       if (newValue.length === 0) {
         this.indeterminate[index] = false
         this.allSelected[index] = false
@@ -232,8 +230,6 @@ export default {
         this.indeterminate[index] = true
         this.allSelected[index] = false
       }
-      console.log(this.indeterminate)
-      console.log(this.allSelected)
     },
   },
 

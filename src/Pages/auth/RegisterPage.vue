@@ -1,22 +1,36 @@
 <template>
   <b-container>
     <b-card>
-      <b-card-title class="text-primary"> Register </b-card-title>
+      <b-card-title class="text-primary">
+        {{ step == 2 ? 'Enter your personal detail' : 'Register' }}
+      </b-card-title>
       <b-card-body>
         <b-form @submit="handleSubmit">
           <b-form-group v-if="step == 0" id="form-group-zip" label="Service Area" label-for="zip">
             <b-form-input
               placeholder="Service Area"
               @input="selectZip"
+              :state="serviceZip ? (this.location.Location['name'] ? true : false) : null"
               list="zip-list"
             ></b-form-input>
             <datalist id="zip-list">
               <option v-for="serviceArea in serviceAreas" v-bind:key="serviceArea.id">
-                {{ serviceArea.zip + ', ' + serviceArea.city + ', ' + serviceArea.state }}
+                {{ serviceArea.zip }}
               </option>
             </datalist>
           </b-form-group>
-          <b-form-group v-if="step == 0" id="form-group-location" :label="getLocation">
+          <b-form-group
+            :style="
+              serviceZip
+                ? this.location.Location['name']
+                  ? 'color: #28a745'
+                  : 'color: #dc3545'
+                : ''
+            "
+            v-if="step == 0"
+            id="form-group-location"
+            :label="getLocation"
+          >
           </b-form-group>
 
           <b-form-group
@@ -140,6 +154,7 @@
 import { mapActions, mapState } from 'vuex'
 import router from '@/router'
 import * as api from '../../services/api'
+import './RegisterPage.css'
 
 export default {
   name: 'RegisterPage',
@@ -151,24 +166,29 @@ export default {
       serviceAreas: [],
       step: 0,
       retypePassword: '',
+      serviceZip: '',
     }
   },
   computed: {
     ...mapState(['user', 'cart', 'locations']),
     getLocation() {
-      console.log(this.location)
-      return (
-        'Location: ' +
-        ('city' in this.location.Location
-          ? this.location.Location.zip +
-            ', ' +
-            this.location.Location.address_1 +
-            ', ' +
-            this.location.Location.city +
-            ', ' +
-            this.location.Location.state
-          : 'Location not found.')
-      )
+      console.log(this.selectZip)
+      if (!this.serviceZip) {
+        return 'Location: Location not found.'
+      } else if (this.serviceZip && !this.location.Location['name']) {
+        return 'Location: Not valid zip code.'
+      } else {
+        return (
+          'Location: ' +
+          this.location.Location.zip +
+          ', ' +
+          this.location.Location.address_1 +
+          ', ' +
+          this.location.Location.city +
+          ', ' +
+          this.location.Location.state
+        )
+      }
     },
   },
 
@@ -181,13 +201,15 @@ export default {
       registerUser: 'user/REGISTER',
     }),
     selectZip(zip) {
-      zip = zip.split(',')[0]
+      this.serviceZip = zip
       this.location = this.serviceAreas.find((serviceArea) => {
-        console.log(serviceArea.zip, zip)
-        if (serviceArea.zip == zip) {
+        if (serviceArea.zip === Number(zip)) {
           return serviceArea.Location
         }
       })
+      if (!this.location) {
+        this.location = { Location: {} }
+      }
     },
 
     handleSubmit(e) {
