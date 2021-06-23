@@ -1,36 +1,45 @@
 <template>
   <b-container>
     <b-card class="border-primary">
-      <b-card-header class="bg-primary text-white">Login</b-card-header>
-      <b-card-body>
-        <form @submit="handleSubmit">
-          <div class="form-group">
-            <label for="email"> Email Address </label>
-            <input
-              class="form-control"
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Enter email"
-              aria-describedby="emailHelp"
-              v-model="email"
-            />
+      <div class="row">
+        <div class="col-6 no-padding">
+          <ImgDiv />
+        </div>
+        <div class="col-6 no-padding">
+          <b-card-header class="bg-primary text-white">Login</b-card-header>
+          <div>
+            <b-card-body class="main-body">
+              <form @submit="handleSubmit">
+                <div class="form-group">
+                  <label for="email"> Email Address </label>
+                  <input
+                    class="form-control"
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter email"
+                    aria-describedby="emailHelp"
+                    v-model="email"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="password"> Password </label>
+                  <input
+                    class="form-control"
+                    type="password"
+                    name="password"
+                    id="password"
+                    placeholder="Password"
+                    aria-describedby="password"
+                    v-model="password"
+                  />
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+            </b-card-body>
           </div>
-          <div class="form-group">
-            <label for="password"> Password </label>
-            <input
-              class="form-control"
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Password"
-              aria-describedby="password"
-              v-model="password"
-            />
-          </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-      </b-card-body>
+        </div>
+      </div>
     </b-card>
 
     <div class="pt-2">
@@ -40,13 +49,19 @@
       </p>
     </div>
   </b-container>
+  <!-- </div> -->
+  <!-- </b-row> -->
 </template>
 
 <script>
+import ImgDiv from './ImgDiv'
+import './CommonStyle.css'
+
 export default {
   name: 'LoginPage',
-
-  mounted() {},
+  components: {
+    ImgDiv,
+  },
 
   data() {
     return {

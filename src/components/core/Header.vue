@@ -12,7 +12,7 @@
               <span> Location </span>
             </template>
             <b-dropdown-item>
-              <label
+              <label v-if="user.Servicearea"
                 >{{ user.Servicearea.Location.address_1 }}, {{ user.Servicearea.Location.city }},
                 {{ user.Servicearea.Location.state }}</label
               >
@@ -46,6 +46,9 @@ export default {
   computed: {
     ...mapState(['user', 'orders']),
     ...mapGetters(['totalCartItems']),
+  },
+  mounted() {
+    console.log(this.user)
   },
   methods: {
     handleSignOut() {

@@ -1,0 +1,32 @@
+.no-padding {
+    padding: 0;
+}
+
+.main-body {
+    padding: 15px !important;
+    /* position: absolute; */
+    /* top: 0px; */
+    width: 100%;
+    margin: 0;
+    position: absolute;
+    top: 52%;
+    -ms-transform: translateY(-48%);
+    transform: translateY(-48%);
+}
+
+.card {
+    padding: 0 15px;
+    max-width: 100% !important;
+}
+
+.card-header {
+    border-radius: 0!important;
+}
+
+.card-body {
+    padding: 0;
+}
+
+.row {
+    min-height: 500px;
+}
