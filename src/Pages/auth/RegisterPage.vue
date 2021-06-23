@@ -1,7 +1,7 @@
 <template>
   <b-container>
     <b-card class="border-primary">
-      <div class="row">
+      <div class="row min-500">
         <div class="col-6 no-padding">
           <ImgDiv />
         </div>
@@ -206,7 +206,6 @@ export default {
   computed: {
     ...mapState(['user', 'cart', 'locations']),
     getLocation() {
-      console.log(this.selectZip)
       if (!this.serviceZip) {
         return 'Location: Location not found.'
       } else if (this.serviceZip && !this.location.Location['name']) {
@@ -228,6 +227,7 @@ export default {
 
   async mounted() {
     this.serviceAreas = await api.getServiceAreas()
+    console.log(this.serviceAreas)
   },
 
   methods: {

@@ -1,7 +1,7 @@
 <template>
   <b-container>
     <b-card class="border-primary">
-      <div class="row">
+      <div class="row min-500">
         <div class="col-6 no-padding">
           <ImgDiv />
         </div>
@@ -49,8 +49,6 @@
       </p>
     </div>
   </b-container>
-  <!-- </div> -->
-  <!-- </b-row> -->
 </template>
 
 <script>
