@@ -251,7 +251,7 @@ export default {
       this.form.address = this.location.Location.address_1
       this.form.city = this.location.Location.city
       this.form.state = this.location.Location.state
-      this.form.zip = this.location.Location.zip
+      this.form.zip = this.location.zip
 
       this.registerUser(this.form)
         .then(() => {
