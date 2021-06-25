@@ -7,22 +7,25 @@
       <!-- <b-card-title> -->
       <!-- </b-card-title> -->
       <b-card-body class="order-list-wrapper" v-if="!editing">
-        <h2 class="text-primary text-center">{{ orderTitle }}</h2>
+        <h2 class="text-primary mt-4 mb-3">{{ orderTitle }}</h2>
         <p>
-          <span> <i class="far fa-envelope"></i> </span> {{ order.email }}
+          <span> <i class="far fa-envelope"></i> </span>&nbsp;&nbsp; {{ order.email }}
         </p>
         <p>
-          <span><i class="fas fa-phone-alt"></i> </span> {{ order.phone }}
+          <span><i class="fas fa-phone-alt"></i> </span>&nbsp;&nbsp; {{ order.phone }}
         </p>
         <p>
-          <span> <i class="fas fa-map-marker-alt"></i> </span> {{ order.address }},{{ order.city }},
+          <span> <i class="fas fa-map-marker-alt"></i> </span>&nbsp;&nbsp; {{ order.address }},{{
+            order.city
+          }},
           {{ order.state }}
         </p>
         <p>
-          <span> <i class="fas fa-calendar-alt"></i> </span> {{ pickDate(order.pickupDate) }}
+          <span> <i class="fas fa-calendar-alt"></i> </span>&nbsp;&nbsp;
+          {{ pickDate(order.pickupDate) }}
         </p>
         <p>
-          <span> <i class="fas fa-house-user"></i> </span> Agency
+          <span> <i class="fas fa-house-user"></i> </span>&nbsp;&nbsp; Agency
           <b-select v-model="order.locationId" disabled>
             <b-select-option
               :value="location.id"
@@ -34,10 +37,13 @@
           </b-select>
         </p>
         <p>
-          <span> <i class="far fa-clipboard"></i> Notes </span>
+          <span> <i class="far fa-clipboard"></i>&nbsp;&nbsp; Notes </span>
           <b-textarea v-model="order.notes" debounce="500" disabled> </b-textarea>
         </p>
         <b-table striped hover :items="orderItems" :fields="orderFields">
+          <template #cell(no)="row">
+            {{ row.index + 1 }}
+          </template>
           <template #cell(productName)="row">
             <router-link :to="`/product/${row.item.productId}`"> {{ row.value }} </router-link>
           </template>
@@ -89,6 +95,9 @@
           </b-form-group>
         </b-form>
         <b-table striped hover :items="orderItems" :fields="orderFields">
+          <template #cell(no)="row">
+            {{ row.index + 1 }}
+          </template>
           <template #cell(productName)="row">
             <router-link :to="`/product/${row.item.productId}`"> {{ row.value }} </router-link>
           </template>
@@ -191,27 +200,49 @@ export default {
       if (this.editing)
         return [
           {
+            key: 'no',
+            label: 'No',
+            tdClass: 'border border-custom',
+            thClass: 'border border-custom',
+          },
+          {
             key: 'productName',
             label: 'Product Name',
+            tdClass: 'border border-custom',
+            thClass: 'border border-custom',
           },
           {
             key: 'orderCount',
             label: 'Count',
+            tdClass: 'border border-custom',
+            thClass: 'border border-custom',
           },
           {
             key: 'actions',
             label: 'Actions',
+            tdClass: 'border border-custom',
+            thClass: 'border border-custom',
           },
         ]
       else
         return [
           {
+            key: 'no',
+            label: 'No',
+            tdClass: 'border border-custom',
+            thClass: 'border border-custom',
+          },
+          {
             key: 'productName',
             label: 'Product Name',
+            tdClass: 'border border-custom',
+            thClass: 'border border-custom',
           },
           {
             key: 'orderCount',
             label: 'Count',
+            tdClass: 'border border-custom',
+            thClass: 'border border-custom',
           },
         ]
     },
@@ -307,6 +338,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.border-custom {
+  color: black !important;
+  border: 1px solid black !important;
+}
+
 ul {
   margin: 0;
 }
