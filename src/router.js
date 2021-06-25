@@ -13,6 +13,7 @@ import AuthLayout from './layouts/auth'
 import ProfilePage from './pages/ProfilePage'
 import OrderPage from './pages/OrderPage'
 import Alert from './pages/Alert'
+import Dashboard from './pages/Dashboard'
 var ping = require('ping')
 Vue.use(Router)
 
@@ -29,13 +30,17 @@ const router = new Router({
     },
     {
       path: '/',
-      redirect: '/products',
+      redirect: '/',
       component: MainLayout,
       meta: {
         authRequired: true,
         hidden: true,
       },
       children: [
+        {
+          path: '/',
+          component: Dashboard,
+        },
         {
           path: '/products',
           component: Home,

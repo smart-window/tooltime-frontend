@@ -1,16 +1,31 @@
 <template>
   <b-container>
-    <b-card class="border-primary">
+    <b-card class="shadow border-primary w-75 mt-5">
       <div class="row min-500">
-        <div class="col-6 no-padding">
-          <ImgDiv />
+        <div class="col-xs-12 col-md-6 d-flex justify-content-center align-items-center">
+          <img
+            class="w-100"
+            :src="
+              step == 0
+                ? 'https://i.pinimg.com/originals/19/86/f6/1986f62ce5081824a38fe780dee36599.jpg'
+                : step == 1
+                ? 'https://dscxx9mer61ho.cloudfront.net/wp-content/uploads/Car-2-60.jpg'
+                : 'https://www.bigfatlogos.com/wp-content/themes/dpmg-theme/library/timthumb.php?src=https://www.bigfatlogos.com/wp-content/uploads/2009/09/vehicle-wrap-dewalt.jpg&w=630&h=378&zc=1'
+            "
+          />
         </div>
         <div class="col-6 no-padding">
-          <b-card-header class="bg-primary text-white">{{
-            step == 2 ? 'Enter your personal detail' : 'Register'
-          }}</b-card-header>
           <div>
             <b-card-body class="main-body">
+              <h4 style="margin-bottom: 20px" class="text-primary">
+                <b>{{
+                  step == 0
+                    ? 'Enter your service area code'
+                    : step == 1
+                    ? 'Enter your email and password'
+                    : 'Enter your personal detail'
+                }}</b>
+              </h4>
               <b-form @submit="handleSubmit">
                 <b-form-group
                   v-if="step == 0"
@@ -30,18 +45,20 @@
                     </option>
                   </datalist>
                 </b-form-group>
-                <b-form-group
-                  :style="
-                    serviceZip
-                      ? this.location.Location['name']
-                        ? 'color: #28a745'
-                        : 'color: #dc3545'
-                      : ''
-                  "
-                  v-if="step == 0"
-                  id="form-group-location"
-                  :label="getLocation"
-                >
+
+                <b-form-group v-if="getLocation != ''">
+                  <b-container
+                    :style="
+                      serviceZip
+                        ? this.location.Location['name']
+                          ? 'color: #28a745'
+                          : 'color: #dc3545'
+                        : ''
+                    "
+                    class="d-inline-block text-left"
+                  >
+                    {{ getLocation }}
+                  </b-container>
                 </b-form-group>
 
                 <b-form-group
@@ -80,8 +97,8 @@
                 >
                   <b-form-input
                     id="retypePassword"
-                    type="password"
                     v-model="retypePassword"
+                    type="password"
                     placeholder="Re-type password"
                     required
                   />
@@ -149,19 +166,29 @@
                   />
                 </b-form-group>
                 <b-form-row>
-                  <b-container v-if="step == 0" class="d-flex flex-row justify-content-between">
+                  <b-container class="d-inline-block text-left">
+                    Do you already have account ?
+                    <router-link to="/auth/login"> Sign In </router-link>
+                  </b-container>
+                </b-form-row>
+                <b-form-row>
+                  <b-container v-if="step == 0" class="d-flex flex-row justify-content-end mt-3">
                     <router-link to="/auth/login">
                       <b-button type="button"> Back </b-button>
                     </router-link>
-                    <b-button @click="nextStep" type="button" variant="primary"> Next </b-button>
+                    <b-button class="ml-1" @click="nextStep" type="button" variant="primary">
+                      Next
+                    </b-button>
                   </b-container>
-                  <b-container v-if="step == 1" class="d-flex flex-row justify-content-between">
+                  <b-container v-if="step == 1" class="d-flex flex-row justify-content-end">
                     <b-button @click="step--" type="button"> Back </b-button>
-                    <b-button @click="finalStep" type="button" variant="primary"> Next </b-button>
+                    <b-button class="ml-1" @click="finalStep" type="button" variant="primary">
+                      Next
+                    </b-button>
                   </b-container>
-                  <b-container v-if="step == 2" class="d-flex flex-row justify-content-between">
+                  <b-container v-if="step == 2" class="d-flex flex-row justify-content-end">
                     <b-button @click="step--" type="button"> Back </b-button>
-                    <b-button type="submit" variant="primary"> Submit </b-button>
+                    <b-button class="ml-1" type="submit" variant="primary"> Submit </b-button>
                   </b-container>
                 </b-form-row>
               </b-form>
@@ -170,36 +197,23 @@
         </div>
       </div>
     </b-card>
-
-    <div class="pt-2">
-      <p>
-        Do you already have account ?
-        <router-link to="/auth/login"> Sign In </router-link>
-      </p>
-    </div>
   </b-container>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex'
 import router from '@/router'
-import * as api from '../../services/api'
-import './RegisterPage.css'
-import ImgDiv from './ImgDiv'
-import './CommonStyle.css'
+import * as api from '@/services/api'
 
 export default {
   name: 'RegisterPage',
-  components: {
-    ImgDiv,
-  },
   data() {
     return {
       form: {},
       location: { Location: {} },
       serviceAreas: [],
       step: 0,
-      retypePassword: '',
+      retypePassword: null,
       serviceZip: '',
     }
   },
@@ -207,7 +221,7 @@ export default {
     ...mapState(['user', 'cart', 'locations']),
     getLocation() {
       if (!this.serviceZip) {
-        return 'Location: Location not found.'
+        return ''
       } else if (this.serviceZip && !this.location.Location['name']) {
         return 'Location: Not valid zip code.'
       } else {
@@ -293,7 +307,6 @@ export default {
 
   & .card {
     width: 100%;
-    max-width: 500px;
   }
 }
 </style>

@@ -4,10 +4,10 @@
       <b-card-body> <h3 class="text-primary">Select Order to see the details</h3> </b-card-body>
     </b-card>
     <b-card no-body class="order-detail" v-if="order.id !== undefined">
-      <b-card-title>
-        <h5 class="text-primary">{{ orderTitle }}</h5>
-      </b-card-title>
+      <!-- <b-card-title> -->
+      <!-- </b-card-title> -->
       <b-card-body class="order-list-wrapper" v-if="!editing">
+        <h2 class="text-primary text-center">{{ orderTitle }}</h2>
         <p>
           <span> <i class="far fa-envelope"></i> </span> {{ order.email }}
         </p>
@@ -107,7 +107,7 @@
         </b-table>
       </b-card-body>
     </b-card>
-    <b-row v-if="order.id !== undefined">
+    <b-row class="order-footer" v-if="order.id !== undefined">
       <b-container class="d-flex flex-row justify-content-between pt-2 pb-2" v-if="!editing">
         <b-button variant="primary" @click="handleEditOrder">
           <i class="fas fa-edit"> </i> Edit
@@ -307,8 +307,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.order-detail {
-  padding: 10px 10px;
+.order-detail,
+.order-footer {
+  padding: 10px 100px !important;
 }
 
 /deep/ .modal-confirm {

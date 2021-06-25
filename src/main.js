@@ -10,6 +10,7 @@ import router from './router'
 import { BootstrapVue } from 'bootstrap-vue'
 import Notifications from 'vue-notification'
 import Antd from 'ant-design-vue'
+import './google-map'
 
 Vue.use(VueSwal)
 Vue.use(BootstrapVue)

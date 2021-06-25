@@ -1,35 +1,6 @@
 <template>
   <div class="row">
     <div class="col-3 d-none d-lg-block d-xl-block">
-      <!-- <div v-for="(category, index) in categories" :key="category.id">
-        <b-form-group>
-          <template #label>
-            <b-form-checkbox
-              v-model="allSelected[index]"
-              :indeterminate="indeterminate[index]"
-              aria-describedby="flavours"
-              aria-controls="flavours"
-              @change="toggleAll(index)"
-            >
-              {{ category.name }}
-            </b-form-checkbox>
-          </template>
-
-          <template v-slot="{ ariaDescribedby }">
-            <b-form-checkbox-group
-              id="flavors"
-              v-model="selected[index]"
-              :options="categories[index].sections.map((section) => section.name)"
-              :aria-describedby="ariaDescribedby"
-              name="flavors"
-              class="ml-4"
-              aria-label="Individual flavours"
-              @change="changeSection(index)"
-              stacked
-            ></b-form-checkbox-group>
-          </template>
-        </b-form-group>
-      </div> -->
       <a-collapse :activeKey="['1', '2', '3']">
         <a-collapse-panel key="1" header="Search" :disabled="false">
           <div style="padding: 10px">

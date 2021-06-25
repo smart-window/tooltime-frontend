@@ -20,23 +20,21 @@
         caption="Our Company"
         text="Provide Best Service."
         img-src="https://base.imgix.net/files/base/ebm/machinedesign/image/2021/02/MD_ResourceCenterHeader_630x354.6019d3f1708a1.png?auto=format&fit=crop&h=354&w=630"
-      ></b-carousel-slide>
+      >
+      </b-carousel-slide>
 
       <!-- Slides with custom text -->
       <b-carousel-slide
         img-src="https://media.istockphoto.com/photos/production-line-of-plastic-industry-picture-id510162486?k=6&m=510162486&s=612x612&w=0&h=BcECtLxFTWjm_dSZ9GCy5KftmXAuddew1Ium-pCOeYk="
       >
-        <h1>Hello world!</h1>
+        <h1 class="text-white">Hello world!</h1>
       </b-carousel-slide>
 
-      <!-- Slides with image only -->
       <b-carousel-slide
         img-src="https://techcrunch.com/wp-content/uploads/2018/10/GettyImages-818593144.jpg?w=730&crop=1"
       >
       </b-carousel-slide>
 
-      <!-- Slides with img slot -->
-      <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
       <b-carousel-slide>
         <template #img>
           <img
@@ -48,14 +46,6 @@
           />
         </template>
       </b-carousel-slide>
-
-      <!-- Slide with blank fluid image to maintain slide aspect ratio -->
-      <!-- <b-carousel-slide caption="Blank Image" img-blank img-alt="Blank image">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eros felis, tincidunt
-          a tincidunt eget, convallis vel est. Ut pellentesque ut lacus vel interdum.
-        </p>
-      </b-carousel-slide> -->
     </b-carousel>
     <br />
   </div>
@@ -80,3 +70,8 @@ export default {
   },
 }
 </script>
+<style scoped>
+.carousel-item {
+  height: 600px;
+}
+</style>
