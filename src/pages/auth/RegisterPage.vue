@@ -14,16 +14,16 @@
             "
           />
         </div>
-        <div class="col-6 no-padding">
+        <div class="col-xs-12 col-md-6 no-padding d-flex justify-content-center align-items-center">
           <div>
             <b-card-body class="main-body">
-              <h4 style="margin-bottom: 20px" class="text-primary">
+              <h4 style="margin-bottom: 20px" class="text-primary text-uppercase">
                 <b>{{
                   step == 0
-                    ? 'Enter your service area code'
+                    ? 'service area code'
                     : step == 1
-                    ? 'Enter your email and password'
-                    : 'Enter your personal detail'
+                    ? 'email and password'
+                    : 'personal detail'
                 }}</b>
               </h4>
               <b-form @submit="handleSubmit">
@@ -55,7 +55,7 @@
                           : 'color: #dc3545'
                         : ''
                     "
-                    class="d-inline-block text-left"
+                    class="d-inline-block text-left p-0"
                   >
                     {{ getLocation }}
                   </b-container>
@@ -171,8 +171,8 @@
                     <router-link to="/auth/login"> Sign In </router-link>
                   </b-container>
                 </b-form-row>
-                <b-form-row>
-                  <b-container v-if="step == 0" class="d-flex flex-row justify-content-end mt-3">
+                <b-form-row class="mt-3">
+                  <b-container v-if="step == 0" class="d-flex flex-row justify-content-end">
                     <router-link to="/auth/login">
                       <b-button type="button"> Back </b-button>
                     </router-link>

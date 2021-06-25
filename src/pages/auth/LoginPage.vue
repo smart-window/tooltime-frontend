@@ -5,10 +5,10 @@
         <div class="col-xs-12 col-md-6 d-flex justify-content-center align-items-center">
           <img
             class="w-100"
-            src="https://images-na.ssl-images-amazon.com/images/I/71B9uczXELL._AC_SL1500_.jpg"
+            src="https://www.rockler.com/media/catalog/product/cache/5c5edcf249a74e99ece620285918bb9b/9/0/90700-02-1000.jpg"
           />
         </div>
-        <div class="col-xs-12 col-md-6">
+        <div class="col-xs-12 col-md-6 d-flex justify-content-center align-items-center">
           <b-card-body>
             <form @submit="handleSubmit">
               <h3 style="margin-bottom: 20px" class="text-primary">
