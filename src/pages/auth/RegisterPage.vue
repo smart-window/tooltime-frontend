@@ -1,16 +1,16 @@
 <template>
   <b-container>
-    <b-card class="shadow border-primary w-75 mt-5">
+    <b-card class="shadow border-primary w-75 mt-5 mb-5">
       <div class="row min-500">
         <div class="col-xs-12 col-md-6 d-flex justify-content-center align-items-center">
           <img
             class="w-100"
             :src="
               step == 0
-                ? 'https://i.pinimg.com/originals/19/86/f6/1986f62ce5081824a38fe780dee36599.jpg'
+                ? 'https://canadiantire.scene7.com/is/image/CanadianTire/0548392_1?defaultImage=image_na_EN&fmt=jpg&fit=constrain,1&wid=573&hei=499'
                 : step == 1
-                ? 'https://dscxx9mer61ho.cloudfront.net/wp-content/uploads/Car-2-60.jpg'
-                : 'https://www.bigfatlogos.com/wp-content/themes/dpmg-theme/library/timthumb.php?src=https://www.bigfatlogos.com/wp-content/uploads/2009/09/vehicle-wrap-dewalt.jpg&w=630&h=378&zc=1'
+                ? 'https://cdn.shopify.com/s/files/1/0508/5220/0645/products/2371gt_300x300.jpg?v=1620400138'
+                : 'https://images-na.ssl-images-amazon.com/images/I/61kDw3mRrnL._AC_SL1200_.jpg'
             "
           />
         </div>
