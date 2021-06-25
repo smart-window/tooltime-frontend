@@ -307,9 +307,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+ul {
+  margin: 0;
+}
+.card-body {
+  padding: 0;
+}
+.card-body p {
+  margin-bottom: 1.5rem;
+}
 .order-detail,
 .order-footer {
-  padding: 10px 100px !important;
+  padding: 10px 50px !important;
 }
 
 /deep/ .modal-confirm {
