@@ -16,22 +16,17 @@
       @sliding-end="onSlideEnd"
     >
       <!-- Text slides with image -->
-      <b-carousel-slide
-        caption="Our Company"
-        text="Provide Best Service."
-        img-src="https://base.imgix.net/files/base/ebm/machinedesign/image/2021/02/MD_ResourceCenterHeader_630x354.6019d3f1708a1.png?auto=format&fit=crop&h=354&w=630"
-      >
+      <b-carousel-slide img-src="https://www.orklahousecare.com/app/uploads/2020/03/anza.jpeg">
       </b-carousel-slide>
 
       <!-- Slides with custom text -->
       <b-carousel-slide
-        img-src="https://media.istockphoto.com/photos/production-line-of-plastic-industry-picture-id510162486?k=6&m=510162486&s=612x612&w=0&h=BcECtLxFTWjm_dSZ9GCy5KftmXAuddew1Ium-pCOeYk="
+        img-src="https://www.securens.in/wp-content/uploads/2020/02/Inventory_Theft_Main_Banner.jpg"
       >
-        <h1 class="text-white">Hello world!</h1>
       </b-carousel-slide>
 
       <b-carousel-slide
-        img-src="https://techcrunch.com/wp-content/uploads/2018/10/GettyImages-818593144.jpg?w=730&crop=1"
+        img-src="https://www.rhenus.com/fileadmin/user_upload/rhenus_au/Services/Services_Warehouse_Header.jpg"
       >
       </b-carousel-slide>
 

@@ -3,28 +3,21 @@
     <div class="row">
       <div class="col-lg-12">
         <Slider />
-        <b-card style="padding: 20px 20%">
-          <b-card-header>
-            <h2 class="text-primary"><b>Featured Products</b></h2>
-          </b-card-header>
-          <b-card-body>
-            <div class="row">
-              <div
-                v-for="product in pageProducts"
-                :key="product.id"
-                class="col-md-3 col-lg-3 col-xs-6"
-              >
-                <Product :product="product"></Product>
-              </div>
+        <b-container class="p-5">
+          <h2 class="text-primary"><b>Featured Products</b></h2>
+          <div class="row">
+            <div
+              v-for="product in pageProducts"
+              :key="product.id"
+              class="col-md-3 col-lg-3 col-xs-6"
+            >
+              <Product :product="product"></Product>
             </div>
-            <div class="row">
-              <router-link to="/products" class="nav-link">
-                <h4 class="text-primary">More Products >></h4>
-              </router-link>
-            </div>
-          </b-card-body>
-          <b-card-footer> </b-card-footer>
-        </b-card>
+          </div>
+          <div class="row">
+            <router-link to="/products" class="nav-link"> More Products </router-link>
+          </div>
+        </b-container>
       </div>
     </div>
   </div>
