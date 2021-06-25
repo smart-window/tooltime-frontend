@@ -1,6 +1,8 @@
 .DS_Store
 node_modules
-/dist
+jspm_packages
+dist
+.serverless
 
 # local env files
 .env.local
