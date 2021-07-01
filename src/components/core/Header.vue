@@ -27,8 +27,8 @@
             <GmapMap
               style="width: 100%; height: 500px"
               map-type-id="terrain"
-              :center="{ lat: user.Servicearea.latitude, lng: user.Servicearea.longitude }"
               :zoom="10"
+              :center="{ lat: user.Servicearea.latitude, lng: user.Servicearea.longitude }"
             >
             </GmapMap>
 
