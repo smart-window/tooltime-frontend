@@ -25,8 +25,8 @@
 
           <b-modal size="lg" id="modal-1" title="Location">
             <GmapMap
-              :center="{ lat: 40.7, lng: -74 }"
-              :zoom="7"
+              :center="{ lat: user.Servicearea.latitude, lng: user.Servicearea.longitude }"
+              :zoom="10"
               map-type-id="terrain"
               style="width: 100%; height: 500px"
             >
