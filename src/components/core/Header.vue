@@ -25,10 +25,10 @@
 
           <b-modal size="lg" id="modal-1" title="Location">
             <GmapMap
+              style="width: 100%; height: 500px"
+              map-type-id="terrain"
               :center="{ lat: user.Servicearea.latitude, lng: user.Servicearea.longitude }"
               :zoom="10"
-              map-type-id="terrain"
-              style="width: 100%; height: 500px"
             >
             </GmapMap>
 
