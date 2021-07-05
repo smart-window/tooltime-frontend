@@ -66,7 +66,7 @@ export default {
 }
 </script>
 <style scoped>
-.carousel-item {
-  height: 600px;
-}
+/* .carousel-item { */
+  /* height: 600px; */
+/* } */
 </style>
