@@ -1,11 +1,14 @@
 <template>
   <b-container>
     <div class="row">
-      <div class="col-sm-12 col-md-4">
+      <div v-if="orders.length" class="col-sm-12 col-md-4">
         <OrderList :selectedOrder="selectedOrder" />
       </div>
-      <div class="col-sm-12 col-md-8">
-        <OrderDetail />
+      <div :class="orders.length ? 'col-sm-12 col-md-8' : 'col-sm-12 col-md-12'">
+        <OrderDetail v-if="orders.length" />
+        <b-card v-if="!orders.length">
+          <b-card-body> <h3 class="text-primary text-center">No Data</h3> </b-card-body>
+        </b-card>
       </div>
     </div>
   </b-container>
@@ -34,6 +37,9 @@ export default {
   methods: {},
 
   mounted() {
+    if (this.orderId === undefined && this.orders.length > 0) {
+      router.push(`/order/${this.orders[0].id}`)
+    }
     if (this.orderId === undefined) {
       if (
         this.selectedOrder.id !== undefined &&
