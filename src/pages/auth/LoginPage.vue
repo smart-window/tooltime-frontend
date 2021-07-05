@@ -5,7 +5,7 @@
         <div class="col-xs-12 col-md-6 d-flex justify-content-center align-items-center">
           <img
             class="w-100"
-            src="https://www.rockler.com/media/catalog/product/cache/5c5edcf249a74e99ece620285918bb9b/9/0/90700-02-1000.jpg"
+            src="../../assets/img/90700-02-1000.jpg"
           />
         </div>
         <div class="col-xs-12 col-md-6 d-flex justify-content-center align-items-center">

@@ -1,65 +1,86 @@
 <template>
   <div class="row">
     <div class="col-3 d-none d-lg-block d-xl-block">
-      <a-collapse :activeKey="['1', '2', '3']">
-        <a-collapse-panel key="1" header="Search" :disabled="false">
-          <div style="padding: 10px">
-            <b-input placeholder="Search" @keyup="onSearch" />
-          </div>
-        </a-collapse-panel>
-        <a-collapse-panel key="2" header="Categories">
-          <ul class="list-group flex-row flex-wrap">
-            <li
-              style="padding-top: 10px; padding-bottom: 0"
-              class="list-group-item flex-50"
-              v-for="category in categories"
-              :key="category.id"
-            >
-              <label class="custom-checkbox text-capitalize">
-                {{ category.name }}
-                <input
-                  type="checkbox"
-                  :name="category.name"
-                  :value="category.id"
-                  class="custom-checkbox__input"
-                  @input="onChangeSelectBox($event)"
-                />
-                <span class="custom-checkbox__span"></span>
-              </label>
+      <div multiple class="accordion" role="tablist">
+        <b-card no-body class="mb-1">
+          <b-card-header header-tag="header" class="p-1" role="tab">
+            <label v-b-toggle.accordion-1>SEARCH</label>
+          </b-card-header>
+          <b-collapse id="accordion-1" accordion="my-accordion" role="tabpanel">
+            <b-card-body>
+              <div style="padding: 10px">
+                <b-input placeholder="Search" @keyup="onSearch" />
+              </div>
+            </b-card-body>
+          </b-collapse>
+        </b-card>
+
+        <b-card no-body class="mb-1">
+          <b-card-header header-tag="header" class="p-1" role="tab">
+            <label v-b-toggle.accordion-2>CATEGORIES</label>
+          </b-card-header>
+          <b-collapse id="accordion-2" visible accordion="my-accordion" role="tabpanel">
+            <b-card-body>
               <ul class="list-group flex-row flex-wrap">
                 <li
+                  style="padding-top: 10px; padding-bottom: 0"
                   class="list-group-item flex-50"
-                  v-for="section in category.sections"
-                  :key="section.id"
-                  style="border: 0; padding-top: 0; padding-bottom: 0"
+                  v-for="category in categories"
+                  :key="category.id"
                 >
                   <label class="custom-checkbox text-capitalize">
-                    {{ section.name }}
-
+                    {{ category.name }}
                     <input
                       type="checkbox"
-                      :name="section.name"
-                      :value="section.id"
+                      :name="category.name"
+                      :value="category.id"
                       class="custom-checkbox__input"
-                      @input="onChangeSection($event)"
+                      @input="onChangeSelectBox($event)"
                     />
                     <span class="custom-checkbox__span"></span>
                   </label>
+                  <ul class="list-group flex-row flex-wrap">
+                    <li
+                      class="list-group-item flex-50"
+                      v-for="section in category.sections"
+                      :key="section.id"
+                      style="border: 0; padding-top: 0; padding-bottom: 0"
+                    >
+                      <label class="custom-checkbox text-capitalize">
+                        {{ section.name }}
+
+                        <input
+                          type="checkbox"
+                          :name="section.name"
+                          :value="section.id"
+                          class="custom-checkbox__input"
+                          @input="onChangeSection($event)"
+                        />
+                        <span class="custom-checkbox__span"></span>
+                      </label>
+                    </li>
+                  </ul>
                 </li>
               </ul>
-            </li>
-          </ul>
-        </a-collapse-panel>
+            </b-card-body>
+          </b-collapse>
+        </b-card>
 
-        <a-collapse-panel key="3" header="Order By">
-          <div style="padding: 10px">
-            <b-form-select v-model="sortType">
-              <b-form-select-option value="newest"> Newest </b-form-select-option>
-              <!-- <b-form-select-option value="price"> Price </b-form-select-option> -->
-            </b-form-select>
-          </div>
-        </a-collapse-panel>
-      </a-collapse>
+        <b-card no-body class="mb-1">
+          <b-card-header header-tag="header" class="p-1" role="tab">
+            <label v-b-toggle.accordion-3>SORT BY</label>
+          </b-card-header>
+          <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
+            <b-card-body>
+              <div style="padding: 10px">
+                <b-form-select v-model="sortType">
+                  <b-form-select-option value="newest"> Newest </b-form-select-option>
+                </b-form-select>
+              </div>
+            </b-card-body>
+          </b-collapse>
+        </b-card>
+      </div>
     </div>
 
     <div class="col-9 d-none d-lg-block d-xl-block">
@@ -85,10 +106,8 @@
 import { mapMutations, mapGetters, mapState } from 'vuex'
 import * as Types from '../../store/types'
 import Product from './Product'
-import './CategoryFilter.css'
+// import './CategoryFilter.css'
 
-// const plainOptions = ['Apple', 'Pear', 'Orange']
-// const defaultCheckedList = ['Apple', 'Orange']
 export default {
   name: 'ProductList',
   components: { Product },
@@ -98,11 +117,6 @@ export default {
       selected: [[]],
       allSelected: [false],
       indeterminate: [false],
-      // checkedList: defaultCheckedList,
-      // indeterminate: true,
-      // checkAll: false,
-      // plainOptions,
-      // gridValue: 3,
       sortType: 'newest',
       searchProducts: [],
       labels: ['Search Result: ', 'Featured Items: '],
@@ -213,6 +227,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.accordion > .card > .card-header > label {
+  padding: 10px 0 0 10px;
+}
 .custom-checkbox {
   display: block;
   position: relative;

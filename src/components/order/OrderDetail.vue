@@ -4,8 +4,6 @@
       <b-card-body> <h3 class="text-primary">Select Order to see the details</h3> </b-card-body>
     </b-card>
     <b-card no-body class="order-detail" v-if="order.id !== undefined">
-      <!-- <b-card-title> -->
-      <!-- </b-card-title> -->
       <b-card-body class="order-list-wrapper" v-if="!editing">
         <h2 class="text-primary mt-4 mb-3">{{ orderTitle }}</h2>
         <p>
@@ -43,6 +41,9 @@
         <b-table striped hover :items="orderItems" :fields="orderFields">
           <template #cell(no)="row">
             {{ row.index + 1 }}
+          </template>
+          <template #cell(thumbnail)="row">
+            <img style="width: 100px" :src="row.item.images[0]" />
           </template>
           <template #cell(productName)="row">
             <router-link :to="`/product/${row.item.productId}`"> {{ row.value }} </router-link>
@@ -97,6 +98,9 @@
         <b-table striped hover :items="orderItems" :fields="orderFields">
           <template #cell(no)="row">
             {{ row.index + 1 }}
+          </template>
+          <template #cell(thumbnail)="row">
+            <img style="width: 100px" :src="row.item.images[0]" />
           </template>
           <template #cell(productName)="row">
             <router-link :to="`/product/${row.item.productId}`"> {{ row.value }} </router-link>
@@ -206,6 +210,12 @@ export default {
             thClass: 'border border-custom',
           },
           {
+            key: 'thumbnail',
+            label: 'Thumbnail',
+            tdClass: 'border border-custom',
+            thClass: 'border border-custom',
+          },
+          {
             key: 'productName',
             label: 'Product Name',
             tdClass: 'border border-custom',
@@ -229,6 +239,12 @@ export default {
           {
             key: 'no',
             label: 'No',
+            tdClass: 'border border-custom',
+            thClass: 'border border-custom',
+          },
+          {
+            label: 'Thumbnail',
+            key: 'thumbnail',
             tdClass: 'border border-custom',
             thClass: 'border border-custom',
           },
