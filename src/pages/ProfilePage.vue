@@ -31,9 +31,7 @@
           <b-form-group id="form-group-phone" label="phone" label-for="phone">
             <b-form-input id="phone" v-model="form.phone" type="text" readonly />
           </b-form-group>
-          <b-form-group id="form-group-stripe" label="StripId" label-for="stripeId">
-            <b-form-input id="stripeId" v-model="form.stripeId" type="text" readonly />
-          </b-form-group>
+
           <b-form-row>
             <b-container class="d-flex flex-row justify-content-between">
               <b-button @click="handleEdit" variant="primary">
@@ -51,13 +49,13 @@
             <b-form-input id="email" type="email" v-model="form.email" readonly />
           </b-form-group>
           <b-form-group id="form-group-address" label="Address" label-for="address">
-            <b-form-input id="address" type="text" v-model="form.address" readonly />
+            <b-form-input id="address" type="text" v-model="form.address" />
           </b-form-group>
           <b-form-group id="form-group-city" label="city" label-for="city">
-            <b-form-input id="city" v-model="form.city" type="text" readonly />
+            <b-form-input id="city" v-model="form.city" type="text" />
           </b-form-group>
           <b-form-group id="form-group-state" label="state" label-for="state">
-            <b-form-input id="state" v-model="form.state" type="text" readonly />
+            <b-form-input id="state" v-model="form.state" type="text" />
           </b-form-group>
           <b-form-group id="form-group-zip" label="zip" label-for="zip">
             <b-form-input
@@ -71,9 +69,7 @@
           <b-form-group id="form-group-phone" label="phone" label-for="phone">
             <b-form-input id="phone" v-model="form.phone" type="text" required />
           </b-form-group>
-          <b-form-group id="form-group-stripe" label="StripId" label-for="stripeId">
-            <b-form-input id="stripeId" v-model="form.stripeId" type="text" required />
-          </b-form-group>
+
           <b-form-row>
             <b-container class="d-flex flex-row justify-content-between">
               <b-button type="submit" variant="primary">
@@ -104,7 +100,6 @@ export default {
       state: this.user.state,
       zip: this.user.zip,
       phone: this.user.phone,
-      stripeId: this.user.stripeId,
     }
     this.editing = false
   },
