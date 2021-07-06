@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-3 d-none d-lg-block d-xl-block">
       <div multiple class="accordion" role="tablist">
-        <b-card no-body class="mb-1">
+        <b-card no-body>
           <b-card-header header-tag="header" class="p-1" role="tab">
             <label v-b-toggle.accordion-1>SEARCH</label>
           </b-card-header>
@@ -15,7 +15,7 @@
           </b-collapse>
         </b-card>
 
-        <b-card no-body class="mb-1">
+        <b-card no-body>
           <b-card-header header-tag="header" class="p-1" role="tab">
             <label v-b-toggle.accordion-2>CATEGORIES</label>
           </b-card-header>
@@ -66,7 +66,7 @@
           </b-collapse>
         </b-card>
 
-        <b-card no-body class="mb-1">
+        <b-card no-body>
           <b-card-header header-tag="header" class="p-1" role="tab">
             <label v-b-toggle.accordion-3>SORT BY</label>
           </b-card-header>
@@ -88,7 +88,7 @@
         <div class="col-12 d-none d-lg-block d-xl-block">
           <b-card no-body>
             <b-card-header class="d-flex">
-              {{ topLabel }} {{ pageProducts.length }} Items</b-card-header
+              {{ topLabel }} {{ searchProducts.length }} Items</b-card-header
             >
           </b-card>
         </div>
