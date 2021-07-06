@@ -31,9 +31,16 @@
               :zoom="10"
             >
               <GmapMarker
-                :position="[
-                  { position: { lat: user.Servicearea.latitude, lng: user.Servicearea.longitude } },
+                :key="index"
+                v-for="(m, index) in [
+                  {
+                    lat: user.Servicearea.latitude,
+                    lng: user.Servicearea.longitude,
+                    label: 'Location',
+                  },
                 ]"
+                :position="m"
+                @click="center = m"
               />
             </GmapMap>
 
