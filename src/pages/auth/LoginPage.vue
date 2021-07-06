@@ -3,10 +3,7 @@
     <b-card class="shadow border-primary w-75 mt-5">
       <div class="row min-500">
         <div class="col-xs-12 col-md-6 d-flex justify-content-center align-items-center">
-          <img
-            class="w-100"
-            src="../../assets/img/90700-02-1000.jpg"
-          />
+          <img class="w-100" src="@/assets/img/login.jpg" />
         </div>
         <div class="col-xs-12 col-md-6 d-flex justify-content-center align-items-center">
           <b-card-body>

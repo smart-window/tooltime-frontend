@@ -3,16 +3,9 @@
     <b-card class="shadow border-primary w-75 mt-5 mb-5">
       <div class="row min-500">
         <div class="col-xs-12 col-md-6 d-flex justify-content-center align-items-center">
-          <img
-            class="w-100"
-            :src="
-              step == 0
-                ? 'https://canadiantire.scene7.com/is/image/CanadianTire/0548392_1?defaultImage=image_na_EN&fmt=jpg&fit=constrain,1&wid=573&hei=499'
-                : step == 1
-                ? 'https://cdn.shopify.com/s/files/1/0508/5220/0645/products/2371gt_300x300.jpg?v=1620400138'
-                : 'https://images-na.ssl-images-amazon.com/images/I/61kDw3mRrnL._AC_SL1200_.jpg'
-            "
-          />
+          <img class="w-100" src="@/assets/img/register_1.webp" v-show="step === 0" />
+          <img class="w-100" src="@/assets/img/register_2.jpg" v-show="step === 1" />
+          <img class="w-100" src="@/assets/img/register_3.jpg" v-show="step === 2" />
         </div>
         <div class="col-xs-12 col-md-6 no-padding d-flex justify-content-center align-items-center">
           <div>
