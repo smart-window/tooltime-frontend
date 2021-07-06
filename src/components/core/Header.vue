@@ -30,6 +30,11 @@
               :center="{ lat: user.Servicearea.latitude, lng: user.Servicearea.longitude }"
               :zoom="10"
             >
+              <GmapMarker
+                :position="[
+                  { position: { lat: user.Servicearea.latitude, lng: user.Servicearea.longitude } },
+                ]"
+              />
             </GmapMap>
 
             <template #modal-footer="{ hide }">

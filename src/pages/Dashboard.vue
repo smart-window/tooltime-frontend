@@ -40,10 +40,17 @@ export default {
   computed: {
     ...mapGetters(['filterProducts']),
     pageProducts() {
-      return this.filterProducts.map((product, index) => {
-        return index < 4 ? product : ''
+      const tmp = []
+      this.filterProducts.map((product, index) => {
+        if (index < 4) {
+          return tmp.push(product)
+        }
       })
+      return tmp
     },
+  },
+  mounted() {
+    console.log(this.pageProducts)
   },
 }
 </script>
