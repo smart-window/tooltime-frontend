@@ -75,7 +75,6 @@
                   v-model="form.startDate"
                   required
                   aria-required="true"
-                  disabled
                 ></b-form-datepicker>
               </b-form-group>
               <b-form-group
@@ -88,7 +87,6 @@
                   v-model="form.endDate"
                   required
                   aria-required="true"
-                  disabled
                 ></b-form-datepicker>
               </b-form-group>
               <b-form-group id="form-group-notes" label="Notes" label-for="notes">
