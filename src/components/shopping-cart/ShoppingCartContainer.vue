@@ -41,29 +41,31 @@
               <b-form-group id="form-group-email" label="Email" label-for="email">
                 <b-form-input id="email" type="email" v-model="form.email" required />
               </b-form-group>
-              <b-form-group id="form-group-phone" label="phone" label-for="phone">
+              <b-form-group id="form-group-phone" label="Phone" label-for="phone">
                 <b-form-input id="phone" type="text" v-model="form.phone" required />
               </b-form-group>
-              <b-form-group id="form-group-address" label="address" label-for="address">
+              <b-form-group id="form-group-address" label="Address" label-for="address">
                 <b-form-input id="address" type="text" v-model="form.address" readonly />
               </b-form-group>
-              <b-form-group id="form-group-city" label="city" label-for="city">
+              <b-form-group id="form-group-city" label="City" label-for="city">
                 <b-form-input id="city" type="text" v-model="form.city" readonly />
               </b-form-group>
-              <b-form-group id="form-group-state" label="state" label-for="state">
+              <b-form-group id="form-group-state" label="State" label-for="state">
                 <b-form-input id="state" type="text" v-model="form.state" readonly />
               </b-form-group>
-              <b-form-group id="form-group-zip" label="zip" label-for="zip">
+              <b-form-group id="form-group-zip" label="Zip" label-for="zip">
                 <b-form-input id="zip" type="text" v-model="form.zip" readonly />
               </b-form-group>
-              <b-form-group id="form-group-location" label="location" label-for="location">
+              <b-form-group id="form-group-location" label="Location" label-for="location">
                 <b-form-select id="location" v-model="form.locationId" disabled>
                   <b-form-select-option :value="user.Servicearea.Location.id">
-                    {{ user.Servicearea.Location.name }}
+                    {{ user.Servicearea.Location.name }}, {{ user.Servicearea.Location.zip }},
+                    {{ user.Servicearea.Location.city }}, {{ user.Servicearea.Location.state }},
+                    {{ user.Servicearea.Location.phone }}
                   </b-form-select-option>
                 </b-form-select>
               </b-form-group>
-              <b-form-group id="form-group-pick-date" label="Pick date" label-for="pick-date">
+              <b-form-group id="form-group-pick-date" label="Reservation Start Date" label-for="pick-date">
                 <b-form-datepicker
                   id="pick-date"
                   v-model="form.pickupDate"
