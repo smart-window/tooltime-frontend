@@ -65,12 +65,30 @@
                   </b-form-select-option>
                 </b-form-select>
               </b-form-group>
-              <b-form-group id="form-group-pick-date" label="Reservation Start Date" label-for="pick-date">
+              <b-form-group
+                id="form-group-start-date"
+                label="Reservation Start Date"
+                label-for="start-date"
+              >
                 <b-form-datepicker
-                  id="pick-date"
-                  v-model="form.pickupDate"
+                  id="start-date"
+                  v-model="form.startDate"
                   required
                   aria-required="true"
+                  disabled
+                ></b-form-datepicker>
+              </b-form-group>
+              <b-form-group
+                id="form-group-end-date"
+                label="Reservation End Date"
+                label-for="end-date"
+              >
+                <b-form-datepicker
+                  id="end-date"
+                  v-model="form.endDate"
+                  required
+                  aria-required="true"
+                  disabled
                 ></b-form-datepicker>
               </b-form-group>
               <b-form-group id="form-group-notes" label="Notes" label-for="notes">
@@ -94,6 +112,8 @@
 import { mapGetters, mapState } from 'vuex'
 import ShoppingCartItem from './ShoppingCartItem'
 import router from '@/router'
+import moment from 'moment'
+
 export default {
   name: 'ShoppingCartContainer',
   components: { ShoppingCartItem },
@@ -114,6 +134,8 @@ export default {
     this.form.state = this.user.state
     this.form.zip = this.user.zip
     this.form.locationId = this.user.Servicearea.Location.id
+    this.form.startDate = new Date()
+    this.form.endDate = new Date(moment().add(7, 'days'))
   },
 
   computed: {
@@ -142,7 +164,12 @@ export default {
           endDate: product.endDate,
         }
       })
+
       this.form.customerId = this.user.id
+      this.form.startDate = moment(this.form.startDate).format('YYYY-MM-DD')
+      this.form.endDate = moment(this.form.endDate).format('YYYY-MM-DD')
+      this.form.pickupDate = moment(this.form.startDate).format('YYYY-MM-DD')
+
       this.$store
         .dispatch('CREATE_ORDER', this.form)
         .then((res) => {

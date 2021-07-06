@@ -74,7 +74,7 @@ export default {
     return {
       quantity: 1,
       startDate: new Date(),
-      endDate: new Date(),
+      endDate: new Date(moment().add(7, 'days')),
     }
   },
   computed: {
