@@ -9,7 +9,7 @@
             <div
               v-for="product in pageProducts"
               :key="product.id"
-              class="col-md-3 col-lg-3 col-xs-6"
+              class="col-lg-3 col-md-3 col-sm-6 col-xs-12"
             >
               <Product :product="product"></Product>
             </div>

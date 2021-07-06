@@ -64,11 +64,11 @@ export default {
   transform: rotate(45deg);
 }
 .product {
-  padding-bottom: 2rem;
-  height: 350px;
+  // padding-bottom: 2rem;
+  // height: 350px;
 
   & .card__image__wrapper {
-    height: 200px;
+    // height: 200px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -78,6 +78,7 @@ export default {
   }
 
   &__name {
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
