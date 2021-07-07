@@ -15,30 +15,24 @@
       @sliding-start="onSlideStart"
       @sliding-end="onSlideEnd"
     >
-      <!-- Text slides with image -->
-      <b-carousel-slide img-src="https://www.orklahousecare.com/app/uploads/2020/03/anza.jpeg">
-      </b-carousel-slide>
-
-      <!-- Slides with custom text -->
-      <b-carousel-slide
-        img-src="https://www.securens.in/wp-content/uploads/2020/02/Inventory_Theft_Main_Banner.jpg"
-      >
-      </b-carousel-slide>
-
-      <b-carousel-slide
-        img-src="https://www.rhenus.com/fileadmin/user_upload/rhenus_au/Services/Services_Warehouse_Header.jpg"
-      >
-      </b-carousel-slide>
-
       <b-carousel-slide>
         <template #img>
-          <img
-            class="d-block img-fluid w-100"
-            width="1024"
-            height="480"
-            src="https://www.wealthmanagement.com/sites/wealthmanagement.com/files/warehouse-GettyImages-840241576-1540_0.jpg"
-            alt="image slot"
-          />
+          <img class="d-block w-100" height="450" src="@/assets/slider/1.png" alt="image slot" />
+        </template>
+      </b-carousel-slide>
+      <b-carousel-slide>
+        <template #img>
+          <img class="d-block w-100" height="450" src="@/assets/slider/2.png" alt="image slot" />
+        </template>
+      </b-carousel-slide>
+      <b-carousel-slide>
+        <template #img>
+          <img class="d-block w-100" height="450" src="@/assets/slider/3.png" alt="image slot" />
+        </template>
+      </b-carousel-slide>
+      <b-carousel-slide>
+        <template #img>
+          <img class="d-block w-100" height="450" src="@/assets/slider/4.png" alt="image slot" />
         </template>
       </b-carousel-slide>
     </b-carousel>
@@ -67,6 +61,6 @@ export default {
 </script>
 <style scoped>
 /* .carousel-item { */
-  /* height: 600px; */
+/* height: 600px; */
 /* } */
 </style>
