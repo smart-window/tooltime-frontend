@@ -17,22 +17,22 @@
     >
       <b-carousel-slide>
         <template #img>
-          <img class="d-block w-100" height="450" src="@/assets/slider/1.png" alt="image slot" />
+          <img class="d-block w-100" src="@/assets/slider/1.jpg" alt="image slot" />
         </template>
       </b-carousel-slide>
       <b-carousel-slide>
         <template #img>
-          <img class="d-block w-100" height="450" src="@/assets/slider/2.png" alt="image slot" />
+          <img class="d-block w-100" src="@/assets/slider/2.jpg" alt="image slot" />
         </template>
       </b-carousel-slide>
       <b-carousel-slide>
         <template #img>
-          <img class="d-block w-100" height="450" src="@/assets/slider/3.png" alt="image slot" />
+          <img class="d-block w-100" src="@/assets/slider/3.jpg" alt="image slot" />
         </template>
       </b-carousel-slide>
       <b-carousel-slide>
         <template #img>
-          <img class="d-block w-100" height="450" src="@/assets/slider/4.png" alt="image slot" />
+          <img class="d-block w-100" src="@/assets/slider/4.jpg" alt="image slot" />
         </template>
       </b-carousel-slide>
     </b-carousel>
