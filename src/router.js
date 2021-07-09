@@ -14,7 +14,7 @@ import ProfilePage from './pages/ProfilePage'
 import OrderPage from './pages/OrderPage'
 import Alert from './pages/Alert'
 import Dashboard from './pages/Dashboard'
-import Subscription from './pages/Subscription'
+import BillingPlan from './pages/BillingPlan'
 var ping = require('ping')
 Vue.use(Router)
 
@@ -43,8 +43,8 @@ const router = new Router({
           component: Dashboard,
         },
         {
-          path: '/subscription',
-          component: Subscription,
+          path: '/billing-plan',
+          component: BillingPlan,
         },
         {
           path: '/products',

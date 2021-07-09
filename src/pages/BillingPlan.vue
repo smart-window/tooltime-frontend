@@ -186,7 +186,7 @@
 import * as api from '@/services/api'
 
 export default {
-  name: 'Subscription',
+  name: 'BillingPlan',
   data() {
     return {}
   },
