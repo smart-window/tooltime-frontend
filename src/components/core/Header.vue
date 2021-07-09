@@ -85,6 +85,9 @@
             </template>
           </b-modal>
 
+          <router-link to="/subscription" class="nav-link text-primary">
+            <i class="fa fa-credit-card" aria-hidden="true"></i> Subscription
+          </router-link>
           <router-link to="/cart" class="nav-link text-primary">
             <i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart ({{ totalCartItems }})
           </router-link>

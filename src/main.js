@@ -7,12 +7,13 @@ import store from './store'
 import VueSwal from 'vue-swal'
 import router from './router'
 
-import { BootstrapVue } from 'bootstrap-vue'
+import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 import Notifications from 'vue-notification'
 import './google-map'
 
 Vue.use(VueSwal)
 Vue.use(BootstrapVue)
+Vue.use(BootstrapVueIcons)
 Vue.use(Notifications)
 
 Vue.prototype.$notification = Notifications

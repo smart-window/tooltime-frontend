@@ -96,3 +96,11 @@ export const updateProfile = async (customerId, updates) => {
     .then(successFunc)
     .catch(failFunc)
 }
+
+
+export const checkoutSession = async (sessionId) => {
+  return axiosClient.get('/stripe/checkout-session?sessionId=' + sessionId)
+    .then(successFunc)
+    .catch(failFunc)
+}
+

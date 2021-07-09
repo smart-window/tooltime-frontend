@@ -18,6 +18,7 @@
     "moment": "^2.29.1",
     "ping": "^0.4.1",
     "store": "^2.0.12",
+    "stripe": "^8.160.0",
     "tcp-ping": "^0.1.1",
     "vue": "^2.6.10",
     "vue-google-autocomplete": "^1.1.1",
