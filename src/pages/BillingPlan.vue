@@ -7,103 +7,21 @@
           <b-container align-v="center" class="container">
             <div class="mt-5">
               <b-card-group deck class="mb-3">
-                <!-- card 1 -->
                 <b-card
-                  border-variant="default"
-                  header="Freemium"
-                  header-bg-variant="secondary"
+                  v-for="plan in plans"
+                  v-bind:key="plan.price"
+                  :border-variant="plan.style"
+                  :header="plan.title"
+                  :header-bg-variant="plan.style"
                   header-text-variant="white"
                   align="center"
-                  title="$0/month"
+                  :title="'$' + plan.price + '/month'"
                   tag="article"
                   style="max-width: auto"
                   class="mb-5 mt-2"
                 >
                   <br />
-                  <b-card-text>
-                    Get a free TOOLTIME subscription for 1 year by getting 3 of your friends to
-                    subcribe to basic or premium
-                  </b-card-text>
-                  <b-list-group flush>
-                    <b-list-group-item></b-list-group-item>
-                    <b-list-group-item>
-                      <b-icon-check2-circle
-                        class="h5 mr-2 mb-0 mt-0"
-                        animation="fade"
-                      ></b-icon-check2-circle
-                      >TOOLTIME
-                    </b-list-group-item>
-                    <b-list-group-item>
-                      <b-icon-x-circle class="h5 mr-2 mb-0 mt-0"></b-icon-x-circle>Netflix Family
-                    </b-list-group-item>
-                    <b-list-group-item>
-                      <b-icon-x-circle class="h5 mr-2 mb-0 mt-0"></b-icon-x-circle>Amazon Prime
-                    </b-list-group-item>
-                    <b-list-group-item>
-                      <b-icon-x-circle class="h5 mr-2 mb-0 mt-0"></b-icon-x-circle>Spotify Family
-                    </b-list-group-item>
-                    <b-list-group-item></b-list-group-item>
-                  </b-list-group>
-                  <br />
-                  <form
-                    action="http://localhost:3000/admin/stripe/create-checkout-session"
-                    method="POST"
-                  >
-                    <input
-                      type="hidden"
-                      id="basicPrice"
-                      value="price_1JASGOIzukQ9tag0dbLCdWWT"
-                      name="priceId"
-                    />
-                    <b-button type="submit" v-b-modal.modal-2 variant="secondary"
-                      >Get Referral Code</b-button
-                    >
-                  </form>
-
-                  <br />
-                </b-card>
-
-                <!-- card 2 -->
-                <b-card
-                  border-variant="primary"
-                  header="Basic"
-                  header-bg-variant="primary"
-                  header-text-variant="white"
-                  align="center"
-                  title="$49/month"
-                  tag="article"
-                  style="max-width: auto"
-                  class="mb-5 mt-2"
-                >
-                  <br />
-                  <b-card-text>
-                    Get a 1 year subscription to both TOOLTIME & Stripe. This is billed once for the
-                    year <br /><br />
-                  </b-card-text>
-                  <b-list-group flush>
-                    <b-list-group-item></b-list-group-item>
-                    <b-list-group-item>
-                      <b-icon-check2-circle
-                        class="h5 mr-2 mb-0 mt-0"
-                        animation="fade"
-                      ></b-icon-check2-circle
-                      >TOOLTIME
-                    </b-list-group-item>
-                    <b-list-group-item>
-                      <b-icon-check2-circle
-                        class="h5 mr-2 mb-0 mt-0"
-                        animation="fade"
-                      ></b-icon-check2-circle
-                      >Netflix Family
-                    </b-list-group-item>
-                    <b-list-group-item>
-                      <b-icon-x-circle class="h5 mr-2 mb-0 mt-0"></b-icon-x-circle>Amazon Prime
-                    </b-list-group-item>
-                    <b-list-group-item>
-                      <b-icon-x-circle class="h5 mr-2 mb-0 mt-0"></b-icon-x-circle>Spotify Family
-                    </b-list-group-item>
-                    <b-list-group-item></b-list-group-item>
-                  </b-list-group>
+                  <b-card-text> {{ plan.description }}<br /><br /> </b-card-text>
                   <br />
 
                   <form action="http://localhost:3000/stripe/create-checkout-session" method="POST">
@@ -113,59 +31,10 @@
                       value="price_1JASGOIzukQ9tag0dbLCdWWT"
                       name="priceId"
                     />
-                    <b-button type="submit" variant="primary">Subscribe</b-button>
+                    <b-button type="submit" :variant="plan.style">Subscribe</b-button>
                   </form>
 
                   <br />
-                </b-card>
-                <!-- card 3 -->
-                <b-card
-                  border-variant="default"
-                  header="Premium"
-                  header-bg-variant="secondary"
-                  header-text-variant="white"
-                  align="center"
-                  title="$99/month"
-                  tag="article"
-                  style="max-width: auto"
-                  class="mb-5 mt-2"
-                >
-                  <br />
-                  <b-card-text>
-                    Get a 1 year subscription to TOOLTIME, Stripe and Shopify. This is billed once
-                    for the year
-                  </b-card-text>
-                  <b-list-group flush>
-                    <b-list-group-item></b-list-group-item>
-                    <b-list-group-item>
-                      <b-icon-check2-circle
-                        class="h5 mr-2 mb-0 mt-0"
-                        animation="fade"
-                      ></b-icon-check2-circle
-                      >TOOLTIME
-                    </b-list-group-item>
-                    <b-list-group-item>
-                      <b-icon-check2-circle
-                        class="h5 mr-2 mb-0 mt-0"
-                        animation="fade"
-                      ></b-icon-check2-circle
-                      >Netflix Family
-                    </b-list-group-item>
-                    <b-list-group-item>
-                      <b-icon-x-circle class="h5 mr-2 mb-0 mt-0"></b-icon-x-circle>Amazon Prime
-                      <b-badge variant="primary" pill>coming soon</b-badge>
-                    </b-list-group-item>
-                    <b-list-group-item>
-                      <b-icon-check2-circle
-                        class="h5 mr-2 mb-0 mt-0"
-                        animation="fade"
-                      ></b-icon-check2-circle
-                      >Spotify Family
-                    </b-list-group-item>
-                    <b-list-group-item></b-list-group-item>
-                  </b-list-group>
-                  <br />
-                  <b-button v-b-modal.modal-1 variant="secondary">Subscribe</b-button>
                 </b-card>
               </b-card-group>
             </div>
@@ -183,7 +52,28 @@ import * as api from '@/services/api'
 export default {
   name: 'BillingPlan',
   data() {
-    return {}
+    return {
+      plans: [
+        {
+          title: 'Free Plan',
+          price: 0,
+          description: 'This is a free plan',
+          style: 'secondary',
+        },
+        {
+          title: 'Basic Plan',
+          price: 49,
+          description: 'This is a basic plan',
+          style: 'primary',
+        },
+        {
+          title: 'Premiun Plan',
+          price: 99,
+          description: 'This is a premium plan',
+          style: 'secondary',
+        },
+      ],
+    }
   },
   mounted() {
     if (this.$route.query.session_id) {
