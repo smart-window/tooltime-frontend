@@ -24,7 +24,7 @@
                   <b-card-text> {{ plan.description }}<br /><br /> </b-card-text>
                   <br />
 
-                  <form action="http://localhost:3000/stripe/create-checkout-session" method="POST">
+                  <form :action="apiURL" method="POST">
                     <input
                       type="hidden"
                       id="basicPrice"
@@ -48,6 +48,7 @@
 
 <script>
 import * as api from '@/services/api'
+import config from '@/config'
 
 export default {
   name: 'BillingPlan',
@@ -74,6 +75,11 @@ export default {
         },
       ],
     }
+  },
+  computed: {
+    apiURL() {
+      return config.API_URL + '/stripe/create-checkout-session'
+    },
   },
   mounted() {
     if (this.$route.query.session_id) {
