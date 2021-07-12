@@ -49,14 +49,12 @@
                     action="http://localhost:3000/admin/stripe/create-checkout-session"
                     method="POST"
                   >
-                    <!-- @click="handleSubmit(priceId.basicPrice)" -->
                     <input
                       type="hidden"
                       id="basicPrice"
                       value="price_1JASGOIzukQ9tag0dbLCdWWT"
                       name="priceId"
                     />
-                    <!-- <button class="btn btn-primary width-100" type="submit">Get Access</button> -->
                     <b-button type="submit" v-b-modal.modal-2 variant="secondary"
                       >Get Referral Code</b-button
                     >
@@ -109,18 +107,15 @@
                   <br />
 
                   <form action="http://localhost:3000/stripe/create-checkout-session" method="POST">
-                    <!-- @click="handleSubmit(priceId.basicPrice)" -->
                     <input
                       type="hidden"
                       id="basicPrice"
                       value="price_1JASGOIzukQ9tag0dbLCdWWT"
                       name="priceId"
                     />
-                    <!-- <button class="btn btn-primary width-100" type="submit">Get Access</button> -->
                     <b-button type="submit" variant="primary">Subscribe</b-button>
                   </form>
 
-                  <!-- <b-button v-b-modal.modal-1 variant="primary">Subscribe</b-button> -->
                   <br />
                 </b-card>
                 <!-- card 3 -->
@@ -202,7 +197,6 @@ export default {
         console.log(res)
         alert('Congratuations! You phurchased a plan!')
       } catch (e) {
-        // message.error(e.message)
         alert(e.message)
       }
     },
