@@ -67,7 +67,10 @@ export default {
       plan.style = 'primary'
       return plan
     })
-    this.plans.sort()
+    this.plans.sort(function (a, b) {
+      return b.unit_amount - a.unit_amount
+    })
+    this.plans.reverse()
   },
   methods: {
     async handleSubmit() {
