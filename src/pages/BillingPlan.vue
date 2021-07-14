@@ -25,12 +25,7 @@
                   <br />
 
                   <form :action="apiURL" method="POST">
-                    <input
-                      type="hidden"
-                      id="basicPrice"
-                      value="price_1JASGOIzukQ9tag0dbLCdWWT"
-                      name="priceId"
-                    />
+                    <input type="hidden" id="basicPrice" :value="plan.id" name="priceId" />
                     <b-button type="submit" :variant="plan.style">Subscribe</b-button>
                   </form>
 
@@ -54,26 +49,7 @@ export default {
   name: 'BillingPlan',
   data() {
     return {
-      plans: [
-        {
-          name: 'Free Plan',
-          price: 0,
-          description: 'This is a free plan',
-          style: 'secondary',
-        },
-        {
-          name: 'Basic Plan',
-          price: 4900,
-          description: 'This is a basic plan',
-          style: 'primary',
-        },
-        {
-          name: 'Premiun Plan',
-          price: 9900,
-          description: 'This is a premium plan',
-          style: 'secondary',
-        },
-      ],
+      plans: [],
     }
   },
   computed: {
@@ -91,8 +67,7 @@ export default {
       plan.style = 'primary'
       return plan
     })
-    this.plans.reverse()
-    // console.log(this.plans)
+    this.plans.sort()
   },
   methods: {
     async handleSubmit() {
