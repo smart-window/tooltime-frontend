@@ -24,10 +24,10 @@
                   <b-card-text> {{ plan.product.description }}<br /><br /> </b-card-text>
                   <br />
 
-                  <form :action="apiURL" method="POST">
-                    <input type="hidden" id="basicPrice" :value="plan.id" name="priceId" />
+                  <b-form :action="apiURL" method="POST">
                     <b-button type="submit" :variant="plan.style">Subscribe</b-button>
-                  </form>
+                    <input type="hidden" id="basicPrice" :value="plan.id" name="priceId" />
+                  </b-form>
 
                   <br />
                 </b-card>
