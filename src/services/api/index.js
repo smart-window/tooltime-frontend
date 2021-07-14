@@ -104,3 +104,8 @@ export const checkoutSession = async (sessionId) => {
     .catch(failFunc)
 }
 
+export const getConfig = async () => {
+  return axiosClient.get('/stripe/config')
+    .then(successFunc)
+    .catch(failFunc)
+}

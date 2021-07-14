@@ -11,17 +11,17 @@
                   v-for="plan in plans"
                   v-bind:key="plan.price"
                   :border-variant="plan.style"
-                  :header="plan.title"
+                  :header="plan.product.name"
                   :header-bg-variant="plan.style"
                   header-text-variant="white"
                   align="center"
-                  :title="'$' + plan.price + '/month'"
+                  :title="'$' + plan.unit_amount / 100 + '/month'"
                   tag="article"
                   style="max-width: auto"
                   class="mb-5 mt-2"
                 >
                   <br />
-                  <b-card-text> {{ plan.description }}<br /><br /> </b-card-text>
+                  <b-card-text> {{ plan.product.description }}<br /><br /> </b-card-text>
                   <br />
 
                   <form :action="apiURL" method="POST">
@@ -56,20 +56,20 @@ export default {
     return {
       plans: [
         {
-          title: 'Free Plan',
+          name: 'Free Plan',
           price: 0,
           description: 'This is a free plan',
           style: 'secondary',
         },
         {
-          title: 'Basic Plan',
-          price: 49,
+          name: 'Basic Plan',
+          price: 4900,
           description: 'This is a basic plan',
           style: 'primary',
         },
         {
-          title: 'Premiun Plan',
-          price: 99,
+          name: 'Premiun Plan',
+          price: 9900,
           description: 'This is a premium plan',
           style: 'secondary',
         },
@@ -81,10 +81,18 @@ export default {
       return config.API_URL + '/stripe/create-checkout-session'
     },
   },
-  mounted() {
+  async mounted() {
     if (this.$route.query.session_id) {
       this.handleSubmit()
     }
+    const config = await api.getConfig()
+    this.plans = config.prices.data
+    this.plans.map((plan) => {
+      plan.style = 'primary'
+      return plan
+    })
+    this.plans.reverse()
+    // console.log(this.plans)
   },
   methods: {
     async handleSubmit() {
