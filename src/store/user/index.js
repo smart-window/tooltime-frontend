@@ -18,6 +18,7 @@ export default {
     state: '',
     phone: '',
     stripeId: '',
+    priceId: '',
     authorized: process.env.VUE_APP_AUTHENTICATED || false,
     loading: false,
   },
@@ -73,6 +74,7 @@ export default {
             state: '',
             phone: '',
             stripeId: '',
+            priceId: '',
             authorized: false,
             loading: false,
           })
@@ -93,6 +95,7 @@ export default {
           state: '',
           phone: '',
           stripeId: '',
+          priceId: '',
           authorized: false,
           loading: false,
         })

@@ -23,8 +23,19 @@
                   <br />
                   <b-card-text> {{ plan.product.description }}<br /><br /> </b-card-text>
                   <br />
-
-                  <b-form :action="apiURL" method="POST">
+                  <b-form v-if="!user.priceId" :action="apiURL" method="POST">
+                    <b-button type="submit" :variant="plan.style">Subscribe</b-button>
+                    <input type="hidden" id="basicPrice" :value="plan.id" name="priceId" />
+                  </b-form>
+                  <b-form v-if="user.priceId == plan.id" :action="apiURL" method="POST">
+                    <b-button type="submit" :variant="plan.style">Cancel</b-button>
+                    <input type="hidden" id="basicPrice" :value="plan.id" name="priceId" />
+                  </b-form>
+                  <b-form
+                    v-if="user.priceId && user.priceId != plan.id"
+                    :action="apiURL"
+                    method="POST"
+                  >
                     <b-button type="submit" :variant="plan.style">Subscribe</b-button>
                     <input type="hidden" id="basicPrice" :value="plan.id" name="priceId" />
                   </b-form>
@@ -44,6 +55,7 @@
 <script>
 import * as api from '@/services/api'
 import config from '@/config'
+import { mapState } from 'vuex'
 
 export default {
   name: 'BillingPlan',
@@ -53,11 +65,13 @@ export default {
     }
   },
   computed: {
+    ...mapState(['user']),
     apiURL() {
       return config.API_URL + '/stripe/create-checkout-session'
     },
   },
   async mounted() {
+    console.log(this.user)
     if (this.$route.query.session_id) {
       this.handleSubmit()
     }
@@ -67,6 +81,7 @@ export default {
       plan.style = 'primary'
       return plan
     })
+    console.log(this.plans)
     this.plans.sort(function (a, b) {
       return b.unit_amount - a.unit_amount
     })
@@ -76,8 +91,14 @@ export default {
     async handleSubmit() {
       try {
         const res = await api.checkoutSession(this.$route.query.session_id)
-        console.log(res)
-        alert('Congratuations! You phurchased a plan!')
+        // await api.updateProfile(id, { priceId: res.plan.id })
+        this.$store
+          .dispatch('UPDATE_PROFILE', { priceId: res.plan.id })
+          .then((res) => {
+            console.log(res)
+            alert('Congratuations! You phurchased a plan!')
+          })
+          .catch(() => {})
       } catch (e) {
         alert(e.message)
       }
