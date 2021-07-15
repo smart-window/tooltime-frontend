@@ -111,10 +111,15 @@ export const getConfig = async () => {
 }
 
 export const cancelSubscription = async (request) => {
-
   return axiosClient
     .post('/stripe/cancel-subscription', request)
     .then(successFunc)
     .catch(failFunc)
+}
 
+export const updateSubscription = async (request) => {
+  return axiosClient
+    .post('/stripe/update-subscription', request)
+    .then(successFunc)
+    .catch(failFunc)
 }

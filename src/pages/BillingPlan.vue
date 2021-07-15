@@ -37,7 +37,9 @@
                     :action="apiURL"
                     method="POST"
                   >
-                    <b-button type="submit" variant="outline-secondary">Subscribe</b-button>
+                    <b-button @click="updateSubscription(plan.id)" variant="outline-secondary"
+                      >Subscribe</b-button
+                    >
                     <input type="hidden" :value="plan.id" name="priceId" />
                   </b-form>
 
@@ -96,6 +98,24 @@ export default {
           .then(() => {
             route.push(`/billing-plan`)
             alert('You canceled your subscription.')
+          })
+          .catch(() => {})
+      }
+    },
+    async updateSubscription(priceId) {
+      const res = await api.updateSubscription({
+        subscriptionId: this.user.subscriptionId,
+        priceId: priceId,
+      })
+      if (res) {
+        this.$store
+          .dispatch('UPDATE_PROFILE', {
+            priceId: priceId,
+            subscriptionId: this.user.subscriptionId,
+          })
+          .then(() => {
+            route.push(`/billing-plan`)
+            alert('You update your subscription.')
           })
           .catch(() => {})
       }
