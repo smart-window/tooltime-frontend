@@ -28,15 +28,11 @@
                     <b-button type="submit" variant="outline-secondary">Subscribe</b-button>
                     <input type="hidden" :value="plan.id" name="priceId" />
                   </b-form>
-                  <b-form v-if="user.priceId == plan.id" :action="cancelApiURL" method="POST">
+                  <b-form v-if="user.priceId == plan.id" method="POST">
                     <b-button @click="cancelSubscription" variant="outline-light">Cancel</b-button>
                     <input type="hidden" :value="user.subscriptionId" name="subscriptionId" />
                   </b-form>
-                  <b-form
-                    v-if="user.priceId && user.priceId != plan.id"
-                    :action="apiURL"
-                    method="POST"
-                  >
+                  <b-form v-if="user.priceId && user.priceId != plan.id" method="POST">
                     <b-button @click="updateSubscription(plan.id)" variant="outline-secondary"
                       >Subscribe</b-button
                     >
