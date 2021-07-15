@@ -26,11 +26,11 @@
                   <br />
                   <b-form v-if="!user.priceId" :action="apiURL" method="POST">
                     <b-button type="submit" variant="outline-secondary">Subscribe</b-button>
-                    <input type="hidden" id="basicPrice" :value="plan.id" name="priceId" />
+                    <input type="hidden" :value="plan.id" name="priceId" />
                   </b-form>
-                  <b-form v-if="user.priceId == plan.id" :action="apiURL" method="POST">
-                    <b-button type="submit" variant="outline-light">Cancel</b-button>
-                    <input type="hidden" id="basicPrice" :value="plan.id" name="priceId" />
+                  <b-form v-if="user.priceId == plan.id" :action="cancelApiURL" method="POST">
+                    <b-button @click="cancelSubscription" variant="outline-light">Cancel</b-button>
+                    <input type="hidden" :value="user.subscriptionId" name="subscriptionId" />
                   </b-form>
                   <b-form
                     v-if="user.priceId && user.priceId != plan.id"
@@ -38,7 +38,7 @@
                     method="POST"
                   >
                     <b-button type="submit" variant="outline-secondary">Subscribe</b-button>
-                    <input type="hidden" id="basicPrice" :value="plan.id" name="priceId" />
+                    <input type="hidden" :value="plan.id" name="priceId" />
                   </b-form>
 
                   <br />
@@ -56,6 +56,7 @@
 import * as api from '@/services/api'
 import config from '@/config'
 import { mapState } from 'vuex'
+import route from '@/router'
 
 export default {
   name: 'BillingPlan',
@@ -70,6 +71,9 @@ export default {
     apiURL() {
       return config.API_URL + '/stripe/create-checkout-session'
     },
+    // cancelApiURL() {
+    //   return config.API_URL + '/stripe/cancel-subscription'
+    // },
   },
   async mounted() {
     if (this.$route.query.session_id) {
@@ -84,11 +88,23 @@ export default {
     this.plans.reverse()
   },
   methods: {
+    async cancelSubscription() {
+      const res = await api.cancelSubscription({ subscriptionId: this.user.subscriptionId })
+      if (res) {
+        this.$store
+          .dispatch('UPDATE_PROFILE', { priceId: null, subscriptionId: null })
+          .then(() => {
+            route.push(`/billing-plan`)
+            alert('You canceled your subscription.')
+          })
+          .catch(() => {})
+      }
+    },
     async handleSubmit() {
       try {
         const res = await api.checkoutSession(this.$route.query.session_id)
         this.$store
-          .dispatch('UPDATE_PROFILE', { priceId: res.plan.id })
+          .dispatch('UPDATE_PROFILE', { priceId: res.plan.id, subscriptionId: res.id })
           .then(() => {
             alert('Congratuations! You phurchased a plan!')
           })

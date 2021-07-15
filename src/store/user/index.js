@@ -19,6 +19,7 @@ export default {
     phone: '',
     stripeId: '',
     priceId: '',
+    subscriptionId: '',
     authorized: process.env.VUE_APP_AUTHENTICATED || false,
     loading: false,
   },
@@ -75,6 +76,7 @@ export default {
             phone: '',
             stripeId: '',
             priceId: '',
+            subscriptionId: '',
             authorized: false,
             loading: false,
           })
@@ -96,6 +98,7 @@ export default {
           phone: '',
           stripeId: '',
           priceId: '',
+          subscriptionId: '',
           authorized: false,
           loading: false,
         })

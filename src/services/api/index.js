@@ -109,3 +109,12 @@ export const getConfig = async () => {
     .then(successFunc)
     .catch(failFunc)
 }
+
+export const cancelSubscription = async (request) => {
+
+  return axiosClient
+    .post('/stripe/cancel-subscription', request)
+    .then(successFunc)
+    .catch(failFunc)
+
+}
