@@ -9,29 +9,27 @@
                 <b-card
                   v-for="plan in plans"
                   v-bind:key="plan.price"
-                  :border-variant="cardStyle(user.priceId, plan.id)"
-                  :header="plan.product.name"
-                  :header-bg-variant="cardStyle(user.priceId, plan.id)"
-                  header-text-variant="white"
-                  align="center"
                   :title="'$' + plan.unit_amount / 100 + '/month'"
+                  :header="plan.product.name"
+                  :header-bg-variant="user.priceId == plan.id ? 'white' : 'primary'"
+                  :header-text-variant="user.priceId == plan.id ? 'primary' : 'white'"
+                  :bg-variant="user.priceId == plan.id ? 'primary' : ''"
+                  :border-variant="user.priceId == plan.id ? 'secondary' : 'primary'"
+                  :text-variant="user.priceId == plan.id ? 'light' : ''"
+                  align="center"
                   tag="article"
                   style="max-width: auto"
-                  class="mb-5 mt-2"
+                  :class="'mb-5 mt-2 ' + (user.priceId == plan.id ? 'subscribed' : '')"
                 >
                   <br />
                   <b-card-text> {{ plan.product.description }}<br /><br /> </b-card-text>
                   <br />
                   <b-form v-if="!user.priceId" :action="apiURL" method="POST">
-                    <b-button type="submit" :variant="cardStyle(user.priceId, plan.id)"
-                      >Subscribe</b-button
-                    >
+                    <b-button type="submit" variant="primary">Subscribe</b-button>
                     <input type="hidden" id="basicPrice" :value="plan.id" name="priceId" />
                   </b-form>
                   <b-form v-if="user.priceId == plan.id" :action="apiURL" method="POST">
-                    <b-button type="submit" :variant="cardStyle(user.priceId, plan.id)"
-                      >Cancel</b-button
-                    >
+                    <b-button type="submit" variant="outline-light">Cancel</b-button>
                     <input type="hidden" id="basicPrice" :value="plan.id" name="priceId" />
                   </b-form>
                   <b-form
@@ -39,9 +37,7 @@
                     :action="apiURL"
                     method="POST"
                   >
-                    <b-button type="submit" :variant="cardStyle(user.priceId, plan.id)"
-                      >Subscribe</b-button
-                    >
+                    <b-button type="submit" variant="primary">Subscribe</b-button>
                     <input type="hidden" id="basicPrice" :value="plan.id" name="priceId" />
                   </b-form>
 
@@ -88,13 +84,6 @@ export default {
     this.plans.reverse()
   },
   methods: {
-    cardStyle(pId, planId) {
-      if (pId == planId) {
-        return 'primary'
-      } else {
-        return 'secondary'
-      }
-    },
     async handleSubmit() {
       try {
         const res = await api.checkoutSession(this.$route.query.session_id)
@@ -113,4 +102,7 @@ export default {
 </script>
 
 <style scoped>
+.subscribed .card-title {
+  color: white;
+}
 </style>
