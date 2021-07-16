@@ -65,9 +65,13 @@ export default {
     handleSubmit(e) {
       e.preventDefault()
       if (this.email !== '' && this.password !== '') {
-        this.$store.dispatch('user/LOGIN', {
-          payload: { email: this.email, password: this.password },
-        })
+        this.$store
+          .dispatch('user/LOGIN', {
+            payload: { email: this.email, password: this.password },
+          })
+          .then(() => {
+            alert('You have successfully logged in!')
+          })
       }
     },
   },

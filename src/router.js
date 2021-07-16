@@ -95,7 +95,7 @@ const router = new Router({
         {
           path: '/auth/register',
           meta: {
-            title: 'Sign In',
+            title: 'Sign Up',
           },
           component: RegisterPage,
         },

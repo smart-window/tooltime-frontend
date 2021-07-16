@@ -38,7 +38,6 @@ export default {
       auth.login(email, password).then(success => {
         if (success) {
           dispatch('LOAD_CURRENT_ACCOUNT')
-          alert('You have successfully logged in!')
         }
 
         if (!success) {
