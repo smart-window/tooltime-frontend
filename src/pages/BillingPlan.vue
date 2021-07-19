@@ -73,11 +73,13 @@ export default {
     return {
       plans: [],
       loading: false,
-      routeName: this.$route.path,
     }
   },
   computed: {
     ...mapState(['user']),
+    routeName() {
+      return this.$route.path
+    },
     apiURL() {
       return config.API_URL + '/stripe/create-checkout-session'
     },
@@ -89,10 +91,11 @@ export default {
     const config = await api.getConfig()
     this.plans = config.prices.data
 
-    this.plans.sort(function (a, b) {
-      return b.unit_amount - a.unit_amount
-    })
-    this.plans.reverse()
+    this.plans
+      .sort(function (a, b) {
+        return b.unit_amount - a.unit_amount
+      })
+      .reverse()
   },
   methods: {
     toast(variant, toaster, title, content, append = false) {
@@ -106,11 +109,7 @@ export default {
       })
     },
     isSubscribedPlan(plan) {
-      if (plan.id == this.user.priceId) {
-        return true
-      } else {
-        return false
-      }
+      return plan.id === this.user.priceId
     },
     async cancelSubscription() {
       this.loading = true
@@ -128,7 +127,9 @@ export default {
             )
             this.loading = false
           })
-          .catch(() => {})
+          .catch(() => {
+            this.loading = false
+          })
       }
     },
     async updateSubscription(priceId) {
@@ -153,7 +154,9 @@ export default {
             )
             this.loading = false
           })
-          .catch(() => {})
+          .catch(() => {
+            this.loading = false
+          })
       }
     },
     async handleSubmit() {
