@@ -51,6 +51,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'LoginPage',
 
@@ -59,6 +61,9 @@ export default {
       email: '',
       password: '',
     }
+  },
+  computed: {
+    ...mapState('user', ['authorized']),
   },
 
   methods: {
@@ -70,7 +75,11 @@ export default {
             payload: { email: this.email, password: this.password },
           })
           .then(() => {
-            alert('You have successfully logged in!')
+            if (this.authorized) {
+              this.$swal(`You have successfully logged in!`)
+            } else {
+              this.$swal(`Incorrect Credentials!`)
+            }
           })
       }
     },

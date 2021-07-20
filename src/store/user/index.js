@@ -38,6 +38,7 @@ export default {
       auth.login(email, password).then(success => {
         if (success) {
           dispatch('LOAD_CURRENT_ACCOUNT')
+          commit('SET_STATE', { authorized: true })
         }
 
         if (!success) {

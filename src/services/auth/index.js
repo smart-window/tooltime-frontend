@@ -29,8 +29,6 @@ export async function login(email, password) {
     .catch(err => {
       if (err.message == "Network Error") {
         failFunc(err)
-      } else {
-        alert('Incorrect credentials')
       }
     })
 }
