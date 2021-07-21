@@ -123,3 +123,10 @@ export const updateSubscription = async (request) => {
     .then(successFunc)
     .catch(failFunc)
 }
+
+export const verifyUser = (code) => {
+  return axiosClient
+    .get('/auth/confirm/' + code).then((response) => {
+      return response.data;
+    });
+};

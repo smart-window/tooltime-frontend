@@ -8,6 +8,7 @@ import ShoppingCartPage from './pages/ShoppingCartPage'
 import PageNotFound from './pages/auth/404'
 import LoginPage from './pages/auth/LoginPage'
 import RegisterPage from './pages/auth/RegisterPage'
+import ConfirmPage from './pages/auth/ConfirmPage'
 import MainLayout from './layouts/main'
 import AuthLayout from './layouts/auth'
 import ProfilePage from './pages/ProfilePage'
@@ -99,6 +100,13 @@ const router = new Router({
           },
           component: RegisterPage,
         },
+        {
+          path: '/confirm/:confirmationCode',
+          meta: {
+            title: 'Confirmation Code',
+          },
+          component: ConfirmPage,
+        },
       ],
     },
 
@@ -141,7 +149,6 @@ router.beforeEach((to, from, next) => {
 })
 
 router.afterEach(() => {
-  // window.scrollTo(0, 0)
   store.commit(CLEAR_BRAND_FILTER)
   store.commit(CLEAR_ORDER_BY_PRICE)
 })
