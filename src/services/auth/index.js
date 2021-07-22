@@ -23,15 +23,15 @@ export async function login(email, password) {
         swal('Inactive user! Please verify your email.')
       } else {
         swal('You have successfully logged in!')
-      }
-      if (response) {
-        const { accessToken } = response.data
-        if (accessToken) {
-          store.set('accessToken', accessToken)
+        if (response) {
+          const { accessToken } = response.data
+          if (accessToken) {
+            store.set('accessToken', accessToken)
+          }
+          return response.data
         }
-        return response.data
+        return false
       }
-      return false
     })
     .catch(err => {
       if (err.message == "Network Error") {
