@@ -17,6 +17,13 @@ export async function login(email, password) {
       password,
     })
     .then(response => {
+      if (response.data == 'Incorrect') {
+        swal('Incorrect Credential!')
+      } else if (response.data == 'Inactive') {
+        swal('Inactive user! Please verify your email.')
+      } else {
+        swal('You have successfully logged in!')
+      }
       if (response) {
         const { accessToken } = response.data
         if (accessToken) {

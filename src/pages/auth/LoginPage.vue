@@ -74,13 +74,7 @@ export default {
           .dispatch('user/LOGIN', {
             payload: { email: this.email, password: this.password },
           })
-          .then(() => {
-            if (this.authorized) {
-              this.$swal(`You have successfully logged in!`)
-            } else {
-              this.$swal(`Incorrect Credentials!`)
-            }
-          })
+          .then(() => {})
       }
     },
   },
