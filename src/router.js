@@ -101,7 +101,7 @@ const router = new Router({
           component: RegisterPage,
         },
         {
-          path: '/confirm/:confirmationCode',
+          path: '/auth/confirm/:confirmationCode',
           meta: {
             title: 'Confirmation Code',
           },

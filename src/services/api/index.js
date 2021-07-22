@@ -124,9 +124,3 @@ export const updateSubscription = async (request) => {
     .catch(failFunc)
 }
 
-export const verifyUser = (code) => {
-  return axiosClient
-    .get('/auth/confirm/' + code).then((response) => {
-      return response.data;
-    });
-};

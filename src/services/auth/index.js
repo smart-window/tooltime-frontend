@@ -42,6 +42,13 @@ export async function register(request) {
     .catch(failFunc)
 }
 
+export const verifyUser = (code) => {
+  return apiClient
+    .get('/auth/confirm/' + code).then((response) => {
+      return response.data;
+    });
+};
+
 export async function currentAccount() {
   return apiClient
     .get('/auth/account')

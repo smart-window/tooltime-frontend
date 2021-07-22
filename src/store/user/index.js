@@ -81,7 +81,9 @@ export default {
             loading: false,
           })
 
-          router.push('/auth/login')
+          if (router.options.routes[2].path != '/auth') {
+            router.push('/auth/login')
+          }
         })
     },
 
