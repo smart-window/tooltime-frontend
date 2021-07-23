@@ -6,23 +6,25 @@ import * as auth from '@/services/auth'
 
 Vue.use(Vuex)
 
+const INIT_STATE = {
+  id: '',
+  name: '',
+  role: '',
+  email: '',
+  address: '',
+  city: '',
+  state: '',
+  phone: '',
+  stripeId: '',
+  priceId: '',
+  subscriptionId: '',
+  authorized: false,
+  loading: false,
+}
+
 export default {
   namespaced: true,
-  state: {
-    id: '',
-    name: '',
-    role: '',
-    email: '',
-    address: '',
-    city: '',
-    state: '',
-    phone: '',
-    stripeId: '',
-    priceId: '',
-    subscriptionId: '',
-    authorized: process.env.VUE_APP_AUTHENTICATED || false,
-    loading: false,
-  },
+  state: INIT_STATE,
 
   mutations: {
     SET_STATE(state, payload) {
@@ -65,21 +67,7 @@ export default {
           commit('SET_STATE', { loading: false })
         })
         .catch(() => {
-          commit('SET_STATE', {
-            id: '',
-            name: '',
-            role: '',
-            email: '',
-            address: '',
-            city: '',
-            state: '',
-            phone: '',
-            stripeId: '',
-            priceId: '',
-            subscriptionId: '',
-            authorized: false,
-            loading: false,
-          })
+          commit('SET_STATE', INIT_STATE)
 
           if (router.options.routes[2].path != '/auth') {
             router.push('/auth/login')
@@ -89,21 +77,7 @@ export default {
 
     LOGOUT({ commit }) {
       auth.logout().then(() => {
-        commit('SET_STATE', {
-          id: '',
-          name: '',
-          role: '',
-          email: '',
-          address: '',
-          city: '',
-          state: '',
-          phone: '',
-          stripeId: '',
-          priceId: '',
-          subscriptionId: '',
-          authorized: false,
-          loading: false,
-        })
+        commit('SET_STATE', INIT_STATE)
 
         router.push('/auth/login')
       })
