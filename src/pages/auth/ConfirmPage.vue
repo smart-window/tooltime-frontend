@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-lg-12">
           <h2 class="text-center" style="margin-top: 200px">Account Confirmed!</h2>
-          <router-link to="/auth/login" class="nav-link text-primary text-center">
+          <router-link to="/" class="nav-link text-primary text-center">
             <b-button variant="primary" style="margin: 0 auto">Please Login</b-button>
           </router-link>
         </div>
@@ -20,6 +20,7 @@ export default {
   name: 'ConfirmPage',
   async mounted() {
     await auth.verifyUser(this.$route.params.confirmationCode)
+    this.$store.dispatch('user/LOAD_CURRENT_ACCOUNT')
   },
 }
 </script>

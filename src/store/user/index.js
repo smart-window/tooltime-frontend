@@ -18,6 +18,7 @@ const INIT_STATE = {
   stripeId: '',
   priceId: '',
   subscriptionId: '',
+  status: '',
   authorized: false,
   loading: false,
 }

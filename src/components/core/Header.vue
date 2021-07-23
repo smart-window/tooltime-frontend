@@ -1,6 +1,11 @@
 <template>
   <div>
+    <p v-if="user.status == 'Pending'" class="verify_alert">
+      Please verify your email address. To resent confirmation link click
+      <a href="#" @click="resend_code">here</a>
+    </p>
     <b-navbar
+      :style="user.status == 'Pending' ? 'margin-top: 30px' : ''"
       class="navbar navbar-expand-lg bg-white fixed-top border-bottom-1 border-primary shadow"
     >
       <b-container>
@@ -111,6 +116,8 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex'
+import * as api from '@/services/api'
+
 export default {
   name: 'Header',
   computed: {
@@ -129,9 +136,27 @@ export default {
     handleSignOut() {
       this.$store.dispatch('user/LOGOUT')
     },
+    async resend_code() {
+      const res = await api.resend_code({ id: this.user.id })
+      if (res) {
+        this.$swal('Verification code is sent successfully!')
+      }
+    },
   },
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '../../styles/mixins.scss';
+
+.verify_alert {
+  text-align: center;
+  vertical-align: middle;
+  padding-top: 5px;
+  height: 30px;
+  width: 100%;
+  position: absolute;
+  background-color: $primary;
+  color: white;
+}
 </style>

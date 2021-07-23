@@ -124,3 +124,10 @@ export const updateSubscription = async (request) => {
     .catch(failFunc)
 }
 
+export const resend_code = async (request) => {
+  return axiosClient
+    .post('/auth/resend_code', request)
+    .then(successFunc)
+    .catch(failFunc)
+}
+
