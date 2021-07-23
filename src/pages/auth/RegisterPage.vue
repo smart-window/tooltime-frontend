@@ -263,9 +263,6 @@ export default {
         .then(() => {
           this.$swal(`${this.form.name} has been successfully registered!`)
           this.step++
-          this.$store.dispatch('user/LOGIN', {
-            payload: { email: this.form.email, password: this.form.password },
-          })
         })
         .catch(() => {
           this.$swal('Registeration failed!')

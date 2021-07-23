@@ -17,25 +17,21 @@ export async function login(email, password) {
       password,
     })
     .then(response => {
-      if (response.data == 'Incorrect') {
-        swal('Incorrect Credential!')
-      } else if (response.data == 'Inactive') {
-        swal('Inactive user! Please verify your email.')
-      } else {
-        swal('You have successfully logged in!')
-        if (response) {
-          const { accessToken } = response.data
-          if (accessToken) {
-            store.set('accessToken', accessToken)
-          }
-          return response.data
+      if (response) {
+        const { accessToken } = response.data
+        if (accessToken) {
+          store.set('accessToken', accessToken)
         }
-        return false
+        swal('You have successfully logged in!')
+        return response.data
       }
+      return false
     })
     .catch(err => {
       if (err.message == "Network Error") {
         failFunc(err)
+      } else {
+        swal(err.response.data)
       }
     })
 }
