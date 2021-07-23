@@ -2,7 +2,7 @@
   <div>
     <p v-if="user.status == 'Pending'" class="verify_alert">
       Please verify your email address. To resent confirmation link click
-      <a href="#" @click="resend_code">here</a>
+      <a href="#" class="resend_btn" @click="resend_code">here</a>
     </p>
     <b-navbar
       :style="user.status == 'Pending' ? 'margin-top: 30px' : ''"
@@ -158,5 +158,10 @@ export default {
   position: absolute;
   background-color: $primary;
   color: white;
+}
+.resend_btn {
+  color: white;
+  text-decoration: underline;
+  font-weight: bold;
 }
 </style>
