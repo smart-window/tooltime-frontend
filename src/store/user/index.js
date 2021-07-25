@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import router from '@/router'
 import * as auth from '@/services/auth'
-// import VueRouter from 'vue-router'
 
 Vue.use(Vuex)
 
