@@ -140,7 +140,69 @@
                     />
                   </b-form-group>
                 </div>
-                <BillingPlan v-if="step == 3" />
+                <div v-if="step == 3">
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="mt-5">
+                        <b-card-group deck class="mb-3">
+                          <b-card
+                            v-for="plan in plans"
+                            v-bind:key="plan.id"
+                            :bg-variant="isSubscribedPlan(plan) ? 'primary' : ''"
+                            :border-variant="isSubscribedPlan(plan) ? 'primary' : 'primary'"
+                            :text-variant="isSubscribedPlan(plan) ? 'light' : ''"
+                            align="center"
+                            tag="article"
+                            style="max-width: auto"
+                            :class="
+                              'mb-5 mt-2 ' +
+                              (isSubscribedPlan(plan) ? 'subscribed' : 'no-subscribed')
+                            "
+                          >
+                            <b-card-header>
+                              {{ plan.nickname }}
+                            </b-card-header>
+                            <b-card-title>
+                              $<label class="price_title">{{ plan.unit_amount / 100 }}</label> /{{
+                                plan.recurring.interval
+                              }}
+                            </b-card-title>
+                            <br />
+                            <b-card-text> {{ plan.product.description }}<br /><br /> </b-card-text>
+                            <br />
+                            <b-form v-if="!user.priceId" :action="apiURL" method="POST">
+                              <b-button type="submit" variant="outline-secondary"
+                                >Subscribe</b-button
+                              >
+                              <input type="hidden" :value="plan.id" name="priceId" />
+                              <input type="hidden" :value="routeName" name="routeName" />
+                            </b-form>
+                            <b-form v-if="isSubscribedPlan(plan)" method="POST">
+                              <b-button @click="cancelSubscription" variant="outline-light">
+                                Cancel</b-button
+                              >
+                              <input
+                                type="hidden"
+                                :value="user.subscriptionId"
+                                name="subscriptionId"
+                              />
+                            </b-form>
+                            <b-form v-if="user.priceId && !isSubscribedPlan(plan)" method="POST">
+                              <b-button
+                                @click="updateSubscription(plan.id)"
+                                variant="outline-secondary"
+                                >Subscribe</b-button
+                              >
+                              <input type="hidden" :value="plan.id" name="priceId" />
+                            </b-form>
+
+                            <br />
+                          </b-card>
+                        </b-card-group>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
                 <b-form-row>
                   <b-container class="d-inline-block text-left">
@@ -187,13 +249,10 @@
 import { mapActions, mapState } from 'vuex'
 import router from '@/router'
 import * as api from '@/services/api'
-import BillingPlan from '../BillingPlan.vue'
+import config from '@/config'
 
 export default {
   name: 'RegisterPage',
-  components: {
-    BillingPlan,
-  },
   data() {
     return {
       form: {},
@@ -202,10 +261,17 @@ export default {
       step: 0,
       retypePassword: null,
       serviceZip: '',
+      plans: [],
     }
   },
   computed: {
     ...mapState(['user', 'cart', 'locations']),
+    routeName() {
+      return this.$route.path
+    },
+    apiURL() {
+      return config.API_URL + '/stripe/create-checkout-session'
+    },
     getLocation() {
       if (!this.serviceZip) {
         return ''
@@ -229,15 +295,71 @@ export default {
   async mounted() {
     this.serviceAreas = await api.getServiceAreas()
     if (this.$route.query.session_id) {
+      this.savePlan()
       this.step = 3
     }
+
+    this.loading = true
+    const config = await api.getConfig()
+    this.loading = false
+    this.plans = config.prices.data
+
+    this.plans
+      .sort(function (a, b) {
+        return b.unit_amount - a.unit_amount
+      })
+      .reverse()
   },
 
   methods: {
     ...mapActions({
       registerUser: 'user/REGISTER',
     }),
-    goSignin() {
+    async savePlan() {
+      try {
+        const res = await api.checkoutSession(this.$route.query.session_id)
+        this.user.priceId = res.plan.id
+        this.user.subscriptionId = res.id
+        this.$swal('Congratuations! You phurchased a plan!')
+      } catch (e) {
+        alert(e.message)
+      }
+    },
+    async updateSubscription(priceId) {
+      this.loading = true
+      try {
+        await api.updateSubscription({
+          subscriptionId: this.user.subscriptionId,
+          priceId: priceId,
+        })
+        this.user.priceId = priceId
+        this.$swal('You update your subscription.')
+      } catch (e) {
+        console.log(e.message)
+        this.loading = false
+      }
+    },
+    async cancelSubscription() {
+      this.loading = true
+      try {
+        await api.cancelSubscription({ subscriptionId: this.user.subscriptionId })
+        this.user.priceId = null
+        this.$swal('You canceled your subscription.')
+      } catch (e) {
+        this.$swal('Cancel subscription failed.')
+        this.loading = false
+      }
+    },
+    isSubscribedPlan(plan) {
+      return plan.id === this.user.priceId
+    },
+    async goSignin() {
+      console.log(this.user)
+      await api.saveSubscription({
+        email: this.user.tmp_email,
+        subscriptionId: this.user.subscriptionId,
+        priceId: this.user.priceId,
+      })
       router.push('/auth/login')
     },
     selectZip(zip) {
@@ -263,9 +385,6 @@ export default {
         .then(() => {
           this.$swal(`${this.form.name} has been successfully registered!`)
           this.step++
-          this.$store.dispatch('user/LOGIN', {
-            payload: { email: this.form.email, password: this.form.password },
-          })
         })
         .catch(() => {
           this.$swal('Registeration failed!')
@@ -303,6 +422,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../styles/mixins.scss';
 .container {
   display: flex;
   flex-direction: column;
@@ -312,5 +432,23 @@ export default {
   & .card {
     width: 100%;
   }
+}
+.subscribed {
+  transform: scale(1.1);
+  box-shadow: 0px 0px 10px 2px grey;
+}
+.card-header {
+  border-bottom: none !important;
+  background: none;
+  margin: 0;
+}
+.subscribed .card-title {
+  color: white;
+}
+.no-subscribed .card-title {
+  color: $primary;
+}
+.price_title {
+  font-size: 2rem;
 }
 </style>

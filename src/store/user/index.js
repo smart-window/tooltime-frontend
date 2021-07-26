@@ -87,8 +87,9 @@ export default {
       commit('SET_STATE', { loading: true })
       auth
         .register(request)
-        .then(() => {
-          commit('SET_STATE', { loading: false })
+        .then((response) => {
+          response.status = null
+          commit('SET_STATE', { tmp_email: response.email, loading: false })
         })
         .catch(err => {
           throw new Error(err.message)

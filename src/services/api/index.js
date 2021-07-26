@@ -131,3 +131,9 @@ export const resend_code = async (request) => {
     .catch(failFunc)
 }
 
+export const saveSubscription = async (request) => {
+  return axiosClient
+    .post('/auth/save-subscription', request)
+    .then(successFunc)
+    .catch(failFunc)
+}
