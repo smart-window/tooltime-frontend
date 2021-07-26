@@ -88,7 +88,9 @@ export default {
     if (this.$route.query.session_id) {
       this.handleSubmit()
     }
+    this.loading = true
     const config = await api.getConfig()
+    this.loading = false
     this.plans = config.prices.data
 
     this.plans
