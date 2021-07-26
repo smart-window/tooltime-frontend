@@ -263,6 +263,9 @@ export default {
         .then(() => {
           this.$swal(`${this.form.name} has been successfully registered!`)
           this.step++
+          this.$store.dispatch('user/LOGIN', {
+            payload: { email: this.form.email, password: this.form.password },
+          })
         })
         .catch(() => {
           this.$swal('Registeration failed!')
@@ -287,7 +290,6 @@ export default {
       }
     },
     subscriptionStep() {
-      console.log(this.step)
       if (!this.form.name) {
         alert('Please fill the name')
       } else if (!this.form.address) {
