@@ -75,6 +75,8 @@ export default {
             payload: { email: this.email, password: this.password },
           })
           .then(() => {})
+      } else {
+        this.$swal('Please fill the form.')
       }
     },
   },
