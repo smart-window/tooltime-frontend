@@ -108,57 +108,83 @@ export default {
         appendToast: append,
       })
     },
+
     isSubscribedPlan(plan) {
       return plan.id === this.user.priceId
     },
+
     async cancelSubscription() {
       this.loading = true
-      const res = await api.cancelSubscription({ subscriptionId: this.user.subscriptionId })
-      if (res) {
-        this.$store
-          .dispatch('UPDATE_PROFILE', { priceId: null, subscriptionId: null })
-          .then(() => {
-            route.push(`/billing-plan`)
-            this.toast(
-              'success',
-              'b-toaster-top-center',
-              'Success',
-              'You canceled your subscription.',
-            )
-            this.loading = false
-          })
-          .catch(() => {
-            this.loading = false
-          })
+      try {
+        const res = await api.cancelSubscription({ subscriptionId: this.user.subscriptionId })
+        if (res) {
+          this.$store
+            .dispatch('UPDATE_PROFILE', { priceId: null, subscriptionId: null })
+            .then(() => {
+              route.push(`/billing-plan`)
+              this.toast(
+                'success',
+                'b-toaster-top-center',
+                'Success',
+                'You canceled your subscription.',
+              )
+              this.loading = false
+            })
+            .catch((e) => {
+              throw new Error(e.message)
+            })
+        }
+      } catch (e) {
+        console.log(e.message)
+        this.toast(
+          'error',
+          'b-toaster-top-center',
+          'Error',
+          e.message || 'Cancel subscription failed.',
+        )
+        this.loading = false
       }
     },
+
     async updateSubscription(priceId) {
       this.loading = true
-      const res = await api.updateSubscription({
-        subscriptionId: this.user.subscriptionId,
-        priceId: priceId,
-      })
-      if (res) {
-        this.$store
-          .dispatch('UPDATE_PROFILE', {
-            priceId: priceId,
-            subscriptionId: this.user.subscriptionId,
-          })
-          .then(() => {
-            route.push(`/billing-plan`)
-            this.toast(
-              'success',
-              'b-toaster-top-center',
-              'Success',
-              'You update your subscription.',
-            )
-            this.loading = false
-          })
-          .catch(() => {
-            this.loading = false
-          })
+      try {
+        const res = await api.updateSubscription({
+          subscriptionId: this.user.subscriptionId,
+          priceId: priceId,
+        })
+        if (res) {
+          this.$store
+            .dispatch('UPDATE_PROFILE', {
+              priceId: priceId,
+              subscriptionId: this.user.subscriptionId,
+            })
+            .then(() => {
+              route.push(`/billing-plan`)
+              this.toast(
+                'success',
+                'b-toaster-top-center',
+                'Success',
+                'You update your subscription.',
+              )
+              this.loading = false
+            })
+            .catch((e) => {
+              throw new Error(e.message)
+            })
+        }
+      } catch (e) {
+        console.log(e.message)
+        this.toast(
+          'error',
+          'b-toaster-top-center',
+          'Error',
+          e.message || 'Cancel subscription failed.',
+        )
+        this.loading = false
       }
     },
+
     async handleSubmit() {
       try {
         const res = await api.checkoutSession(this.$route.query.session_id)
