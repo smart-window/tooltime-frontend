@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header></Header>
-    <div class="body">
+    <div class="body" :style="user.status == 'Pending' ? 'margin-top: 30px' : ''">
       <transition name="page" mode="out-in">
         <router-view></router-view>
       </transition>
@@ -11,13 +11,18 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Header from '@/components/core/Header'
 import Footer from '@/components/core/Footer'
+
 export default {
   name: 'app',
   components: {
     Footer,
     Header,
+  },
+  computed: {
+    ...mapState(['user']),
   },
   data() {
     return {

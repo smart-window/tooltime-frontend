@@ -394,25 +394,25 @@ export default {
       if ('city' in this.location.Location) {
         this.step++
       } else {
-        alert('Please select service area.')
+        this.$swal('Please select service area')
       }
     },
     finalStep() {
       if (!this.form.email) {
-        alert('Please fill the email')
+        this.$swal('Please fill the email')
       } else if (!this.form.password) {
-        alert('Please fill the password')
+        this.$swal('Please fill the password')
       } else if (this.form.password != this.retypePassword) {
-        alert('Password is not correct')
+        this.$swal('Password is not correct')
       } else {
         this.step++
       }
     },
     subscriptionStep() {
       if (!this.form.name) {
-        alert('Please fill the name')
+        this.$swal('Please fill the name')
       } else if (!this.form.address) {
-        alert('Please fill the address')
+        this.$swal('Please fill the address')
       } else {
         this.step++
       }

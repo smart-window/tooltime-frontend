@@ -158,6 +158,7 @@ export default {
   width: 100%;
   background-color: $primary;
   color: white;
+  margin: 0;
 }
 .resend_btn {
   color: white;
